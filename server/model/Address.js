@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
-  _id: {
-    type: String,
-    require: true,
-  },
   city: {
     type: String,
     require: true,
@@ -12,10 +8,14 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  house_number: {
+  id: {
+    type: String,
+    require: true,
+  },
+  number: {
     type: Number,
   },
-  coords: {
+  gps: {
     lat: { type: Number, require: true },
     long: { type: Number, require: true },
   },

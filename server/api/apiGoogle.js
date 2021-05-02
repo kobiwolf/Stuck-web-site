@@ -3,18 +3,22 @@ const Address = require('../model/Address');
 require('dotenv').config();
 const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.API}&address=`;
 const getLocation = async (place) => {
+  const paramsEncoded = encodeURI(
+    `${place.number} ${place.street} ${place.city}`
+  );
+  const path = `${url}${paramsEncoded}`;
   try {
-    const { data } = await axios.get(
-      `${url}${place.city} ${place.street} ${place.number}`
-    );
-    const gpsCoors = data.address_components.geometry.location;
-    const id = data.address_components.place_id;
-    place.Gps.lat = gpsCoors.lat;
-    place.Gps.long = gpsCoors.long;
-    place._id = id;
+    let { data } = await axios.get(path);
+    data = data.results[0];
+    const gpsCoors = data.geometry.location;
+    const id = data.place_id;
+    place.gps = {};
+    place.gps.lat = gpsCoors.lat;
+    place.gps.long = gpsCoors.lng;
+    place.id = id;
     const address = await new Address(place);
     await address.save();
-    return address;
+    return id;
   } catch (e) {
     throw new Error(e);
   }

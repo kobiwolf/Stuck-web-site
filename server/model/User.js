@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const validator = require('validator');
 const schema = new mongoose.Schema({
   name: {
     type: String,
     require: true,
+    validate(value) {
+      if (/\d/.test(value)) throw new Error('not vaild name');
+    },
   },
   email: {
     type: String,
@@ -20,20 +24,23 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  gps: {
+    type: Object,
+  },
   reviews: {
     type: Array,
   },
   token: {
     type: String,
     validate(value) {
-      if (!isJWT(value)) throw new Error('prob with token');
+      if (!validator.isJWT(value)) throw new Error('prob with token');
     },
   },
   password: {
     type: String,
     require: true,
     validate(value) {
-      if (!isStrongPassword(value, { minSymbols: 0 }))
+      if (!validator.isStrongPassword(value, { minSymbols: 0 }))
         throw new Error('must put a valid password');
     },
   },
@@ -49,6 +56,12 @@ schema.pre('save', async function (next) {
   next();
 });
 
+schema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
 const User = new mongoose.model('User', schema);
 User.findByMail = async (value) => {
   try {

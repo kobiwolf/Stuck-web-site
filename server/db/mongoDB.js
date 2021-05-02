@@ -1,9 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const path =
-  process.env.NODE_ENV === 'production'
-    ? process.env.MONGO
-    : 'mongodb://localhost:27017/Stuck';
+const path = process.env.MONGO;
 
 mongoose.connect(path, {
   useNewUrlParser: true,

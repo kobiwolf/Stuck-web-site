@@ -3,7 +3,7 @@ require('./db/mongoDB.js');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-// const route = require('./routes/route');
+const route = require('./routes/route');
 
 const app = express();
 const pathToClientBuild = path.join(__dirname, 'build');

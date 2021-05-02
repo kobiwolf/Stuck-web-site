@@ -1,7 +1,8 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const User = require('../model/User');
 const Address = require('../model/Address');
-const { default: axios } = require('axios');
+
+const apiGoogle = require('../api/apiGoogle');
 
 const getUser = async (mail) => {
   try {
@@ -25,14 +26,20 @@ const updateItemsList = async (mail, item) => {
   return respone;
 };
 const login = async (mail, password) => {
-  const user = await getUser(mail);
-  const match = await bcrypt.compare(password, user.password);
-  if (match) return user;
-  throw new Error('worng details');
+  try {
+    const user = await getUser(mail);
+    const match = await bcrypt.compare(password, user.password);
+    if (match) return user;
+    throw new Error('wrong details');
+  } catch (e) {
+    throw new Error('something went wrong');
+  }
 };
 const addUser = async (details) => {
   try {
+    details.address = await UpdateAddress(details.address);
     const user = await new User(details);
+    await user.save();
     return user;
   } catch (e) {
     throw new Error(e);
@@ -41,6 +48,7 @@ const addUser = async (details) => {
 const deleteUser = async (email) => {
   try {
     const respone = await User.deleteOne({ email });
+    if (!respone.deletedCount) throw new Error('can not find user');
     return respone;
   } catch (e) {
     throw new Error(e);
@@ -48,14 +56,13 @@ const deleteUser = async (email) => {
 };
 
 // ! must handle the new addrres!!
-const UpdateInfo = async (mail, details) => {
-  const user = await getUser(mail);
+const UpdateInfo = async (user, details) => {
   if (Object.keys(details).includes('address')) {
-    const newAddress = await UpdateAddress(details.address);
-    user.address = newAddress._id;
+    user.address = await UpdateAddress(details.address);
+    delete details.address;
   }
   try {
-    details.forEach((key) => (user[key] = details[key]));
+    Object.keys(details).forEach((key) => (user[key] = details[key]));
     const respone = await user.save();
     return respone;
   } catch (e) {
