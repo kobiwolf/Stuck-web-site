@@ -48,6 +48,10 @@ const schema = new mongoose.Schema({
     type: Array,
     require: true,
   },
+  isActive: {
+    type: String,
+    default: true,
+  },
 });
 schema.pre('save', async function (next) {
   const user = this;

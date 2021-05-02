@@ -74,7 +74,21 @@ const UpdateAddress = async (address) => {
   const newAddress = await apiGoogle(address);
   return newAddress;
 };
+const WhoHasItem = async (item, locationId, range) => {
+  try {
+    const address = await Address.findone({ id: locationId });
+    if (!address) throw new Error('cant find your location');
 
+    // ! add the users within range
+  } catch (e) {
+    throw new Error('e');
+  }
+};
+// geolib.isPointWithinRadius(
+//     { latitude: 51.525, longitude: 7.4575 },
+//     { latitude: 51.5175, longitude: 7.4678 },
+//     5000
+// );
 module.exports = {
   getUser,
   updateItemsList,
@@ -82,4 +96,5 @@ module.exports = {
   addUser,
   deleteUser,
   UpdateInfo,
+  WhoHasItem,
 };

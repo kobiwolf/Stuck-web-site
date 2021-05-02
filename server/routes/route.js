@@ -2,6 +2,7 @@ const express = require('express');
 const route = new express.Router();
 const {
   getUser,
+  WhoHasItem,
   updateItemsList,
   login,
   addUser,
@@ -63,8 +64,15 @@ route.patch('/list', (req, res) => {
 });
 
 //get users which have the item
-route.get('search', (req, res) => {
-  const { item, location, range } = req.body;
+route.get('/search', (req, res) => {
+  const { item, locationId, range } = req.body;
+  try{ 
+  const users=await WhoHasItem(item,locationId,range)
+  res.send(users)
+  }
+  catch(e){
+    res.status(400).send(e.message)
+  }
 });
 
 module.exports = route;
