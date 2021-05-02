@@ -1,5 +1,9 @@
 # front-end
 
+## implemant the quick search in drop down
+
+1. how omri fima did it in the last class-trie-data structure
+
 ## requests
 
 1. once the page loads-make a request for the items list of city list,in order to create a useful dropdown
