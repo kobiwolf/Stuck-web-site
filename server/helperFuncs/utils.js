@@ -58,7 +58,6 @@ const deleteUser = async (email) => {
   }
 };
 
-// ! must handle the new addrres!!
 const UpdateInfo = async (user, details) => {
   if (Object.keys(details).includes('address')) {
     user.address = await UpdateAddress(details.address);
@@ -72,7 +71,6 @@ const UpdateInfo = async (user, details) => {
     throw new Error(e);
   }
 };
-
 const UpdateAddress = async (address) => {
   const newAddress = await apiGoogle(address);
   return newAddress;
@@ -96,7 +94,6 @@ const WhoHasItem = async (item, city, range, gps) => {
     if (!matchUsers.length)
       throw new Error('there is no one matching your request');
     return matchUsers;
-    // ! add the users within range
   } catch (e) {
     throw new Error(e);
   }
