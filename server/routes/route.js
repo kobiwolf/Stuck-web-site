@@ -4,6 +4,7 @@ const {
   getUser,
   WhoHasItem,
   updateItemsList,
+  addItem,
   login,
   addUser,
   deleteUser,
@@ -59,19 +60,33 @@ route.patch('/settings', async (req, res) => {
 });
 
 // update user items list (i'll try to do it like this-if item exist-remove it,else-add it)
-route.patch('/list', (req, res) => {
-  const { id } = req.body;
+route.patch('/list', async (req, res) => {
+  const { mail, item } = req.body;
+  try {
+    const respone = await updateItemsList(mail, item);
+    res.send(respone);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
 });
 
 //get users which have the item
-route.get('/search', (req, res) => {
-  const { item, locationId, range } = req.body;
-  try{ 
-  const users=await WhoHasItem(item,locationId,range)
-  res.send(users)
+route.get('/search', async (req, res) => {
+  const { item, city, range, gps } = req.body;
+  try {
+    const users = await WhoHasItem(item, city, range, gps);
+    res.send(users);
+  } catch (e) {
+    res.status(400).send(e.message);
   }
-  catch(e){
-    res.status(400).send(e.message)
+});
+route.post('/manager/items', async (req, res) => {
+  const { name, img, type } = req.body;
+  try {
+    const respone = await addItem(name, img, type);
+    res.send(respone);
+  } catch (e) {
+    res.status(400).send(e.message);
   }
 });
 

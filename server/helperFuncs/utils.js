@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/User');
 const Address = require('../model/Address');
-
+const geolib = require('geolib');
 const apiGoogle = require('../api/apiGoogle');
+const Tool = require('../model/Tool');
+const Food = require('../model/Food');
+const Medicine = require('../model/Medicine');
 
 const getUser = async (mail) => {
   try {
@@ -16,13 +19,13 @@ const getUser = async (mail) => {
 
 const updateItemsList = async (mail, item) => {
   const user = await getUser(mail);
-  const index = user.items.findIndex(item);
+  const index = user.items.findIndex((itemi) => itemi._id === item._id);
   if (index === -1) {
     user.items.push(item);
   } else {
     user.items.splice(index, 1);
   }
-  const respone = user.save();
+  const respone = await user.save();
   return respone;
 };
 const login = async (mail, password) => {
@@ -74,21 +77,46 @@ const UpdateAddress = async (address) => {
   const newAddress = await apiGoogle(address);
   return newAddress;
 };
-const WhoHasItem = async (item, locationId, range) => {
+const WhoHasItem = async (item, city, range, gps) => {
   try {
-    const address = await Address.findone({ id: locationId });
-    if (!address) throw new Error('cant find your location');
-
+    const users = await User.find({ 'address.city': city });
+    if (!users.length) throw new Error('there is no one matching your request');
+    const usersHowHaveItem = users.filter((user) =>
+      user.items.find((itemi) => itemi.name === item.name)
+    );
+    if (!usersHowHaveItem.length)
+      throw new Error('there is no one matching your request');
+    const matchUsers = usersHowHaveItem.filter(({ address }) => {
+      return geolib.isPointWithinRadius(
+        { lat: gps.lat, lng: gps.long },
+        { lat: address.gps.lat, lng: address.gps.long },
+        range
+      );
+    });
+    if (!matchUsers.length)
+      throw new Error('there is no one matching your request');
+    return matchUsers;
     // ! add the users within range
   } catch (e) {
-    throw new Error('e');
+    throw new Error(e);
   }
 };
-// geolib.isPointWithinRadius(
-//     { latitude: 51.525, longitude: 7.4575 },
-//     { latitude: 51.5175, longitude: 7.4678 },
-//     5000
-// );
+const addItem = async (name, img, type) => {
+  let item;
+  switch (type) {
+    case 'Tool':
+      item = await new Tool({ name, img });
+      break;
+    case 'Food':
+      item = await new Food({ name, img });
+      break;
+    case 'Medicine':
+      item = await new Medicine({ name, img });
+      break;
+  }
+  await item.save();
+  return item;
+};
 module.exports = {
   getUser,
   updateItemsList,
@@ -97,4 +125,5 @@ module.exports = {
   deleteUser,
   UpdateInfo,
   WhoHasItem,
+  addItem,
 };

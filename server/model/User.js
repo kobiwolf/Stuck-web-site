@@ -21,11 +21,17 @@ const schema = new mongoose.Schema({
     type: String,
   },
   address: {
-    type: String,
-    require: true,
-  },
-  gps: {
-    type: Object,
+    id: {
+      type: String,
+      require: true,
+    },
+    city: {
+      type: String,
+      require: true,
+    },
+    gps: {
+      type: Object,
+    },
   },
   reviews: {
     type: Array,

@@ -16,9 +16,10 @@ const getLocation = async (place) => {
     place.gps.lat = gpsCoors.lat;
     place.gps.long = gpsCoors.lng;
     place.id = id;
+    console.log('check in api location');
     const address = await new Address(place);
     await address.save();
-    return id;
+    return { id, gps: place.gps, city: place.city };
   } catch (e) {
     throw new Error(e);
   }
