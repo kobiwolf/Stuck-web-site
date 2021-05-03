@@ -32,6 +32,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
 }
 
 .nav-item {
@@ -44,15 +45,10 @@ a {
   color: #475569;
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
   color: #482ff7;
-}
+} */
 
-.nav-logo {
-  font-size: 2.1rem;
-  font-weight: 500;
-  color: #482ff7;
-}
 @media only screen and (max-width: 768px) {
   .nav-menu {
     position: fixed;
@@ -70,9 +66,22 @@ a {
   .nav-menu.active {
     left: 0;
   }
+  .nav-menu.active:hover {
+  }
 
   .nav-item {
     margin: 2.5rem 0;
+    width: 50%;
+    transition: background-color 0.5s linear 0s;
+  }
+  .nav-item:hover {
+    background-color: #475569;
+  }
+  .nav-link {
+    transition: color 0.5s linear 0s;
+  }
+  .nav-link:hover {
+    color: white;
   }
 
   .hamburger {

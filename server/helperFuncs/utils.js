@@ -13,7 +13,7 @@ const getUser = async (mail) => {
     if (!result) throw new Error('user not found');
     return result;
   } catch (e) {
-    throw new Error(e);
+    throw new Error(e.message);
   }
 };
 
@@ -35,7 +35,7 @@ const login = async (mail, password) => {
     if (match) return user;
     throw new Error('wrong details');
   } catch (e) {
-    throw new Error('something went wrong');
+    throw new Error(e.message);
   }
 };
 const addUser = async (details) => {

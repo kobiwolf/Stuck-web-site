@@ -17,7 +17,11 @@ function App() {
         <NavBar />
         <Switch>
           <Route path="/" exact>
-            {userInfo ? <SearchPage /> : <LoginPage />}
+            {userInfo ? (
+              <SearchPage />
+            ) : (
+              <LoginPage setUserInfo={setUserInfo} />
+            )}
           </Route>
           <Route path="/setting" exact>
             {userInfo ? <SettingsPage /> : <Redirect to="/" />}

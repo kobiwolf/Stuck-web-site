@@ -20,7 +20,7 @@ route.post('/login', async (req, res) => {
     const user = await login(email, password);
     res.send(user);
   } catch (e) {
-    res.status(400).send('worng details');
+    res.status(400).send(e.message);
   }
 });
 
