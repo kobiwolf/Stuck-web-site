@@ -45,9 +45,9 @@ a {
   color: #475569;
 }
 
-/* .nav-link:hover {
-  color: #482ff7;
-} */
+.red {
+  color: red;
+}
 
 @media only screen and (max-width: 768px) {
   .nav-menu {

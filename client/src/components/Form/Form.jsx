@@ -18,9 +18,10 @@ export default function Form({setUserInfo}) {
       const {data}= await axios.post(`${endPoint}/login`,{
         email:inputEmail,password:inputPassword
       })
-      console.log(data);
-      setUserInfo(<Card user={data}/>)
-    setResponse(<Card user={data}/>)}
+      setResponse(<Card user={data}/>)
+      setTimeout(()=>{setUserInfo(<Card user={data}/>)},1000)
+      
+      }
     catch(e){
       setResponse(e.response.data)
     }
