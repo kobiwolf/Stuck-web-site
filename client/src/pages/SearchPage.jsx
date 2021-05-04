@@ -1,9 +1,10 @@
 import React from 'react'
+import HeadOfPage from '../components/headOfPage/HeadOfPage'
 
 export default function SearchPage() {
     return (
         <div>
-            <h1>חיפוש</h1>
+             <HeadOfPage/>
         </div>
     )
 }

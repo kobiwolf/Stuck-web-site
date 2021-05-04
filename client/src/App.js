@@ -1,13 +1,14 @@
 import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
-import HomePage from './pages/HomePage';
+
 import SearchPage from './pages/SearchPage';
 import ItemsPage from './pages/ItemsPage';
 import SettingsPage from './pages/SettingsPage';
 import AboutUsPage from './pages/AboutUsPage';
 import { useState } from 'react';
 import LoginPage from './pages/LoginPage';
+import ContentUsPage from './pages/ContentUsPage';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -30,7 +31,7 @@ function App() {
             {userInfo ? <AboutUsPage /> : <Redirect to="/" />}
           </Route>
           <Route path="/contactUs" exact>
-            {userInfo ? <AboutUsPage /> : <Redirect to="/" />}
+            {userInfo ? <ContentUsPage /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </BrowserRouter>

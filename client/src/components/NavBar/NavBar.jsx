@@ -30,9 +30,6 @@ export default function NavBar() {
                 <li className="nav-item">
                 <Link to='/contactUS' className="nav-link" onClick={closeMenu}>דברו איתנו</Link>
                 </li>
-                <li className="nav-item">
-                <Link to='/' className="nav-link red" onClick={()=>window.location.reload()}>התנתק</Link>
-                </li>
             </ul>
             <div className="hamburger" ref={refHamburger} onClick={mobileMenu}>
                 <span className="bar"></span>

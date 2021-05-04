@@ -1,10 +1,10 @@
 
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
-import Card from '../Card';
+import Card from '../Card/Card';
 
 export default function Form({setUserInfo}) {
   const[inputPassword,setInputPassword]=useState('')
@@ -29,8 +29,8 @@ export default function Form({setUserInfo}) {
   }
 
   return <form className="ui form" onSubmit={e=>e.preventDefault()}>
-  <LabelInputForm text='Email' state={inputEmail} setState={setInputEmail}/>
-  <LabelInputForm text='Password' state={inputPassword} setState={setInputPassword} isPassword={true}/>
+  <LabelInputForm text='מייל' state={inputEmail} setState={setInputEmail}/>
+  <LabelInputForm text='סיסמא' state={inputPassword} setState={setInputPassword} isPassword={true}/>
  <button className="ui button" type="submit" onClick={handleClick}>Submit</button>
  {response && <h1>{response}</h1>}
 </form>
