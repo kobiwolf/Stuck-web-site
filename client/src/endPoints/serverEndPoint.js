@@ -1,4 +1,4 @@
-const port = process.env.PORT || 3001;
-
-const endPoint = `http://localhost:${port}`;
+let endPoint;
+if (process.env.PORT) endPoint = '/';
+else endPoint = `http://localhost:3001`;
 export default endPoint;
