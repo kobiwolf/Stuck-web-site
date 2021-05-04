@@ -5,5 +5,8 @@ const itemSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  info: {
+    type: String,
+  },
 });
 module.exports = itemSchema;

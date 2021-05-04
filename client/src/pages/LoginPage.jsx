@@ -5,7 +5,7 @@ import './LoginPage.css'
 export default function LoginPage({setUserInfo}) {
     return (
         <div className='loginPage'>
-                        <Form setUserInfo={setUserInfo}/>
+         <Form setUserInfo={setUserInfo}/>
         </div>
     )
 }

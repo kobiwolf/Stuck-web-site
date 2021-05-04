@@ -18,9 +18,9 @@ export default function Form({setUserInfo}) {
       const {data}= await axios.post(`${endPoint}/login`,{
         email:inputEmail,password:inputPassword
       })
-      setResponse(<Card user={data}/>)
-      setTimeout(()=>{setUserInfo(<Card user={data}/>)},1000)
-      
+      setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...')
+      setTimeout(()=>{setUserInfo(data)},1500)
+    
       }
     catch(e){
       setResponse(e.response.data)
@@ -28,10 +28,10 @@ export default function Form({setUserInfo}) {
     }
   }
 
-  return <form className="ui form" onSubmit={e=>e.preventDefault()}>
+  return <form className="ui form" style={{position:'none'}}onSubmit={e=>e.preventDefault()}>
   <LabelInputForm text='מייל' state={inputEmail} setState={setInputEmail}/>
   <LabelInputForm text='סיסמא' state={inputPassword} setState={setInputPassword} isPassword={true}/>
  <button className="ui button" type="submit" onClick={handleClick}>Submit</button>
- {response && <h1>{response}</h1>}
+ {response && <h3>{response}</h3>}
 </form>
 }

@@ -22,7 +22,7 @@ function App() {
             {userInfo ? (
               <>
                 <HeadOfPage />
-                <SearchPage />
+                <SearchPage state={userInfo} />
               </>
             ) : (
               <LoginPage setUserInfo={setUserInfo} />

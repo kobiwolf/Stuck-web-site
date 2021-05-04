@@ -6,6 +6,7 @@ import User from '../User/User'
 export default function HeadOfPage() {
     return (
         <div className='head'>
+            <div/>
             <Logo/>
             <User/>
         </div>

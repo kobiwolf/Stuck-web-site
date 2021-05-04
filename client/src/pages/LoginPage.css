@@ -4,7 +4,9 @@
 }
 @media screen and (max-width: 768px) {
   .loginPage {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    height: 92vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

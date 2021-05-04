@@ -6,7 +6,7 @@ export default function LabelInputForm({text,state,setState,isPassword=false}) {
     return (
         <div className='field'>
             <label>{text}</label>
-            <input type={type} name={text} placeholder={text} value={state} onChange={e=>setState(e.target.value)}/>
+            <input  type={type} name={text} placeholder={text} value={state} onChange={e=>setState(e.target.value)}/>
             {isPassword && <button onClick={()=>setPasswordState(!passwordState)}>{passwordState?'show':'hide'}</button>}
         </div>
     )

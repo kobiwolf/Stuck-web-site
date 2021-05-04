@@ -1,0 +1,10 @@
+.SearchMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+}
+.SearchOptions {
+  margin: 1rem 0;
+}

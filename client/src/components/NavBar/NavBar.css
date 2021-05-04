@@ -52,7 +52,7 @@ a {
 @media only screen and (max-width: 768px) {
   .nav-menu {
     position: fixed;
-    left: -100%;
+    right: -100%;
     top: 5rem;
     flex-direction: column;
     background-color: #fff;
@@ -64,9 +64,15 @@ a {
   }
 
   .nav-menu.active {
-    left: 0;
+    right: 0;
   }
   .nav-menu.active:hover {
+  }
+  .navbar {
+    width: max-content;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 
   .nav-item {

@@ -146,6 +146,16 @@ const getItems = async (type) => {
   if (!item) throw new Error('item not found');
   return item;
 };
+const addItemToUser = async (mail, item) => {
+  try {
+    const user = await User.findByMail(mail);
+    user.items.push(item);
+    await user.save();
+    return 'item has added';
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
 module.exports = {
   getUser,
   updateItemsList,
@@ -157,4 +167,5 @@ module.exports = {
   addItem,
   getImg,
   getItems,
+  addItemToUser,
 };
