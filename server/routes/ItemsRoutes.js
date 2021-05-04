@@ -8,9 +8,13 @@ const upload = multer();
 
 // add new item
 route.post('/items', upload.single('img'), async (req, res) => {
+  const buffer = await sharp(req.file.buffer)
+    .resize({ width: 400, height: 400 })
+    .png()
+    .toBuffer();
   const { name, type } = req.body;
   try {
-    const respone = await addItem(name, req.file.buffer, type);
+    const respone = await addItem(name, buffer, type);
     res.send(respone);
   } catch (e) {
     res.status(400).send(e.message);

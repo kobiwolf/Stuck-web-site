@@ -9,7 +9,7 @@ export default function SearchPage() {
     return (
         <div>
          <button onClick={async ()=>{
-             const {data}=await axios.get('http://localhost:3001/manager/items/Tool')
+             const {data}=await axios.get('http://localhost:3001/manager/items/Food')
              setData(data)
          }}>כל המוצרים</button>
          {data && data.map(item=><CardItem item={item}/>)}
