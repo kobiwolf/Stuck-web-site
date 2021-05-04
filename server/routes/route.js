@@ -61,9 +61,9 @@ route.patch('/settings', async (req, res) => {
 
 // update user items list (i'll try to do it like this-if item exist-remove it,else-add it)
 route.patch('/list', async (req, res) => {
-  const { mail, item } = req.body;
+  const { mail, item, type } = req.body;
   try {
-    const respone = await updateItemsList(mail, item);
+    const respone = await updateItemsList(mail, item, type);
     res.send(respone);
   } catch (e) {
     res.status(400).send(e.message);

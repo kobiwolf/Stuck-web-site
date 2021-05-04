@@ -17,16 +17,24 @@ const getUser = async (mail) => {
   }
 };
 
-const updateItemsList = async (mail, item) => {
-  const user = await getUser(mail);
-  const index = user.items.findIndex((itemi) => itemi._id === item._id);
-  if (index === -1) {
-    user.items.push(item);
-  } else {
-    user.items.splice(index, 1);
+const updateItemsList = async (mail, name, type) => {
+  try {
+    const user = await getUser(mail);
+    const item = await getItems(type, name);
+    const index = user.items.findIndex((itemi) => {
+      return itemi.name === item[0].name;
+    });
+
+    if (index === -1) {
+      user.items.push(...item);
+    } else {
+      user.items.splice(index, 1);
+    }
+    await user.save();
+    return 'item has added!';
+  } catch (error) {
+    throw new Error(error.message);
   }
-  const respone = await user.save();
-  return respone;
 };
 const login = async (mail, password) => {
   try {
@@ -98,7 +106,7 @@ const WhoHasItem = async (item, city, range, gps) => {
     throw new Error(e);
   }
 };
-const addItem = async (name, img, type) => {
+const addItemToDb = async (name, img, type) => {
   let item;
   switch (type) {
     case 'Tool':
@@ -111,7 +119,9 @@ const addItem = async (name, img, type) => {
       item = await new Medicine({ name, img });
       break;
   }
+
   await item.save();
+
   return item;
 };
 const getImg = async (id, type) => {
@@ -130,32 +140,23 @@ const getImg = async (id, type) => {
   if (!item || !item.img) throw new Error('item not found');
   return item.img;
 };
-const getItems = async (type) => {
+const getItems = async (type, name = null) => {
   let item;
   switch (type) {
     case 'Tool':
-      item = await Tool.find({});
+      item = name ? await Tool.find({ name }) : await Tool.find({});
       break;
     case 'Food':
-      item = await Food.find({});
+      item = name ? await Food.find({ name }) : await Food.find({});
       break;
-    case 'Medicine':
-      item = await Medicine.find({});
+    case 'Medicine ':
+      item = name ? await Medicine.find({ name }) : await Medicine.find({});
       break;
   }
   if (!item) throw new Error('item not found');
   return item;
 };
-const addItemToUser = async (mail, item) => {
-  try {
-    const user = await User.findByMail(mail);
-    user.items.push(item);
-    await user.save();
-    return 'item has added';
-  } catch (e) {
-    throw new Error(e.message);
-  }
-};
+
 module.exports = {
   getUser,
   updateItemsList,
@@ -164,8 +165,7 @@ module.exports = {
   deleteUser,
   UpdateInfo,
   WhoHasItem,
-  addItem,
+  addItemToDb,
   getImg,
   getItems,
-  addItemToUser,
 };
