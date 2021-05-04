@@ -1,4 +1,3 @@
-let endPoint;
-if (process.env.PORT) endPoint = '/';
-else endPoint = `http://localhost:3001`;
-export default endPoint;
+const path =
+  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001';
+export default path;
