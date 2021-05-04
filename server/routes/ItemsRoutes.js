@@ -16,6 +16,7 @@ route.post('/items', upload.single('img'), async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+// add
 // get an img of item
 route.get('/:id/:type/img', async (req, res) => {
   try {
