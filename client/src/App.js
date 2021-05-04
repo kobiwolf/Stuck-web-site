@@ -9,6 +9,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import { useState } from 'react';
 import LoginPage from './pages/LoginPage';
 import ContentUsPage from './pages/ContentUsPage';
+import HeadOfPage from './components/headOfPage/HeadOfPage';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -19,19 +20,41 @@ function App() {
         <Switch>
           <Route path="/" exact>
             {userInfo ? (
-              <SearchPage />
+              <>
+                <HeadOfPage />
+                <SearchPage />
+              </>
             ) : (
               <LoginPage setUserInfo={setUserInfo} />
             )}
           </Route>
           <Route path="/setting" exact>
-            {userInfo ? <SettingsPage /> : <Redirect to="/" />}
+            {userInfo ? (
+              <>
+                <HeadOfPage />
+                <SettingsPage />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/aboutUs" exact>
-            {userInfo ? <AboutUsPage /> : <Redirect to="/" />}
+            {userInfo ? (
+              <>
+                <HeadOfPage /> <AboutUsPage />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/contactUs" exact>
-            {userInfo ? <ContentUsPage /> : <Redirect to="/" />}
+            {userInfo ? (
+              <>
+                <HeadOfPage /> <ContentUsPage />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
         </Switch>
       </BrowserRouter>

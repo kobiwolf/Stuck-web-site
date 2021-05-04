@@ -114,6 +114,38 @@ const addItem = async (name, img, type) => {
   await item.save();
   return item;
 };
+const getImg = async (id, type) => {
+  let item;
+  switch (type) {
+    case 'Tool':
+      item = await Tool.findById(id);
+      break;
+    case 'Food':
+      item = await Food.findById(id);
+      break;
+    case 'Medicine':
+      item = await Medicine.findById(id);
+      break;
+  }
+  if (!item || !item.img) throw new Error('item not found');
+  return item.img;
+};
+const getItems = async (type) => {
+  let item;
+  switch (type) {
+    case 'Tool':
+      item = await Tool.find({});
+      break;
+    case 'Food':
+      item = await Food.find({});
+      break;
+    case 'Medicine':
+      item = await Medicine.find({});
+      break;
+  }
+  if (!item) throw new Error('item not found');
+  return item;
+};
 module.exports = {
   getUser,
   updateItemsList,
@@ -123,4 +155,6 @@ module.exports = {
   UpdateInfo,
   WhoHasItem,
   addItem,
+  getImg,
+  getItems,
 };

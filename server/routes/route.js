@@ -80,14 +80,5 @@ route.get('/search', async (req, res) => {
     res.status(400).send(e.message);
   }
 });
-route.post('/manager/items', async (req, res) => {
-  const { name, img, type } = req.body;
-  try {
-    const respone = await addItem(name, img, type);
-    res.send(respone);
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
 
 module.exports = route;
