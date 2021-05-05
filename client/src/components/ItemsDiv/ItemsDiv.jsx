@@ -8,7 +8,7 @@ export default function ItemsDiv() {
     const [items,setItems]=useState([])
     useEffect(()=>{
         setItems(user.items.map(item=><CardItem key={item._id} item={item}/>))
-    },[])
+    },[user])
     return (
         <div className='ItemsDiv'>
             <h2>:המוצרים שלך</h2>
