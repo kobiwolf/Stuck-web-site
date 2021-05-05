@@ -17,11 +17,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <NavBar />
+        {userInfo && <HeadOfPage name={userInfo.name} />}
         <Switch>
           <Route path="/" exact>
             {userInfo ? (
               <>
-                <HeadOfPage />
                 <SearchPage state={userInfo} />
               </>
             ) : (
@@ -31,7 +31,6 @@ function App() {
           <Route path="/setting" exact>
             {userInfo ? (
               <>
-                <HeadOfPage />
                 <SettingsPage state={userInfo} />
               </>
             ) : (
@@ -41,7 +40,7 @@ function App() {
           <Route path="/aboutUs" exact>
             {userInfo ? (
               <>
-                <HeadOfPage /> <AboutUsPage />
+                <AboutUsPage />
               </>
             ) : (
               <Redirect to="/" />
@@ -50,7 +49,7 @@ function App() {
           <Route path="/contactUs" exact>
             {userInfo ? (
               <>
-                <HeadOfPage /> <ContentUsPage />
+                <ContentUsPage />
               </>
             ) : (
               <Redirect to="/" />

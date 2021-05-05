@@ -72,9 +72,7 @@ schema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
   delete userObject.password;
-  userObject.items.forEach((item) => {
-    item.img = `${endPoint}/manager/${item._id}/${item.type}/img`;
-  });
+
   return userObject;
 };
 const User = new mongoose.model('User', schema);
