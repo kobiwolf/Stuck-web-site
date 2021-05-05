@@ -88,7 +88,7 @@ const WhoHasItem = async (item, city, range, gps) => {
     const users = await User.find({ 'address.city': city });
     if (!users.length) throw new Error('there is no one matching your request');
     const usersHowHaveItem = users.filter((user) =>
-      user.items.find((itemi) => itemi.name === item.name)
+      user.items.find((itemi) => itemi.name === item)
     );
     if (!usersHowHaveItem.length)
       throw new Error('there is no one matching your request');
@@ -103,7 +103,7 @@ const WhoHasItem = async (item, city, range, gps) => {
       throw new Error('there is no one matching your request');
     return matchUsers;
   } catch (e) {
-    throw new Error(e);
+    throw new Error(e.message);
   }
 };
 const addItemToDb = async (name, img, type) => {

@@ -71,13 +71,13 @@ route.patch('/list', async (req, res) => {
 });
 
 //get users which have the item
-route.get('/search', async (req, res) => {
+route.post('/search', async (req, res) => {
   const { item, city, range, gps } = req.body;
   try {
     const users = await WhoHasItem(item, city, range, gps);
     res.send(users);
   } catch (e) {
-    res.status(400).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 

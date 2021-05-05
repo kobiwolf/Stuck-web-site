@@ -34,7 +34,7 @@ route.get('/:id/:type/img', async (req, res) => {
 // get items per type
 route.get('/items/:type', async (req, res) => {
   try {
-    const items = await getItems(req.params.type);
+    const items = await getItems(req.params.type, req.query.name);
     items.forEach((item) => {
       item.img = `http://localhost:3001/manager/${item._id}/${req.params.type}/img`;
     });
