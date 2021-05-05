@@ -3,7 +3,7 @@ const route = new express.Router();
 const { addItemToDb, getItems, getImg } = require('../helperFuncs/utils');
 const sharp = require('sharp');
 const multer = require('multer');
-const endPoint = 'http://localhost:3001/manager/6091337d1f32324a64cd1832/img';
+
 const upload = multer();
 
 // add new item to db

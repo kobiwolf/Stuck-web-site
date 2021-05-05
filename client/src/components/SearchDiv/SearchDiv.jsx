@@ -1,10 +1,11 @@
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useContext} from 'react'
 import endPoint from '../../endPoints/serverEndPoint'
 import Card from '../Card/Card'
-
+import Context from '../Context/Context'
 import './SearchDiv.css'
-export default function SearchDiv({state}) {
+export default function SearchDiv() {
+    const {user,setUser}=useContext(Context)
     const [inputSearch,setInputSearch]=useState('')
     const [searchAnswer,setSearchAnswer]=useState(null)
     const refType=useRef()
@@ -14,9 +15,9 @@ if(!refType.current.value || !refRadius.current.value || !inputSearch) return se
 try {
      const response=await axios.post(`${endPoint}/search`,{
         item:inputSearch,
-        city:state.address.city,
+        city:user.address.city,
         range:refRadius.current.value,
-        gps:state.address.gps,
+        gps:user.address.gps,
     })
     if(!response ||!response.data)setSearchAnswer("אין אף משתמש שמתאים לקריטרונים שלך")
     setSearchAnswer(response.data.map(user=><Card key={user._id} user={user}/>))

@@ -1,12 +1,14 @@
 
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
-import Card from '../Card/Card';
 
-export default function Form({setUserInfo}) {
+import Context from '../Context/Context'
+
+export default function Form() {
+  const {user,setUser}=useContext(Context)
   const[inputPassword,setInputPassword]=useState('')
   const[inputEmail,setInputEmail]=useState('')
   const[response,setResponse]=useState('')
@@ -19,7 +21,7 @@ export default function Form({setUserInfo}) {
         email:inputEmail,password:inputPassword
       })
       setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...')
-      setTimeout(()=>{setUserInfo(data)},1500)
+      setTimeout(()=>{setUser(data)},1500)
     
       }
     catch(e){

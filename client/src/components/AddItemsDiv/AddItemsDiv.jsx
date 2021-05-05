@@ -1,10 +1,13 @@
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useContext } from 'react'
 import endPoint from '../../endPoints/serverEndPoint'
 import CardItem from '../CardItem/CardItem'
 import './AddItemsDiv.css'
+import Context from '../Context/Context'
+
 
 export default function AddItemsDiv() {
+    const {user,setUser}=useContext(Context)
     const [inputSearch,setInputSearch]=useState("")
     const [response,setResponse ]=useState('')
     const refType=useRef()

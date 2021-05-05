@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import CardItem from '../CardItem/CardItem'
 import './ItemsDiv.css'
+import Context from '../Context/Context'
 
-export default function ItemsDiv({state}) {
+export default function ItemsDiv() {
+    const {user,setUser}=useContext(Context)
     const [items,setItems]=useState([])
     useEffect(()=>{
-        setItems(state.items.map(item=><CardItem key={item._id} item={item}/>))
+        setItems(user.items.map(item=><CardItem key={item._id} item={item}/>))
     },[])
     return (
         <div className='ItemsDiv'>

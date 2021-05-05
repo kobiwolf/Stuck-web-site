@@ -1,13 +1,11 @@
-
-import React, { useState } from 'react'
-
+import React from 'react'
 import SearchDiv from '../components/SearchDiv/SearchDiv'
 
 
-export default function SearchPage({state}) {
+export default function SearchPage() {
     return (
         <div>
-            <SearchDiv state={state}/>
+            <SearchDiv/>
         </div>
     )
 }

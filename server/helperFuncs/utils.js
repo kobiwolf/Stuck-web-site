@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/User');
-const Address = require('../model/Address');
+
 const geolib = require('geolib');
 const apiGoogle = require('../api/apiGoogle');
 const Tool = require('../model/Tool');
