@@ -19,7 +19,7 @@ try {
         gps:state.address.gps,
     })
     if(!data.length)setSearchAnswer("אין אף משתמש שמתאים לקריטרונים שלך")
-    setSearchAnswer(data.map(user=><Card user={user}/>))
+    setSearchAnswer(data.map(user=><Card key={user._id} user={user}/>))
 } catch (error) {
     setSearchAnswer(error.response.data)
 }

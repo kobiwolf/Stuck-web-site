@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const endPoint = require('../config/endPointServer');
+
 const schema = new mongoose.Schema({
   name: {
     type: String,
@@ -70,6 +72,9 @@ schema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
   delete userObject.password;
+  userObject.items.forEach((item) => {
+    item.img = `${endPoint}/manager/${item._id}/${item.type}/img`;
+  });
   return userObject;
 };
 const User = new mongoose.model('User', schema);

@@ -1,10 +1,11 @@
 import React from 'react'
 import HeadOfPage from '../components/headOfPage/HeadOfPage'
+import ItemsDiv from '../components/ItemsDiv/ItemsDiv'
 
-export default function SettingsPage() {
+export default function SettingsPage({state}) {
     return (
         <div>
-            <h1>הגדרות</h1>
+           <ItemsDiv state={state}/>
         </div>
     )
 }

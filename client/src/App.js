@@ -32,7 +32,7 @@ function App() {
             {userInfo ? (
               <>
                 <HeadOfPage />
-                <SettingsPage />
+                <SettingsPage state={userInfo} />
               </>
             ) : (
               <Redirect to="/" />

@@ -8,5 +8,8 @@ const itemSchema = new mongoose.Schema({
   info: {
     type: String,
   },
+  type: {
+    type: String,
+  },
 });
 module.exports = itemSchema;
