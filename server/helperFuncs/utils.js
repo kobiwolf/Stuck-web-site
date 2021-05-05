@@ -119,9 +119,7 @@ const addItemToDb = async (name, img, type) => {
       item = await new Medicine({ name, img });
       break;
   }
-
   await item.save();
-
   return item;
 };
 const getImg = async (id, type) => {
@@ -149,7 +147,7 @@ const getItems = async (type, name = null) => {
     case 'Food':
       item = name ? await Food.find({ name }) : await Food.find({});
       break;
-    case 'Medicine ':
+    case 'Medicine':
       item = name ? await Medicine.find({ name }) : await Medicine.find({});
       break;
   }

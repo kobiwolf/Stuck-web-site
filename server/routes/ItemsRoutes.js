@@ -35,9 +35,6 @@ route.get('/:id/:type/img', async (req, res) => {
 route.get('/items/:type', async (req, res) => {
   try {
     const items = await getItems(req.params.type, req.query.name);
-    items.forEach((item) => {
-      item.img = `http://localhost:3001/manager/${item._id}/${req.params.type}/img`;
-    });
     res.send(items);
   } catch (e) {
     res.status(404).send(e.message);

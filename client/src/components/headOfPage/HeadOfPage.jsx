@@ -1,7 +1,7 @@
 import './HeadOfPage.css'
 import React, { useEffect, useState } from 'react'
 import Logo from '../Logo/Logo'
-import User from '../User/User'
+import User from '../UserHead/User'
 
 export default function HeadOfPage({name}) {
 
@@ -9,7 +9,7 @@ export default function HeadOfPage({name}) {
         <div className='head'>
             <div/>
             <Logo/>
-            <User name={name}/>
+            <User name= {name}/>
         </div>
     )
 }

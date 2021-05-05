@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import endPoint from '../../endPoints/serverEndPoint'
 import Card from '../Card/Card'
-import User from '../User/User'
+
 import './SearchDiv.css'
 export default function SearchDiv({state}) {
     const [inputSearch,setInputSearch]=useState('')
@@ -12,14 +12,14 @@ export default function SearchDiv({state}) {
     const searchUser=async()=>{
 if(!refType.current.value || !refRadius.current.value || !inputSearch) return setSearchAnswer("חובה למלא את כל השדות")
 try {
-     const {data}=await axios.post(`${endPoint}/search`,{
+     const response=await axios.post(`${endPoint}/search`,{
         item:inputSearch,
         city:state.address.city,
         range:refRadius.current.value,
         gps:state.address.gps,
     })
-    if(!data.length)setSearchAnswer("אין אף משתמש שמתאים לקריטרונים שלך")
-    setSearchAnswer(data.map(user=><Card key={user._id} user={user}/>))
+    if(!response ||!response.data)setSearchAnswer("אין אף משתמש שמתאים לקריטרונים שלך")
+    setSearchAnswer(response.data.map(user=><Card key={user._id} user={user}/>))
 } catch (error) {
     setSearchAnswer(error.response.data)
 }

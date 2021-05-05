@@ -28,7 +28,7 @@ export default function Form({setUserInfo}) {
     }
   }
 
-  return <form className="ui form" style={{position:'none'}}onSubmit={e=>e.preventDefault()}>
+  return <form className="ui form" style={{position:'unset'}}onSubmit={e=>e.preventDefault()}>
   <LabelInputForm text='מייל' state={inputEmail} setState={setInputEmail}/>
   <LabelInputForm text='סיסמא' state={inputPassword} setState={setInputPassword} isPassword={true}/>
  <button className="ui button" type="submit" onClick={handleClick}>Submit</button>
