@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const endPoint = require('../config/endPointServer');
+const imageToBase64 = require('image-to-base64');
 
 const schema = new mongoose.Schema({
   name: {
@@ -44,6 +45,7 @@ const schema = new mongoose.Schema({
       if (!validator.isJWT(value)) throw new Error('prob with token');
     },
   },
+  img: {},
   password: {
     type: String,
     require: true,
@@ -63,6 +65,8 @@ const schema = new mongoose.Schema({
 });
 schema.pre('save', async function (next) {
   const user = this;
+  console.log(user.img);
+  user.img = await imageToBase64(user.img);
   if (user.isModified('password'))
     user.password = await bcrypt.hash(user.password, 8);
   next();

@@ -20,8 +20,7 @@ const getUser = async (mail) => {
 const updateItemsList = async (mail, name, type, info) => {
   try {
     const user = await getUser(mail);
-    let item = await getItems(type, name);
-    item = item[0];
+    const item = (await getItems(type, name))[0];
     item.info = info;
     const index = user.items.findIndex((itemi) => {
       return itemi.name === item.name;
@@ -29,10 +28,10 @@ const updateItemsList = async (mail, name, type, info) => {
     if (index === -1) {
       user.items.push(item);
     } else {
-      user.items.splice(index, 1);
+      user.items.splice(index, 1, item);
     }
     await user.save();
-    return `item has ${index !== -1 ? 'removed' : 'added'}`;
+    return `item has ${index !== -1 ? 'update' : 'added'}`;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -40,6 +39,7 @@ const updateItemsList = async (mail, name, type, info) => {
 const login = async (mail, password) => {
   try {
     const user = await getUser(mail);
+
     const match = await bcrypt.compare(password, user.password);
     if (match) return user;
     throw new Error('wrong details');
@@ -47,6 +47,7 @@ const login = async (mail, password) => {
     throw new Error(e.message);
   }
 };
+
 const addUser = async (details) => {
   try {
     details.address = await UpdateAddress(details.address);
