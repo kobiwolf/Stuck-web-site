@@ -34,6 +34,7 @@ route.post('/signup', upload.single('img'), async (req, res) => {
     .resize({ width: 400, height: 400 })
     .png()
     .toBuffer();
+  //
   const user = req.body;
   user.image = buffer;
   try {
