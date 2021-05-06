@@ -12,13 +12,14 @@ export default function CardItem({item}) {
             else copyUser.items.push(item)
             setUser(copyUser)
         }
+   
     return (
         <div className='CardItem'>
             <h2>{item.name}</h2>
             <img src={`data:image/png;base64,${item.img}`} alt={item.name} />
             <button onClick={clickHandle}>{isUserHasItem()?'הסרה':'הוספה'}</button>
-            {isUserHasItem() && <h2>מידע על המוצר: {item.info ||'אין מידע מיוחד'}</h2>}
             {isUserHasItem() && <EditInfoItem item={itemState} setItem={setItemState}/>}
+            
  </div>
     )
 }

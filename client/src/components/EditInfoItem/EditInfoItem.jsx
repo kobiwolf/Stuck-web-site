@@ -9,11 +9,8 @@ export default function EditInfoItem({item,setItem}) {
     },[input])
     return (
         <div>
-            <button onClick={()=>{
-                setIsEditMode(!isEditMode)
-            }}>עריכת הערה</button>
-             {isEditMode?<input onChange={e=>setInput(e.target.value)} value={input}/>:<h2>{input}</h2>}
-
+            <button onClick={()=>{setIsEditMode(!isEditMode)}}> {!isEditMode?'עריכת הערה':'שמור הערה'}</button>
+             {isEditMode?<input onChange={e=>setInput(e.target.value)} value={input}/>:<h2>מידע על המוצר:{input}</h2>}
         </div>
     )
 }

@@ -6,6 +6,7 @@ export default function SettingsPage() {
     return (
         <div>
            <ItemsDiv />
+           <h2>המוצרים להוספה:</h2>
            <AddItemsDiv />
         </div>
     )
