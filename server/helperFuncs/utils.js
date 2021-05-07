@@ -50,6 +50,11 @@ const login = async (mail, password) => {
 
 const addUser = async (details) => {
   try {
+    details.address = {
+      city: details.city,
+      street: details.street,
+      number: details.number,
+    };
     details.address = await UpdateAddress(details.address);
     const user = await new User(details);
     await user.save();

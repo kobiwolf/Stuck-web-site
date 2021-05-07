@@ -26,17 +26,30 @@ route.post('/login', async (req, res) => {
     res.status(400).send(e.message);
   }
 });
-
-//  post in odder to sign up
-route.post('/signup', upload.single('img'), async (req, res) => {
-  console.log(req);
+route.post('/addImage/:mail', upload.single('img'), async (req, res) => {
+  const { mail } = req.params;
+  console.log(req.file);
   const buffer = await sharp(req.file.buffer)
     .resize({ width: 400, height: 400 })
     .png()
     .toBuffer();
-  //
+  try {
+    const user = await getUser(mail);
+    user.avatar = buffer;
+    user.save();
+    res.send('upload Image has finished');
+  } catch (e) {
+    res.status(404).send('upload Image has failed');
+  }
+});
+//  post  to sign up
+route.post('/signup', upload.single('img'), async (req, res) => {
+  const buffer = await sharp(req.file.buffer)
+    .resize({ width: 400, height: 400 })
+    .png()
+    .toBuffer();
   const user = req.body;
-  user.image = buffer;
+  user.avatar = buffer;
   try {
     const respone = await addUser(user);
     res.send(respone);

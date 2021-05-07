@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
+
 import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
@@ -14,6 +15,7 @@ export default function Form({ setRegistered, registered }) {
   const [inputStreet, setInputStreet] = useState('');
   const [inputNumber, setInputNumber] = useState('');
   const [inputImg, setInputImg] = useState('');
+  const [inputImgFile, setInputImgFile] = useState('');
   const [response, setResponse] = useState('');
 
   const handleClick = async () => {
@@ -22,24 +24,16 @@ export default function Form({ setRegistered, registered }) {
     else {
       try {
         const formData = new FormData();
-        formData.append('img', inputImg);
+        formData.append('img', inputImgFile);
         formData.append('name', inputName);
-        formData.append('address', {
-          city: inputCity,
-          street: inputStreet,
-          number: inputNumber,
-        });
+        formData.append('city', inputCity);
+        formData.append('street', inputStreet);
+        formData.append('number', inputNumber);
         formData.append('email', inputEmail);
         formData.append('password', inputPassword);
-        const config = {
-          headers: { 'content-type': 'multipart/form-data' },
-        };
 
-        const { data } = await axios.post(
-          `${endPoint}/signup`,
-          formData,
-          config
-        );
+        const { data } = await axios.post(`${endPoint}/signup`, formData);
+
         setResponse('משתמש נרשם בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
           setUser(data);
@@ -78,7 +72,10 @@ export default function Form({ setRegistered, registered }) {
       <input
         type="file"
         value={inputImg}
-        onChange={(e) => setInputImg(e.target.value)}
+        onChange={(e) => {
+          setInputImgFile(e.target.files[0]);
+          setInputImg(e.target.value);
+        }}
       ></input>
       <button className="ui button" type="submit" onClick={handleClick}>
         Submit

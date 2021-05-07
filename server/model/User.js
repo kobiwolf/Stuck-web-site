@@ -20,9 +20,7 @@ const schema = new mongoose.Schema({
       if (!validator.isEmail(value)) throw new Error('not vaild e-mail');
     },
   },
-  img: {
-    type: String,
-  },
+  avatar: {},
   address: {
     id: {
       type: String,
@@ -45,7 +43,6 @@ const schema = new mongoose.Schema({
       if (!validator.isJWT(value)) throw new Error('prob with token');
     },
   },
-  img: {},
   password: {
     type: String,
     require: true,
@@ -65,8 +62,7 @@ const schema = new mongoose.Schema({
 });
 schema.pre('save', async function (next) {
   const user = this;
-  console.log(user.img);
-  user.img = await imageToBase64(user.img);
+
   if (user.isModified('password'))
     user.password = await bcrypt.hash(user.password, 8);
   next();

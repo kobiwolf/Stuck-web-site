@@ -6,12 +6,12 @@ import Context from '../Context/Context';
 
 export default function HeadOfPage() {
   const { user, setUser } = useContext(Context);
-
+  console.log(user);
   return (
     <div className="head">
       <div />
       <Logo />
-      <User name={user.name} img={user.img} />
+      <User name={user.name} img={user.avatar} />
     </div>
   );
 }
