@@ -2,26 +2,29 @@ import React, { useEffect, useState } from 'react';
 
 export default function EditInfoItem({ item, setItem }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [input, setInput] = useState(item.info);
+  const [input, setInput] = useState(item.info || 'אין מידע');
   useEffect(() => {
     item.info = input;
     setItem(item);
   }, [input]);
   return (
-    <div>
+    <div className="EditInfoItem">
+      <h5>מידע על המוצר:</h5>
+      {isEditMode ? (
+        <input onChange={(e) => setInput(e.target.value)} value={input} />
+      ) : (
+        <h5>{input}</h5>
+      )}
+
+      <div className=""></div>
       <button
         onClick={() => {
           setIsEditMode(!isEditMode);
         }}
       >
-        {' '}
+        <br />
         {!isEditMode ? 'עריכת הערה' : 'שמור הערה'}
       </button>
-      {isEditMode ? (
-        <input onChange={(e) => setInput(e.target.value)} value={input} />
-      ) : (
-        <h2>מידע על המוצר:{input}</h2>
-      )}
     </div>
   );
 }

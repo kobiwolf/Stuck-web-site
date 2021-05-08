@@ -1,42 +1,45 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 
-import LabelInputForm from '../LabalInputForm/LabelInputForm';
+import LabelForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
 import Context from '../Context/Context';
 
 export default function Form({ setRegistered, registered }) {
   const { user, setUser } = useContext(Context);
-  const [inputPassword, setInputPassword] = useState('');
-  const [inputEmail, setInputEmail] = useState('');
-  const [inputName, setInputName] = useState('');
-  const [inputCity, setInputCity] = useState('');
-  const [inputStreet, setInputStreet] = useState('');
-  const [inputNumber, setInputNumber] = useState('');
-  const [inputImg, setInputImg] = useState('');
-  const [inputImgFile, setInputImgFile] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [number, setNumber] = useState('');
+  const [img, setImg] = useState('');
+  const [imgFile, setImgFile] = useState('');
   const [response, setResponse] = useState('');
 
   const handleClick = async () => {
-    if (!inputEmail || !inputPassword) setResponse('all fields are required');
-    if (!validator.isEmail(inputEmail)) setResponse('must put valid email');
+    if (!email || !password || !street || !city || !number)
+      return setResponse('all fields are required');
+    if (!validator.isEmail(email)) return setResponse('must put valid email');
+    if (!validator.isStrongPassword(password))
+      return setResponse('must put valid password');
     else {
       try {
         const formData = new FormData();
-        formData.append('img', inputImgFile);
-        formData.append('name', inputName);
-        formData.append('city', inputCity);
-        formData.append('street', inputStreet);
-        formData.append('number', inputNumber);
-        formData.append('email', inputEmail);
-        formData.append('password', inputPassword);
+        formData.append('img', imgFile);
+        formData.append('name', name);
+        formData.append('city', city);
+        formData.append('street', street);
+        formData.append('number', number);
+        formData.append('email', email);
+        formData.append('password', password);
 
         const { data } = await axios.post(`${endPoint}/signup`, formData);
-
+        const user = await axios.post(`${endPoint}/login`, { email, password });
         setResponse('משתמש נרשם בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
-          setUser(data);
+          setUser(user.data);
         }, 1500);
       } catch (e) {
         setResponse(e.response.data);
@@ -50,31 +53,23 @@ export default function Form({ setRegistered, registered }) {
       style={{ position: 'unset' }}
       onSubmit={(e) => e.preventDefault()}
     >
-      <LabelInputForm text="מייל" state={inputEmail} setState={setInputEmail} />
-      <LabelInputForm text="שם" state={inputName} setState={setInputName} />
-      <LabelInputForm text="עיר" state={inputCity} setState={setInputCity} />
-      <LabelInputForm
-        text="רחוב"
-        state={inputStreet}
-        setState={setInputStreet}
-      />
-      <LabelInputForm
-        text="מספר"
-        state={inputNumber}
-        setState={setInputNumber}
-      />
-      <LabelInputForm
+      <LabelForm text="מייל" state={email} setState={setEmail} />
+      <LabelForm text="שם" state={name} setState={setName} />
+      <LabelForm text="עיר" state={city} setState={setCity} />
+      <LabelForm text="רחוב" state={street} setState={setStreet} />
+      <LabelForm text="מספר" state={number} setState={setNumber} />
+      <LabelForm
         text="סיסמא"
-        state={inputPassword}
-        setState={setInputPassword}
+        state={password}
+        setState={setPassword}
         isPassword={true}
       />
       <input
         type="file"
-        value={inputImg}
+        value={img}
         onChange={(e) => {
-          setInputImgFile(e.target.files[0]);
-          setInputImg(e.target.value);
+          setImgFile(e.target.files[0]);
+          setImg(e.target.value);
         }}
       ></input>
       <button className="ui button" type="submit" onClick={handleClick}>

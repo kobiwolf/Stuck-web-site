@@ -7,21 +7,18 @@ import Context from '../Context/Context';
 
 export default function Form({ registered, setRegistered }) {
   const { user, setUser } = useContext(Context);
-  const [inputPassword, setInputPassword] = useState('');
-  const [inputEmail, setInputEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');
   const handleClick = async () => {
-    if (!inputEmail || !inputPassword) setResponse('all fields are required');
-    if (!validator.isEmail(inputEmail)) setResponse('must put valid email');
+    if (!email || !password) setResponse('all fields are required');
+    if (!validator.isEmail(email)) setResponse('must put valid email');
     else {
       try {
-        const { data } = await axios.post(`${endPoint}/login`, {
-          email: inputEmail,
-          password: inputPassword,
-        });
+        const user = await axios.post(`${endPoint}/login`, { email, password });
         setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
-          setUser(data);
+          setUser(user.data);
         }, 1500);
       } catch (e) {
         setResponse(e.response.data);
@@ -35,11 +32,11 @@ export default function Form({ registered, setRegistered }) {
       style={{ position: 'unset' }}
       onSubmit={(e) => e.preventDefault()}
     >
-      <LabelInputForm text="מייל" state={inputEmail} setState={setInputEmail} />
+      <LabelInputForm text="מייל" state={email} setState={setEmail} />
       <LabelInputForm
         text="סיסמא"
-        state={inputPassword}
-        setState={setInputPassword}
+        state={password}
+        setState={setPassword}
         isPassword={true}
       />
       <button className="ui button" type="submit" onClick={handleClick}>
@@ -52,7 +49,7 @@ export default function Form({ registered, setRegistered }) {
       >
         חדש פה??
       </button>
-      {response && <h3>{response}</h3>}
+      {<h3>{response}</h3>}
     </form>
   );
 }

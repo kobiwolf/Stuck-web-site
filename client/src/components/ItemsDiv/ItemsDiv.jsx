@@ -38,7 +38,9 @@ export default function ItemsDiv() {
   };
   return (
     <div className="ItemsDiv">
-      <button onClick={saveItem}>שמור שינויים</button>
+      <button className="saveButton" onClick={saveItem}>
+        <i class="far fa-save fa-2x"></i>
+      </button>
       <h2>:המוצרים שלך</h2>
       {items.length && items}
     </div>

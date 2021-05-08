@@ -1,0 +1,7 @@
+.addItemDivMain {
+  display: flex;
+  flex-direction: column;
+}
+.addItemDivOptions {
+  display: flex;
+}

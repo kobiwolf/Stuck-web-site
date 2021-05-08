@@ -1,5 +1,28 @@
 .CardItem {
   display: flex;
+  width: 90%;
+  margin: 0.5rem auto;
   flex-direction: column;
-  border: 1px black solid;
+}
+.CardItem img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(128, 128, 128, 0.389);
+}
+.CardItem button {
+  height: max-content;
+  width: max-content;
+  margin: auto 2px;
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.389);
+}
+.CardItem div {
+  display: flex;
+}
+.EditInfoItem {
+  flex-direction: column !important;
+}
+.EditInfoItem h5 {
+  margin: 0;
 }
