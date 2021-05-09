@@ -31,6 +31,7 @@ route.get('/:id/:type/img', async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+
 // get items per type
 route.get('/items/:type', async (req, res) => {
   try {

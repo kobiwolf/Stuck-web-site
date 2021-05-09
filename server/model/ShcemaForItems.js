@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const endPoint = require('../config/endPointServer');
 const itemSchema = new mongoose.Schema({
   img: {},
   name: {
@@ -12,4 +13,10 @@ const itemSchema = new mongoose.Schema({
     type: String,
   },
 });
+itemSchema.methods.toJSON = function () {
+  let copy = this;
+  copy = copy.toObject();
+  copy.img = `${endPoint}/manager/${copy._id}/${copy.type}/img`;
+  return copy;
+};
 module.exports = itemSchema;

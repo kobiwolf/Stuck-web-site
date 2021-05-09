@@ -20,7 +20,7 @@ export default function CardItem({ item }) {
   return (
     <div className="CardItem">
       <div>
-        <img src={`data:image/png;base64,${item.img}`} alt={item.name} />
+        <img src={item.img} alt={item.name} />
         <h2>{item.name}</h2>
         <button onClick={clickHandle}>
           {isUserHasItem() ? (

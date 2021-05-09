@@ -96,6 +96,16 @@ route.patch('/settings', upload.single('img'), async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+// get a user pic
+route.get('/img/:email', async (req, res) => {
+  try {
+    const user = await getUser(req.params.email);
+    res.set('Content-Type', 'image/png');
+    res.send(user.avatar.buffer);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
 
 // update user items list (i'll try to do it like this-if item exist-remove it,else-add it)
 route.patch('/list', async (req, res) => {
