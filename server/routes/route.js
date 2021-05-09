@@ -71,12 +71,27 @@ route.delete('/settings', async (req, res) => {
 
 //update a user info (if the user changed his password remember to .save in order the password will be hashed)
 
-route.patch('/settings', async (req, res) => {
-  const { email, changes } = req.body;
+route.patch('/settings', upload.single('img'), async (req, res) => {
+  let buffer;
+  if (req.file) {
+    buffer = await sharp(req.file.buffer)
+      .resize({ width: 400, height: 400 })
+      .png()
+      .toBuffer();
+  }
+  const { email } = req.body;
   try {
-    const user = await getUser(email);
-    const respone = await UpdateInfo(user, changes);
-    res.send(respone);
+    let user = await getUser(email);
+    delete req.body.email;
+    if (req.file) req.body.avatar = buffer;
+    req.body.address = {
+      street: req.body.street,
+      city: req.body.city,
+      number: req.body.number,
+    };
+    await UpdateInfo(user, req.body);
+    user = await getUser(email);
+    res.send(user);
   } catch (e) {
     res.status(400).send(e.message);
   }

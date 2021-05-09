@@ -39,7 +39,6 @@ const updateItemsList = async (mail, name, type, info) => {
 const login = async (mail, password) => {
   try {
     const user = await getUser(mail);
-
     const match = await bcrypt.compare(password, user.password);
     if (match) return user;
     throw new Error('wrong details');
@@ -56,8 +55,9 @@ const addUser = async (details) => {
       number: details.number,
     };
     details.address = await UpdateAddress(details.address);
-    const user = await new User(details);
+    let user = await new User(details);
     await user.save();
+    user = getUser(details.email);
     return user;
   } catch (e) {
     throw new Error(e);

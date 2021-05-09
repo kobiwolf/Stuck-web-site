@@ -23,7 +23,11 @@ export default function EditInfoItem({ item, setItem }) {
         }}
       >
         <br />
-        {!isEditMode ? 'עריכת הערה' : 'שמור הערה'}
+        {!isEditMode ? (
+          <i class="far fa-edit" />
+        ) : (
+          <i class="far fa-check-circle" />
+        )}
       </button>
     </div>
   );

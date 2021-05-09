@@ -7,15 +7,17 @@
 .CardItem img {
   width: 100px;
   height: 100px;
+  size: 100% 100%;
   border-radius: 50%;
   border: 1px solid rgba(128, 128, 128, 0.389);
 }
+
 .CardItem button {
   height: max-content;
   width: max-content;
   margin: auto 2px;
   background-color: transparent;
-  border: 1px solid rgba(128, 128, 128, 0.389);
+  border: unset;
 }
 .CardItem div {
   display: flex;

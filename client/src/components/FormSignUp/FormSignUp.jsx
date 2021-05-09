@@ -22,18 +22,17 @@ export default function Form({ setRegistered, registered }) {
     if (!email || !password || !street || !city || !number)
       return setResponse('all fields are required');
     if (!validator.isEmail(email)) return setResponse('must put valid email');
-    if (!validator.isStrongPassword(password))
+    if (!validator.isStrongPassword(password, { minSymbols: 0 }))
       return setResponse('must put valid password');
     else {
       try {
         const formData = new FormData();
+        const obj = { name, city, street, number, email, password };
+        Object.entries(obj).forEach((value) => {
+          formData.append(value[0], value[1]);
+        });
+
         formData.append('img', imgFile);
-        formData.append('name', name);
-        formData.append('city', city);
-        formData.append('street', street);
-        formData.append('number', number);
-        formData.append('email', email);
-        formData.append('password', password);
 
         const { data } = await axios.post(`${endPoint}/signup`, formData);
         const user = await axios.post(`${endPoint}/login`, { email, password });

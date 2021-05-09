@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import EditInfoDiv from '../components/EditInfoDiv/EditInfoDiv';
 // import axios from 'axios'
 // import CardItem from '../components/CardItem/CardItem'
 // import endPoint from '../endPoints/serverEndPoint'
 export default function ContentUsPage() {
-    const [data,setData]=useState(null)
-    return (
-        <div>
-          <h1>דברו איתנו</h1>
-        </div>
-    )
+  const [data, setData] = useState(null);
+  return (
+    <div>
+      <EditInfoDiv />
+    </div>
+  );
 }

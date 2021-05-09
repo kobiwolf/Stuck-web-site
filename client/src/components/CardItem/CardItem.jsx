@@ -22,7 +22,13 @@ export default function CardItem({ item }) {
       <div>
         <img src={`data:image/png;base64,${item.img}`} alt={item.name} />
         <h2>{item.name}</h2>
-        <button onClick={clickHandle}>{isUserHasItem() ? '-' : '+ '}</button>
+        <button onClick={clickHandle}>
+          {isUserHasItem() ? (
+            <i class="far fa-trash-alt" />
+          ) : (
+            <i class="fas fa-plus-circle" />
+          )}
+        </button>
       </div>
       {isUserHasItem() && (
         <EditInfoItem item={itemState} setItem={setItemState} />
