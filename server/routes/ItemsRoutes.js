@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const Json = require('../model/Json');
 const fs = require('fs');
+const auth = require('../middleware/auth');
 
 const upload = multer();
 
@@ -36,7 +37,7 @@ route.get('/:id/:type/img', async (req, res) => {
 });
 
 // get items per type
-route.get('/items/:type', async (req, res) => {
+route.get('/items/:type', auth, async (req, res) => {
   try {
     const items = await getItems(req.params.type, req.query.name);
     res.send(items);

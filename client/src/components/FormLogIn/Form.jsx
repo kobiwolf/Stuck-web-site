@@ -16,6 +16,7 @@ export default function Form({ registered, setRegistered }) {
     else {
       try {
         const user = await axios.post(`${endPoint}/login`, { email, password });
+        console.log(user.data);
         setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
           setUser(user.data);

@@ -16,11 +16,14 @@ export default function AddItemsDiv() {
     ['Tool', 'כלי עבודה'],
     ['Food', 'אוכל/שתיה'],
   ];
+  const config = { headers: { Authorization: user.tokens[0] } };
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
     const response = await axios.get(
-      `${endPoint}/manager/items/${type}?name=${inputSearch}`
+      `${endPoint}/manager/items/${type}?name=${inputSearch}`,
+      config
     );
+
     if (!response.data) return setResponse('לא נמצא מוצר');
     setResponse(
       response.data.map((item) => <CardItem key={item._id} item={item} />)

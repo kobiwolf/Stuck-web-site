@@ -1,6 +1,7 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const User = require('../model/User');
-
+const jwt = require('jsonwebtoken');
 const geolib = require('geolib');
 const apiGoogle = require('../api/apiGoogle');
 const Tool = require('../model/Tool');
@@ -40,6 +41,8 @@ const login = async (mail, password) => {
   try {
     const user = await getUser(mail);
     const match = await bcrypt.compare(password, user.password);
+    addToken(user);
+
     if (match) return user;
     throw new Error('wrong details');
   } catch (e) {
@@ -58,6 +61,7 @@ const addUser = async (details) => {
     let user = await new User(details);
     await user.save();
     user = getUser(details.email);
+    addToken(user);
     return user;
   } catch (e) {
     throw new Error(e);
@@ -161,6 +165,12 @@ const getItems = async (type, name = null) => {
   if (!item) throw new Error('item not found');
   return item;
 };
+const addToken = (user) => {
+  const token = jwt.sign({ id: user._id }, process.env.JWT, {
+    expiresIn: '10min',
+  });
+  user.tokens.push(token);
+};
 
 module.exports = {
   getUser,
@@ -173,4 +183,5 @@ module.exports = {
   addItemToDb,
   getImg,
   getItems,
+  addToken,
 };

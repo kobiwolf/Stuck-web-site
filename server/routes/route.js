@@ -13,6 +13,7 @@ const {
   addUser,
   deleteUser,
   UpdateInfo,
+  addToken,
 } = require('../helperFuncs/utils');
 const endPoint = '/api/users';
 
@@ -22,35 +23,25 @@ route.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await login(email, password);
+
+    addToken(user);
     res.send(user);
   } catch (e) {
     res.status(400).send(e.message);
   }
 });
-route.post('/addImage/:mail', upload.single('img'), async (req, res) => {
-  const { mail } = req.params;
-  console.log(req.file);
-  const buffer = await sharp(req.file.buffer)
-    .resize({ width: 400, height: 400 })
-    .png()
-    .toBuffer();
-  try {
-    const user = await getUser(mail);
-    user.avatar = buffer;
-    user.save();
-    res.send('upload Image has finished');
-  } catch (e) {
-    res.status(404).send('upload Image has failed');
-  }
-});
+
 //  post  to sign up
 route.post('/signup', upload.single('img'), async (req, res) => {
-  const buffer = await sharp(req.file.buffer)
-    .resize({ width: 400, height: 400 })
-    .png()
-    .toBuffer();
+  let buffer;
+  if (req.file) {
+    buffer = await sharp(req.file.buffer)
+      .resize({ width: 400, height: 400 })
+      .png()
+      .toBuffer();
+  }
   const user = req.body;
-  user.avatar = buffer;
+  if (req.file) user.avatar = buffer;
   try {
     const respone = await addUser(user);
     res.send(respone);

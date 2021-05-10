@@ -36,18 +36,15 @@ const schema = new mongoose.Schema({
   reviews: {
     type: Array,
   },
-  token: {
-    type: String,
-    validate(value) {
-      if (!validator.isJWT(value)) throw new Error('prob with token');
-    },
-  },
+
   password: {
     type: String,
     require: true,
     validate(value) {
       if (!validator.isStrongPassword(value, { minSymbols: 0 }))
-        throw new Error('must put a valid password');
+        throw new Error(
+          'must put a valid password,8 digits,includes capital and non capital'
+        );
     },
   },
   items: {
@@ -58,10 +55,13 @@ const schema = new mongoose.Schema({
     type: String,
     default: true,
   },
+  tokens: {
+    type: Array,
+    require: true,
+  },
 });
 schema.pre('save', async function (next) {
   const user = this;
-
   if (user.isModified('password'))
     user.password = await bcrypt.hash(user.password, 8);
   next();
@@ -74,10 +74,13 @@ schema.methods.toJSON = function () {
   userObject.items.forEach(
     (item) => (item.img = `${endPoint}/manager/${item._id}/${item.type}/img`)
   );
-  userObject.avatar = `${endPoint}/img/${userObject.email}`;
+  if (userObject.avatar)
+    userObject.avatar = `${endPoint}/img/${userObject.email}`;
+
   return userObject;
 };
 const User = new mongoose.model('User', schema);
+
 User.findByMail = async (value) => {
   try {
     const result = await User.findOne({ email: value });
