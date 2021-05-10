@@ -17,6 +17,60 @@ export default function Form({ setRegistered, registered }) {
   const [img, setImg] = useState('');
   const [imgFile, setImgFile] = useState('');
   const [response, setResponse] = useState('');
+  const [allAddresses, setAllAddresses] = useState(null);
+  const [errorMsgCity, setErrorMsgCity] = useState('');
+  const [errorMsgStreet, setErrorMsgStreet] = useState('');
+  const [optionsCity, setOptionsCity] = useState(null);
+  const [optionsStreets, setOptionsStreets] = useState(null);
+
+  useEffect(() => {
+    const func = async () => {
+      try {
+        const answer = await axios.get(`${endPoint}/address-list`);
+        const listOfAll = JSON.parse(answer.data.data);
+        setAllAddresses(listOfAll);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    func();
+    return () => {};
+  }, []);
+  useEffect(() => {
+    if (city) {
+      const req = new RegExp(`^${city}`, 'm');
+      const startsWith = Object.keys(allAddresses).filter((city) =>
+        req.test(city)
+      );
+      startsWith.splice(10);
+      startsWith.length === 0
+        ? setErrorMsgCity('לא נמצאה עיר בישראל')
+        : setErrorMsgCity(null);
+      setOptionsCity(startsWith);
+    } else {
+      setOptionsCity([]);
+      setErrorMsgCity(null);
+    }
+    return () => {};
+  }, [city]);
+  useEffect(() => {
+    if (street) {
+      if (!city) return setStreet('חובה לשים עיר!');
+      const req = new RegExp(`^${street}`, 'm');
+      const streetsInCity = allAddresses[city];
+      if (!streetsInCity) return setStreet('אין רחובות בעיר זו');
+      const startsWith = streetsInCity.filter((street) => req.test(street));
+      startsWith.splice(10);
+      startsWith.length === 0
+        ? setErrorMsgStreet('לא נמצאה רחוב בישראל')
+        : setErrorMsgStreet(null);
+      setOptionsStreets(startsWith);
+    } else {
+      setOptionsStreets([]);
+      setErrorMsgStreet(null);
+    }
+    return () => {};
+  }, [street]);
 
   const handleClick = async () => {
     if (!email || !password || !street || !city || !number)
@@ -31,9 +85,7 @@ export default function Form({ setRegistered, registered }) {
         Object.entries(obj).forEach((value) => {
           formData.append(value[0], value[1]);
         });
-
         formData.append('img', imgFile);
-
         const { data } = await axios.post(`${endPoint}/signup`, formData);
         const user = await axios.post(`${endPoint}/login`, { email, password });
         setResponse('משתמש נרשם בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
@@ -54,9 +106,26 @@ export default function Form({ setRegistered, registered }) {
     >
       <LabelForm text="מייל" state={email} setState={setEmail} />
       <LabelForm text="שם" state={name} setState={setName} />
-      <LabelForm text="עיר" state={city} setState={setCity} />
-      <LabelForm text="רחוב" state={street} setState={setStreet} />
-      <LabelForm text="מספר" state={number} setState={setNumber} />
+      <LabelForm
+        text="עיר"
+        state={city}
+        setState={setCity}
+        cities={optionsCity}
+      />
+      <h4>{errorMsgCity}</h4>
+      <LabelForm
+        text="רחוב"
+        state={street}
+        setState={setStreet}
+        streets={optionsStreets}
+      />
+      <h4>{errorMsgStreet}</h4>
+      <LabelForm
+        text="מספר"
+        state={number}
+        setState={setNumber}
+        isNumber={true}
+      />
       <LabelForm
         text="סיסמא"
         state={password}
@@ -71,7 +140,12 @@ export default function Form({ setRegistered, registered }) {
           setImg(e.target.value);
         }}
       ></input>
-      <button className="ui button" type="submit" onClick={handleClick}>
+      <button
+        disabled={errorMsgCity || errorMsgStreet ? true : false}
+        className="ui button"
+        type="submit"
+        onClick={handleClick}
+      >
         Submit
       </button>
       <button

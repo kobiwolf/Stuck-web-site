@@ -80,8 +80,8 @@ const UpdateInfo = async (user, details) => {
   }
   try {
     Object.keys(details).forEach((key) => (user[key] = details[key]));
-    const respone = await user.save();
-    return respone;
+    await user.save();
+    return user;
   } catch (e) {
     throw new Error(e);
   }

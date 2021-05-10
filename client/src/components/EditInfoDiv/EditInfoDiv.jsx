@@ -32,7 +32,7 @@ export default function EditInfoDiv() {
     try {
       const { data } = await axios.patch(`${endPoint}/settings`, fd);
       //   console.log(data.avatar.toBuffer());
-      console.log(Buffer.from(JSON.stringify(data.avatar)));
+      console.log(data.avatar);
       setUser(data);
     } catch (error) {
       console.log(error.message);

@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
+const Json = require('../model/Json');
 const upload = multer();
 const route = new express.Router();
 const {
@@ -89,8 +90,8 @@ route.patch('/settings', upload.single('img'), async (req, res) => {
       city: req.body.city,
       number: req.body.number,
     };
-    await UpdateInfo(user, req.body);
-    user = await getUser(email);
+    user = await UpdateInfo(user, req.body);
+    // user = await getUser(email);
     res.send(user);
   } catch (e) {
     res.status(400).send(e.message);
@@ -102,6 +103,15 @@ route.get('/img/:email', async (req, res) => {
     const user = await getUser(req.params.email);
     res.set('Content-Type', 'image/png');
     res.send(user.avatar.buffer);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+//  to get the sjon that has all the cities and strret
+route.get('/address-list', async (req, res) => {
+  try {
+    const data = await Json.findOne({});
+    res.send(data);
   } catch (e) {
     res.status(404).send(e.message);
   }

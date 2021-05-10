@@ -3,6 +3,9 @@ const route = new express.Router();
 const { addItemToDb, getItems, getImg } = require('../helperFuncs/utils');
 const sharp = require('sharp');
 const multer = require('multer');
+const path = require('path');
+const Json = require('../model/Json');
+const fs = require('fs');
 
 const upload = multer();
 
@@ -37,6 +40,18 @@ route.get('/items/:type', async (req, res) => {
   try {
     const items = await getItems(req.params.type, req.query.name);
     res.send(items);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+route.post('/json', async (req, res) => {
+  try {
+    const a = await fs.readFileSync(
+      path.join(__dirname, '../../client/src/jsons/cities.json')
+    );
+    const json = new Json({ data: a.toString() });
+    await json.save();
+    res.send();
   } catch (e) {
     res.status(404).send(e.message);
   }
