@@ -4,6 +4,7 @@ import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
 import Context from '../Context/Context';
+import Cookies from 'universal-cookie';
 
 export default function Form({ registered, setRegistered }) {
   const { user, setUser } = useContext(Context);
@@ -15,13 +16,18 @@ export default function Form({ registered, setRegistered }) {
     if (!validator.isEmail(email)) setResponse('must put valid email');
     else {
       try {
-        const user = await axios.post(`${endPoint}/login`, { email, password });
-        console.log(user.data);
+        const cookies = new Cookies();
+        const { data } = await axios.post(`${endPoint}/login`, {
+          email,
+          password,
+        });
+        cookies.set('token', data.tokens[data.tokens.length - 1]);
         setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
-          setUser(user.data);
+          setUser(data);
         }, 1500);
       } catch (e) {
+        console.log(e);
         setResponse(e.response.data);
       }
     }

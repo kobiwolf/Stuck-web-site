@@ -60,10 +60,10 @@ const addUser = async (details) => {
     details.address = await UpdateAddress(details.address);
     let user = await new User(details);
     user.tokens = [];
+    addToken(user);
     await user.save();
     user = await getUser(details.email);
     console.log(user);
-    addToken(user);
     return user;
   } catch (e) {
     throw new Error(e);

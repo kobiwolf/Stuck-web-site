@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './LabalInputForm.css';
 export default function LabelInputForm({
   text,
   state,
@@ -46,7 +46,7 @@ export default function LabelInputForm({
   }, [streets]);
   return (
     <div className="field">
-      <label>{text}</label>
+      <label>{text}:</label>
       <input
         type={isNumber ? 'number' : type}
         name={text}

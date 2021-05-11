@@ -100,7 +100,7 @@ export default function Form({ setRegistered, registered }) {
 
   return (
     <form
-      className="ui form"
+      className="form"
       style={{ position: 'unset' }}
       onSubmit={(e) => e.preventDefault()}
     >

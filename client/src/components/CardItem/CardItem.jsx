@@ -25,9 +25,9 @@ export default function CardItem({ item }) {
         <h2>{item.name}</h2>
         <button onClick={clickHandle}>
           {isUserHasItem() ? (
-            <i class="far fa-trash-alt" key={uniqid()} />
+            <i className="far fa-trash-alt" key={uniqid()} />
           ) : (
-            <i class="fas fa-plus-circle" key={uniqid()} />
+            <i className="fas fa-plus-circle" key={uniqid()} />
           )}
         </button>
       </div>

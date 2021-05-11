@@ -1,0 +1,22 @@
+.field {
+  margin: 0 1rem;
+
+  border-bottom: 1px solid black;
+  width: 90%;
+}
+.field label {
+  display: block;
+  font-size: 18px;
+  padding: 5px;
+}
+.field input {
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 5px 1rem;
+}
+.field {
+  padding: 5px 1rem;
+}
+.field {
+  padding: 5px 1rem;
+}

@@ -61,6 +61,13 @@ route.delete('/settings', auth, async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+route.post('/profile', auth, async (req, res) => {
+  try {
+    res.send(req.user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 //update a user info (if the user changed his password remember to .save in order the password will be hashed)
 

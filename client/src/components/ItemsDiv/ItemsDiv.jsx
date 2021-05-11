@@ -4,13 +4,17 @@ import './ItemsDiv.css';
 import Context from '../Context/Context';
 import axios from 'axios';
 import endPoint from '../../endPoints/serverEndPoint';
+import Cookies from 'universal-cookie';
+
+const cookie = new Cookies();
 export default function ItemsDiv() {
   const { user, setUser } = useContext(Context);
   const [items, setItems] = useState([]);
   const config = {
-    headers: { Authorization: user.tokens[user.tokens.length - 1] },
+    headers: { Authorization: new Cookies().get('token') },
   };
   useEffect(() => {
+    console.log(user);
     setItems(user.items.map((item) => <CardItem key={item._id} item={item} />));
   }, [user]);
   const saveItem = async () => {
