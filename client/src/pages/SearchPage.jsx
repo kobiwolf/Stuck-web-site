@@ -19,7 +19,9 @@ export default function SearchPage() {
   };
   useEffect(() => {
     if (!user)
-      new Cookies().get('token') ? getUserByToken() : history.replace('/');
+      new Cookies().get('token')
+        ? getUserByToken()
+        : history.replace('/signup');
   }, []);
 
   return (

@@ -23,7 +23,7 @@ export default function User() {
           alt={`pic of ${user.name}`}
         />
       )}
-      <a href="/" className="red">
+      <a href="/signup" className="red">
         התנתק
       </a>
     </div>

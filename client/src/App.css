@@ -5,5 +5,8 @@
   padding: 0;
 }
 :root {
-  --blue: #07195b;
+  --headerC: #07195b;
+  --blue: #2f7bea;
+  --red: #d40038;
+  --orange: #ff8800;
 }
