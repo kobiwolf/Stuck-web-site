@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './CardItem.css';
 import Context from '../Context/Context';
 import EditInfoItem from '../EditInfoItem/EditInfoItem';
+import uniqid from 'uniqid';
 export default function CardItem({ item }) {
   const { user, setUser } = useContext(Context);
   const [itemState, setItemState] = useState(item);
@@ -24,9 +25,9 @@ export default function CardItem({ item }) {
         <h2>{item.name}</h2>
         <button onClick={clickHandle}>
           {isUserHasItem() ? (
-            <i class="far fa-trash-alt" />
+            <i class="far fa-trash-alt" key={uniqid()} />
           ) : (
-            <i class="fas fa-plus-circle" />
+            <i class="fas fa-plus-circle" key={uniqid()} />
           )}
         </button>
       </div>

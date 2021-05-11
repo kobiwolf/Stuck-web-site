@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
+const auth = require('../middleware/auth');
 const Json = require('../model/Json');
 const upload = multer();
 const route = new express.Router();
@@ -51,7 +52,7 @@ route.post('/signup', upload.single('img'), async (req, res) => {
 });
 
 //delete a user
-route.delete('/settings', async (req, res) => {
+route.delete('/settings', auth, async (req, res) => {
   const { email } = req.body;
   try {
     const respone = await deleteUser(email);
@@ -63,7 +64,7 @@ route.delete('/settings', async (req, res) => {
 
 //update a user info (if the user changed his password remember to .save in order the password will be hashed)
 
-route.patch('/settings', upload.single('img'), async (req, res) => {
+route.patch('/settings', auth, upload.single('img'), async (req, res) => {
   let buffer;
   if (req.file) {
     buffer = await sharp(req.file.buffer)
@@ -73,6 +74,7 @@ route.patch('/settings', upload.single('img'), async (req, res) => {
   }
   const { email } = req.body;
   try {
+    console.log(req.user);
     let user = await getUser(email);
     delete req.body.email;
     if (req.file) req.body.avatar = buffer;
@@ -109,7 +111,7 @@ route.get('/address-list', async (req, res) => {
 });
 
 // update user items list (i'll try to do it like this-if item exist-remove it,else-add it)
-route.patch('/list', async (req, res) => {
+route.patch('/list', auth, async (req, res) => {
   const { mail, item, type, info } = req.body;
   try {
     const respone = await updateItemsList(mail, item, type, info);
@@ -118,7 +120,7 @@ route.patch('/list', async (req, res) => {
     res.status(400).send(e.message);
   }
 });
-route.delete('/list', async (req, res) => {
+route.delete('/list', auth, async (req, res) => {
   const { names, mail } = req.body;
   try {
     const user = await getUser(mail);
@@ -130,7 +132,7 @@ route.delete('/list', async (req, res) => {
   }
 });
 //get users which have the item
-route.post('/search', async (req, res) => {
+route.post('/search', auth, async (req, res) => {
   const { item, city, range, gps } = req.body;
   try {
     const users = await WhoHasItem(item, city, range, gps);

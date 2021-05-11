@@ -7,6 +7,9 @@ import endPoint from '../../endPoints/serverEndPoint';
 export default function ItemsDiv() {
   const { user, setUser } = useContext(Context);
   const [items, setItems] = useState([]);
+  const config = {
+    headers: { Authorization: user.tokens[user.tokens.length - 1] },
+  };
   useEffect(() => {
     setItems(user.items.map((item) => <CardItem key={item._id} item={item} />));
   }, [user]);
@@ -28,12 +31,16 @@ export default function ItemsDiv() {
         console.log(error);
       }
     }
-    const answer = await axios.delete(`${endPoint}/list`, {
-      data: {
-        names: itemsNames,
-        mail: user.email,
+    const answer = await axios.delete(
+      `${endPoint}/list`,
+      {
+        data: {
+          names: itemsNames,
+          mail: user.email,
+        },
       },
-    });
+      config
+    );
     console.dir(answer);
   };
   return (

@@ -5,7 +5,7 @@ import CardItem from '../CardItem/CardItem';
 import './AddItemsDiv.css';
 import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
-
+// import config from '../../config/configAxiosReq';
 export default function AddItemsDiv() {
   const { user, setUser } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
@@ -16,7 +16,9 @@ export default function AddItemsDiv() {
     ['Tool', 'כלי עבודה'],
     ['Food', 'אוכל/שתיה'],
   ];
-  const config = { headers: { Authorization: user.tokens[0] } };
+  const config = {
+    headers: { Authorization: user.tokens[user.tokens.length - 1] },
+  };
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
     const response = await axios.get(

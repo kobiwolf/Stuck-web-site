@@ -11,16 +11,23 @@ export default function SearchDiv() {
   const [searchAnswer, setSearchAnswer] = useState(null);
   const [radius, setRadius] = useState(null);
   const [type, setType] = useState(null);
+  const config = {
+    headers: { Authorization: user.tokens[user.tokens.length - 1] },
+  };
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
       return setSearchAnswer('חובה למלא את כל השדות');
     try {
-      const response = await axios.post(`${endPoint}/search`, {
-        item: inputSearch,
-        city: user.address.city,
-        range: radius,
-        gps: user.address.gps,
-      });
+      const response = await axios.post(
+        `${endPoint}/search`,
+        {
+          item: inputSearch,
+          city: user.address.city,
+          range: radius,
+          gps: user.address.gps,
+        },
+        config
+      );
       if (!response || !response.data)
         setSearchAnswer('אין אף משתמש שמתאים לקריטרונים שלך');
       setSearchAnswer(

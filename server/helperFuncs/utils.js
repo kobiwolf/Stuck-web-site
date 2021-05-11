@@ -59,8 +59,10 @@ const addUser = async (details) => {
     };
     details.address = await UpdateAddress(details.address);
     let user = await new User(details);
+    user.tokens = [];
     await user.save();
-    user = getUser(details.email);
+    user = await getUser(details.email);
+    console.log(user);
     addToken(user);
     return user;
   } catch (e) {

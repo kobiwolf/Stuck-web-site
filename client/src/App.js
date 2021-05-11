@@ -14,6 +14,7 @@ import Context from './components/Context/Context';
 
 function App() {
   const [user, setUser] = useState('');
+
   return (
     <div className="App">
       <BrowserRouter>

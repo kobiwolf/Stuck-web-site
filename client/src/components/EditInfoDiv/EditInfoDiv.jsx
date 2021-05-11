@@ -16,6 +16,9 @@ export default function EditInfoDiv() {
   const [img, setImg] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const myRef = useRef();
+  const config = {
+    headers: { Authorization: user.tokens[user.tokens.length - 1] },
+  };
   const displayInfo = () => {
     const classes = myRef.current.classList;
     classes.value.includes('hidden')
@@ -30,7 +33,7 @@ export default function EditInfoDiv() {
     });
     fd.append('email', user.email);
     try {
-      const { data } = await axios.patch(`${endPoint}/settings`, fd);
+      const { data } = await axios.patch(`${endPoint}/settings`, fd, config);
       //   console.log(data.avatar.toBuffer());
       console.log(data.avatar);
       setUser(data);
