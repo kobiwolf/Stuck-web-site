@@ -10,7 +10,6 @@ export default function User() {
 
   return (
     <div className="userProfile">
-      <h4>ברןך הבא {user.name}</h4>
       <img
         src={
           user.avatar
@@ -19,6 +18,7 @@ export default function User() {
         }
         alt={`pic of ${user.name}`}
       />
+      <h4>{user.name}</h4>
       <a
         onClick={(e) => {
           e.preventDefault();

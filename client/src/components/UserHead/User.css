@@ -3,3 +3,17 @@
   height: 50px;
   border-radius: 50%;
 }
+.userProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+  margin-left: 12px;
+}
+.userProfile h4 {
+  margin: 5px 5px 1px 5px;
+}
+.userProfile a {
+  margin-top: -3px;
+  font-size: 12px;
+}

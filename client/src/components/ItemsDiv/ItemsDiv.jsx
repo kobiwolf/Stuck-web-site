@@ -50,7 +50,7 @@ export default function ItemsDiv() {
       <button className="saveButton" onClick={saveItem}>
         <i className="far fa-save fa-2x"></i>
       </button>
-      <h2>:המוצרים שלך</h2>
+      <div className="tabHeader">:המוצרים שלך</div>
       {items.length && items}
     </div>
   );

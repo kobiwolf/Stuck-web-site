@@ -70,7 +70,8 @@ a {
 
   .navbar {
     width: max-content;
-    position: fixed;
+    z-index: 10;
+    position: absolute;
     right: 0;
     top: 0;
   }

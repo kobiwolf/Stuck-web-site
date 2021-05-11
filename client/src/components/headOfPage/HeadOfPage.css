@@ -1,5 +1,25 @@
 .head {
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: #f7f7f7;
+}
+.head ::before {
+  position: absolute;
+  content: '';
+  height: 6px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    var(--headerC) 0%,
+    var(--headerC) 25%,
+    var(--blue) 25%,
+    var(--blue) 50%,
+    var(--red) 50%,
+    var(--red) 75%,
+    var(--orange) 75%,
+    var(--orange) 100%
+  );
 }
