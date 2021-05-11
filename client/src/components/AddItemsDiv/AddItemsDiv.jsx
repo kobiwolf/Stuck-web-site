@@ -19,15 +19,19 @@ export default function AddItemsDiv() {
 
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
-    const response = await axios.get(
-      `${endPoint}/manager/items/${type}?name=${inputSearch}`,
-      config
-    );
+    try {
+      const response = await axios.get(
+        `${endPoint}/manager/items/${type}?name=${inputSearch}`,
+        config
+      );
 
-    if (!response.data) return setResponse('לא נמצא מוצר');
-    setResponse(
-      response.data.map((item) => <CardItem key={item._id} item={item} />)
-    );
+      if (!response.data) return setResponse('לא נמצא מוצר');
+      setResponse(
+        response.data.map((item) => <CardItem key={item._id} item={item} />)
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
   };
   return (
     <div className="addItemDivMain">

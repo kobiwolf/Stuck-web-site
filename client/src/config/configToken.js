@@ -1,4 +1,5 @@
 import Cookies from 'universal-cookie';
-export default {
+const config = {
   headers: { Authorization: new Cookies().get('token') },
 };
+export default config;
