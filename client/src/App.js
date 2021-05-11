@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import ContentUsPage from './pages/ContentUsPage';
 import HeadOfPage from './components/headOfPage/HeadOfPage';
 import Context from './components/Context/Context';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [user, setUser] = useState('');
@@ -30,6 +31,7 @@ function App() {
 
             <Route path="/contactUs" exact component={ContentUsPage} />
           </Switch>
+          {user && <Footer />}
         </Context.Provider>
       </BrowserRouter>
     </div>

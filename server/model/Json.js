@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
-  data: {
-    type: String,
-  },
+  data: {},
 });
 const Json = new mongoose.model('json', schema);
 

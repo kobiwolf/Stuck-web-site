@@ -7,16 +7,10 @@ export default function User() {
   const { user, setUser } = useContext(Context);
   const [state, setState] = useState(true);
   const history = useHistory();
-  useEffect(() => {
-    setState(false);
-    setTimeout(() => {
-      setState(true);
-    }, 1);
-  }, [user]);
+
   return (
     <div className="userProfile">
       <h4>ברןך הבא {user.name}</h4>
-      {/* {state && ( */}
       <img
         src={
           user.avatar
@@ -25,7 +19,6 @@ export default function User() {
         }
         alt={`pic of ${user.name}`}
       />
-      {/* )} */}
       <a
         onClick={(e) => {
           e.preventDefault();

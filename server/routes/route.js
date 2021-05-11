@@ -3,6 +3,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const auth = require('../middleware/auth');
 const Json = require('../model/Json');
+const Logo = require('../model/Logo');
 const upload = multer();
 const route = new express.Router();
 const {
@@ -112,6 +113,34 @@ route.get('/address-list', async (req, res) => {
   try {
     const data = await Json.findOne({});
     res.send(data);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+route.get('/logo/big', async (req, res) => {
+  try {
+    const logos = await Logo.find({});
+    res.set('Content-Type', 'image/png');
+    res.send(logos[0].logo);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+route.get('/logo/small', async (req, res) => {
+  try {
+    const logos = await Logo.find({});
+    res.set('Content-Type', 'image/png');
+    res.send(logos[1].logo);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+route.post('/logo', upload.single('img'), async (req, res) => {
+  try {
+    buffer = await sharp(req.file.buffer).png().toBuffer();
+    const logo = new Logo({ logo: buffer });
+    logo.save();
+    res.send();
   } catch (e) {
     res.status(404).send(e.message);
   }

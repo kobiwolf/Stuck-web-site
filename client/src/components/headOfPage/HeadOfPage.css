@@ -1,5 +1,5 @@
 .head {
   display: flex;
   justify-content: space-between;
-  background-color: var(--blue);
+  background-color: #f7f7f7;
 }

@@ -45,6 +45,7 @@ route.get('/items/:type', auth, async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+// add a file or json to json
 route.post('/json', async (req, res) => {
   try {
     const a = await fs.readFileSync(

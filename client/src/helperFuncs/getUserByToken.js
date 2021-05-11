@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import endPoint from '../endPoints/serverEndPoint';
 import config from '../config/configToken';
 const getUserByToken = async () => {
