@@ -20,11 +20,9 @@ function App() {
         <Context.Provider value={{ user, setUser }}>
           {user && <HeadOfPage />}
           <Switch>
-            <Route path="/signup">
-              {user ? <Redirect to="/" /> : <LoginPage />}
-            </Route>
+            <Route exact path="/" component={LoginPage} />
 
-            <Route path="/" exact component={SearchPage} />
+            <Route path="/home" exact component={SearchPage} />
 
             <Route path="/setting" exact component={SettingsPage} />
 

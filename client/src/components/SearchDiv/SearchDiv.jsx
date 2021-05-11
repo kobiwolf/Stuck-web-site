@@ -4,7 +4,8 @@ import endPoint from '../../endPoints/serverEndPoint';
 import Card from '../Card/Card';
 import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
-import Cookies from 'universal-cookie';
+import config from '../../config/configToken';
+
 import './SearchDiv.css';
 export default function SearchDiv() {
   const { user, setUser } = useContext(Context);
@@ -12,9 +13,7 @@ export default function SearchDiv() {
   const [searchAnswer, setSearchAnswer] = useState(null);
   const [radius, setRadius] = useState(null);
   const [type, setType] = useState(null);
-  const config = {
-    headers: { Authorization: new Cookies().get('token') },
-  };
+
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
       return setSearchAnswer('חובה למלא את כל השדות');

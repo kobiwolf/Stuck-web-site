@@ -5,6 +5,7 @@ import LabelForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
 import Context from '../Context/Context';
+import Cookies from 'universal-cookie';
 
 export default function Form({ setRegistered, registered }) {
   const { user, setUser } = useContext(Context);
@@ -87,6 +88,7 @@ export default function Form({ setRegistered, registered }) {
         });
         formData.append('img', imgFile);
         const { data } = await axios.post(`${endPoint}/signup`, formData);
+        new Cookies().set('token', data.tokens[data.tokens.length - 1]);
         const user = await axios.post(`${endPoint}/login`, { email, password });
         setResponse('משתמש נרשם בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {

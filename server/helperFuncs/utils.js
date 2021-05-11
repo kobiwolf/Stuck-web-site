@@ -168,9 +168,7 @@ const getItems = async (type, name = null) => {
   return item;
 };
 const addToken = (user) => {
-  const token = jwt.sign({ id: user._id }, process.env.JWT, {
-    expiresIn: '10min',
-  });
+  const token = jwt.sign({ id: user._id }, process.env.JWT);
   user.tokens.push(token);
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import uniqid from 'uniqid';
 
 export default function EditInfoItem({ item, setItem }) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -24,9 +25,9 @@ export default function EditInfoItem({ item, setItem }) {
       >
         <br />
         {!isEditMode ? (
-          <i class="far fa-edit" />
+          <i class="far fa-edit" key={uniqid()} />
         ) : (
-          <i class="far fa-check-circle" />
+          <i class="far fa-check-circle" key={uniqid()} />
         )}
       </button>
     </div>

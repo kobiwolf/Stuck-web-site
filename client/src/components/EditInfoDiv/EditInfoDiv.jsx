@@ -5,7 +5,8 @@ import InputLabelEdit from '../InputLabelEdit/InputLabelEdit';
 import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+import config from '../../config/configToken';
+
 export default function EditInfoDiv() {
   const { user, setUser } = useContext(Context);
   const [password, setPassword] = useState('');
@@ -16,9 +17,7 @@ export default function EditInfoDiv() {
   const [img, setImg] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const myRef = useRef();
-  const config = {
-    headers: { Authorization: new Cookies.get('token') },
-  };
+
   const displayInfo = () => {
     const classes = myRef.current.classList;
     classes.value.includes('hidden')
