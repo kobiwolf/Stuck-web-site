@@ -28,3 +28,8 @@
   border-top-left-radius: 15%;
   border-bottom-left-radius: 15%;
 }
+.ItemsDiv {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}

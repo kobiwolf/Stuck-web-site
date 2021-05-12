@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import endPoint from '../../endPoints/serverEndPoint';
 import CardItem from '../CardItem/CardItem';
 import './AddItemsDiv.css';
@@ -16,7 +16,18 @@ export default function AddItemsDiv() {
     ['Tool', 'כלי עבודה'],
     ['Food', 'אוכל/שתיה'],
   ];
-
+  useEffect(() => {
+    if (response.length) {
+      console.log(response);
+      const itemsUserNotHave = response.map(
+        (item) =>
+          !user.items.find((itemi) => itemi.name === itemi.props.item.name) &&
+          item
+      );
+      console.log(itemsUserNotHave);
+      setResponse(itemsUserNotHave);
+    }
+  }, [user]);
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
     try {
@@ -53,7 +64,7 @@ export default function AddItemsDiv() {
         />
       </div>
       <button onClick={handleClick}>הרץ חיפוש למוצר</button>
-      {response}
+      <div className="items">{response}</div>
     </div>
   );
 }

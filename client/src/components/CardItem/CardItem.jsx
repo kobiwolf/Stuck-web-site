@@ -21,14 +21,18 @@ export default function CardItem({ item }) {
   return (
     <div className="CardItem">
       <div>
-        <img src={item.img} alt={item.name} />
+        <img
+          src={item.img}
+          alt={item.name}
+          onClick={() => {
+            if (!isUserHasItem()) clickHandle();
+          }}
+        />
         <h2>{item.name}</h2>
+      </div>
+      <div>
         <button onClick={clickHandle}>
-          {isUserHasItem() ? (
-            <i className="far fa-trash-alt" key={uniqid()} />
-          ) : (
-            <i className="fas fa-plus-circle" key={uniqid()} />
-          )}
+          {isUserHasItem() && <i className="far fa-trash-alt" key={uniqid()} />}
         </button>
       </div>
       {isUserHasItem() && (

@@ -5,3 +5,11 @@
 .addItemDivOptions {
   display: flex;
 }
+
+.addItemDivMain > .items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.addItemDivMain > .items > div {
+  background-color: blue;
+}

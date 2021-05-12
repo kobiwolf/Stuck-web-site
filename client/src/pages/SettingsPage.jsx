@@ -25,7 +25,7 @@ export default function SettingsPage() {
       {user && (
         <div>
           <ItemsDiv />
-          <h2>המוצרים להוספה:</h2>
+          <div className="tabHeader">המוצרים להוספה:</div>
           <AddItemsDiv />
         </div>
       )}

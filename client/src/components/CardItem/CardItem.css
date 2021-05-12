@@ -1,10 +1,24 @@
 .CardItem {
   display: flex;
   width: 90%;
-  margin: 0.5rem auto;
   flex-direction: column;
+  margin: 0.5rem auto;
+  position: relative;
+  border: 1px solid black;
+  animation: display 1.5s linear 0s 1 normal forwards;
+}
+@keyframes display {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .CardItem img {
+  margin: 1px auto;
   width: 100px;
   height: 100px;
   size: 100% 100%;
@@ -21,10 +35,21 @@
 }
 .CardItem div {
   display: flex;
+  flex-direction: column;
+}
+
+.CardItem h2 {
+  margin-top: 10px;
+  text-align: center;
 }
 .EditInfoItem {
   flex-direction: column !important;
 }
 .EditInfoItem h5 {
   margin: 0;
+}
+.fa-trash-alt {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
