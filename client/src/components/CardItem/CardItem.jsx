@@ -3,18 +3,19 @@ import './CardItem.css';
 import Context from '../Context/Context';
 import EditInfoItem from '../EditInfoItem/EditInfoItem';
 import uniqid from 'uniqid';
-export default function CardItem({ item }) {
+export default function CardItem({ item, addItem }) {
   const { user, setUser } = useContext(Context);
   const [itemState, setItemState] = useState(item);
   const isUserHasItem = () =>
     !!user.items.find((itemi) => item.name === itemi.name);
   const clickHandle = () => {
     const copyUser = JSON.parse(JSON.stringify(user));
-    if (isUserHasItem())
+    if (isUserHasItem()) {
       copyUser.items = copyUser.items.filter(
         (itemi) => itemi.name !== item.name
       );
-    else copyUser.items.push(item);
+      addItem(item);
+    } else copyUser.items.push(item);
     setUser(copyUser);
   };
 

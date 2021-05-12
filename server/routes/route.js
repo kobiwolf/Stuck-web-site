@@ -17,6 +17,7 @@ const {
   UpdateInfo,
   addToken,
 } = require('../helperFuncs/utils');
+const Address = require('../model/Address');
 const endPoint = '/api/users';
 
 //  post in odder to login
@@ -80,10 +81,8 @@ route.patch('/settings', auth, upload.single('img'), async (req, res) => {
       .png()
       .toBuffer();
   }
-  const { email } = req.body;
   try {
-    console.log(req.user);
-    let user = await getUser(email);
+    let user = req.user;
     delete req.body.email;
     if (req.file) req.body.avatar = buffer;
     req.body.address = {
@@ -92,7 +91,6 @@ route.patch('/settings', auth, upload.single('img'), async (req, res) => {
       number: req.body.number,
     };
     user = await UpdateInfo(user, req.body);
-    // user = await getUser(email);
     res.send(user);
   } catch (e) {
     res.status(400).send(e.message);
@@ -154,6 +152,15 @@ route.patch('/list', auth, async (req, res) => {
     res.send(respone);
   } catch (e) {
     res.status(400).send(e.message);
+  }
+});
+route.post('/myAddress', auth, async (req, res) => {
+  const { id } = req.body;
+  try {
+    const { city, street, number } = await Address.findOne({ id: id });
+    res.send({ city, street, number });
+  } catch (e) {
+    res.status(404).send(e.message);
   }
 });
 // ! updated the patch req above so the delete req is not neseccery

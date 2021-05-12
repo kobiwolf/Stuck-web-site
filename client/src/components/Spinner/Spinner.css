@@ -12,8 +12,8 @@
 }
 .spinner img {
   animation: spin 2s linear 0s infinite forwards normal;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
 }
 @keyframes spin {
   0% {

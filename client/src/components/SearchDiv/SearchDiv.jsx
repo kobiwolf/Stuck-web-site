@@ -1,18 +1,21 @@
 import axios from 'axios';
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import endPoint from '../../endPoints/serverEndPoint';
 import Card from '../Card/Card';
 import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
 import config from '../../config/configToken';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import './SearchDiv.css';
 export default function SearchDiv() {
   const { user, setUser, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [searchAnswer, setSearchAnswer] = useState(null);
-  const [radius, setRadius] = useState(null);
+  const [radius, setRadius] = useState(0);
   const [type, setType] = useState(null);
+  const rangeRef = useRef();
 
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
@@ -40,13 +43,7 @@ export default function SearchDiv() {
       setSearchAnswer(error.response.data);
     }
   };
-  const radioButtonsValuesRadius = [
-    ['500', '0.5 קילומטר'],
-    ['1500', '1.5 קילומטר'],
-    ['3000', '3 קילומטר'],
-    ['5000', '5 קילומטר'],
-    ['6000', '6 קילומטר'],
-  ];
+
   const radioButtonsValuesType = [
     ['Medicine', 'תרופה'],
     ['Tool', 'כלי עבודה'],
@@ -63,16 +60,28 @@ export default function SearchDiv() {
       />
       <div className="SearchOptions">
         <RadioButtons
-          values={radioButtonsValuesRadius}
-          setState={setRadius}
-          header="בחר רדיוס"
-        />
-        <RadioButtons
           values={radioButtonsValuesType}
           setState={setType}
           header="בחר סוג מוצר"
         />
       </div>
+      <h3>המרחק שבא לך להשקיע(מטרים)</h3>
+      <Slider
+        className="slider"
+        ref={rangeRef}
+        marks={{
+          1000: '1000',
+          2000: '2000',
+          3000: '3000',
+          4000: '4000',
+          5000: '5000',
+          6000: '6000',
+        }}
+        min={0}
+        max={6000}
+        value={radius}
+        onChange={(value) => setRadius(value)}
+      />
 
       <button onClick={searchUser}>יאללה תביא מוצר!</button>
       {searchAnswer && <h2>{searchAnswer}</h2>}

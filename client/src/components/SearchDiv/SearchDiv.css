@@ -9,3 +9,7 @@
   margin: 1rem 0;
   display: flex;
 }
+.slider {
+  width: 70%;
+  margin-bottom: 20px;
+}

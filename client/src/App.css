@@ -10,6 +10,9 @@
   --red: #d40038;
   --orange: #ff8800;
 }
+label,
+button,
+a,
 h1,
 h2,
 h3,
@@ -17,6 +20,7 @@ h4,
 h5,
 h6 {
   color: var(--headerC);
+  font-family: 'Heebo', Serif;
 }
 
 input {

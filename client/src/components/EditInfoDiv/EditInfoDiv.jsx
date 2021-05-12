@@ -6,6 +6,7 @@ import LabelInputForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import axios from 'axios';
 import config from '../../config/configToken';
+import validator from 'validator';
 
 export default function EditInfoDiv() {
   const { user, setUser, setIsLoading } = useContext(Context);
@@ -17,6 +18,93 @@ export default function EditInfoDiv() {
   const [img, setImg] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const myRef = useRef();
+  const [allAddresses, setAllAddresses] = useState(null);
+  const [errorMsgCity, setErrorMsgCity] = useState('');
+  const [errorMsgStreet, setErrorMsgStreet] = useState('');
+  const [errorMsgPassword, setErrorMsgPassword] = useState('');
+  const [optionsCity, setOptionsCity] = useState(null);
+  const [optionsStreets, setOptionsStreets] = useState(null);
+  useEffect(() => {
+    axios
+      .post(`${endPoint}/myAddress`, { id: user.address.id }, config)
+      .then(({ data: { city, street, number } }) => {
+        setCity(city);
+        setStreet(street);
+        setNumber(number);
+      })
+      .catch((e) => console.log(e.message));
+
+    axios
+      .get(`${endPoint}/address-list`)
+      .then(({ data }) => {
+        setAllAddresses(JSON.parse(data.data));
+      })
+      .catch((e) => console.log(e.message));
+  }, []);
+
+  useEffect(() => {
+    if (city && allAddresses) {
+      const req = new RegExp(`^${city}`, 'm');
+      const startsWith = Object.keys(allAddresses).filter((city) =>
+        req.test(city)
+      );
+      startsWith.splice(10);
+      startsWith.length === 0
+        ? setErrorMsgCity('לא נמצאה עיר בישראל,שמירה מושבתת')
+        : setErrorMsgCity(null);
+      setOptionsCity(startsWith);
+    } else {
+      setOptionsCity([]);
+      setErrorMsgCity(null);
+    }
+    return () => {};
+  }, [city]);
+  useEffect(() => {
+    if (street && allAddresses) {
+      if (!city) return setStreet('חובה לשים עיר!');
+      const req = new RegExp(`^${street}`, 'm');
+      const streetsInCity = allAddresses[city];
+      if (!streetsInCity) return setStreet('אין רחובות בעיר זו');
+      const startsWith = streetsInCity.filter((street) => req.test(street));
+      startsWith.splice(10);
+      startsWith.length === 0
+        ? setErrorMsgStreet('לא נמצאה רחוב בישראל,שמירה מושבתת')
+        : setErrorMsgStreet(null);
+      setOptionsStreets(startsWith);
+    } else {
+      setOptionsStreets([]);
+      setErrorMsgStreet(null);
+    }
+    return () => {};
+  }, [street]);
+  useEffect(() => {
+    if (password) {
+      validator.isStrongPassword(password, { minSymbols: 0 })
+        ? setErrorMsgPassword('')
+        : setErrorMsgPassword(
+            'סיסמא חייבת להיות באורך שמונה תווים ולכלול מספר ו אות גדולה באנגלית'
+          );
+    }
+  }, [password]);
+  const checkIfAddressUpdate = async (values) => {
+    const {
+      data: { city, street, number },
+    } = await axios.post(
+      `${endPoint}/myAddress`,
+      { id: user.address.id },
+      config
+    );
+
+    if (
+      values.city === city &&
+      values.street === street &&
+      values.number === number
+    ) {
+      delete values.city;
+      delete values.street;
+      delete values.number;
+    }
+  };
 
   const displayInfo = () => {
     const classes = myRef.current.classList;
@@ -26,16 +114,15 @@ export default function EditInfoDiv() {
   };
   const saveInfo = async () => {
     setIsLoading(true);
+    const email = user.email;
     const fd = new FormData();
-    const values = { password, name, city, street, number, img };
+    const values = { password, name, city, street, number, img, email };
+    await checkIfAddressUpdate(values);
     Object.entries(values).forEach((value) => {
       if (value[1]) fd.append(value[0], value[1]);
     });
-    fd.append('email', user.email);
     try {
       const { data } = await axios.patch(`${endPoint}/settings`, fd, config);
-      //   console.log(data.avatar.toBuffer());
-      console.log(data.avatar);
       setUser(data);
       setIsLoading(false);
     } catch (error) {
@@ -43,28 +130,47 @@ export default function EditInfoDiv() {
       console.log(error.message);
     }
   };
-
   return (
     <div className="EditInfoDiv">
-      <button className="saveButton" onClick={saveInfo}>
-        <i className="far fa-save fa-2x"></i>
+      <button
+        className="saveButton"
+        onClick={saveInfo}
+        disabled={
+          errorMsgStreet || errorMsgCity || errorMsgPassword ? true : false
+        }
+      >
+        <i className="far fa-save fa-2x"> </i>
       </button>
       <InputLabelEdit field="שם" state={name} setState={setName} />
+
       <InputLabelEdit
         field="תמונה"
+        w
         state={imgUrl}
         setState={setImgUrl}
         type="file"
         setFile={setImg}
       />
       <InputLabelEdit field="סיסמא" state={password} setState={setPassword} />
-      <label>עדכן כתובת</label>
+      {errorMsgPassword}
       <div className="" onClick={displayInfo}>
-        <h2>מידע כתובת</h2>
+        <label>עדכן כתובת</label>
       </div>
       <div className="locationInfo hidden" ref={myRef}>
-        <LabelInputForm text="עיר" state={city} setState={setCity} />
-        <LabelInputForm text="רחוב" state={street} setState={setStreet} />
+        <LabelInputForm
+          text="עיר"
+          state={city}
+          setState={setCity}
+          cities={optionsCity}
+        />
+        {errorMsgCity}
+        <LabelInputForm
+          text="רחוב"
+          state={street}
+          setState={setStreet}
+          streets={optionsStreets}
+        />
+        {errorMsgStreet}
         <LabelInputForm text="מספר" state={number} setState={setNumber} />
       </div>
     </div>

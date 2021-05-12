@@ -63,9 +63,20 @@ a {
     transition: 0.3s;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
   }
-
   .nav-menu.active {
     right: 0;
+    width: 70%;
+    z-index: 4;
+  }
+  .background.active {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.322);
+    z-index: 3;
   }
 
   .navbar {
@@ -101,10 +112,12 @@ a {
 
   .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
+    background-color: white;
   }
 
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
+    background-color: white;
   }
   .header {
     border: none;

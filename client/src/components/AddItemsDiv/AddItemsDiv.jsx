@@ -19,15 +19,20 @@ export default function AddItemsDiv() {
   useEffect(() => {
     if (response.length) {
       console.log(response);
-      const itemsUserNotHave = response.map(
-        (item) =>
-          !user.items.find((itemi) => itemi.name === itemi.props.item.name) &&
-          item
-      );
+      console.log(user.items);
+      const itemsUserNotHave = response.filter((item) => {
+        if (!user.items.find((itemi) => itemi.name === item.props.item.name))
+          return item;
+      });
       console.log(itemsUserNotHave);
       setResponse(itemsUserNotHave);
     }
   }, [user]);
+  const addItem = (value) => {
+    const copyResponse = JSON.parse(JSON.stringify(response));
+    copyResponse.push(<CardItem key={value._id} item={value} />);
+    setResponse(copyResponse);
+  };
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
     try {
@@ -39,7 +44,9 @@ export default function AddItemsDiv() {
 
       if (!response.data) return setResponse('לא נמצא מוצר');
       setResponse(
-        response.data.map((item) => <CardItem key={item._id} item={item} />)
+        response.data.map((item) => (
+          <CardItem key={item._id} item={item} addItem={addItem} />
+        ))
       );
       setIsLoading(false);
     } catch (e) {

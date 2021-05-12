@@ -5,15 +5,17 @@
   text-align: center;
 }
 .saveButton {
-  height: 50px;
-  width: 50px;
+  height: 55px;
+  width: 55px;
   border-radius: 50%;
   position: fixed;
   left: 50px;
   bottom: 50px;
   background-color: transparent;
-  color: blue;
+  color: white;
+  background-color: var(--red);
   border: unset;
+  z-index: 1;
 }
 .tabHeader {
   width: 150px;

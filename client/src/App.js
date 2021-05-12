@@ -37,7 +37,6 @@ function App() {
 
             <Route path="/contactUs" exact component={ContentUsPage} />
           </Switch>
-          {user && <Footer />}
         </Context.Provider>
       </BrowserRouter>
     </div>
