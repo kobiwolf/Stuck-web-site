@@ -7,7 +7,7 @@ import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
 import config from '../../config/configToken';
 export default function AddItemsDiv() {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [response, setResponse] = useState('');
   const [type, setType] = useState(null);
@@ -20,6 +20,7 @@ export default function AddItemsDiv() {
   const handleClick = async () => {
     if (!type) return setResponse('כל השדות חובה!');
     try {
+      setIsLoading(true);
       const response = await axios.get(
         `${endPoint}/manager/items/${type}?name=${inputSearch}`,
         config
@@ -29,7 +30,9 @@ export default function AddItemsDiv() {
       setResponse(
         response.data.map((item) => <CardItem key={item._id} item={item} />)
       );
+      setIsLoading(false);
     } catch (e) {
+      setIsLoading(false);
       console.log(e.message);
     }
   };

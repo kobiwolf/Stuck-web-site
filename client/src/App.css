@@ -18,3 +18,8 @@ h5,
 h6 {
   color: var(--headerC);
 }
+
+input {
+  border: 1px solid var(--red);
+  border-radius: 5px;
+}

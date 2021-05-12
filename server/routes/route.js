@@ -148,25 +148,27 @@ route.post('/logo', upload.single('img'), async (req, res) => {
 
 // update user items list (i'll try to do it like this-if item exist-remove it,else-add it)
 route.patch('/list', auth, async (req, res) => {
-  const { mail, item, type, info } = req.body;
+  const { mail, items, names } = req.body;
   try {
-    const respone = await updateItemsList(mail, item, type, info);
+    const respone = await updateItemsList(mail, items, names);
     res.send(respone);
   } catch (e) {
     res.status(400).send(e.message);
   }
 });
-route.delete('/list', auth, async (req, res) => {
-  const { names, mail } = req.body;
-  try {
-    const user = await getUser(mail);
-    user.items = user.items.filter((item) => names.includes(item.name));
-    await user.save();
-    res.send('delete went well');
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
+// ! updated the patch req above so the delete req is not neseccery
+// route.delete('/list', auth, async (req, res) => {
+//   const { names, mail } = req.body;
+//   try {
+//     const user = await getUser(mail);
+//     user.items = user.items.filter((item) => names.includes(item.name));
+//     await user.save();
+//     res.send('delete went well');
+//   } catch (e) {
+//     res.status(400).send(e.message);
+//   }
+// });
+
 //get users which have the item
 route.post('/search', auth, async (req, res) => {
   const { item, city, range, gps } = req.body;

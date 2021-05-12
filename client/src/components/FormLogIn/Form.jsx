@@ -7,7 +7,7 @@ import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
 
 export default function Form({ registered, setRegistered }) {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');
@@ -15,6 +15,7 @@ export default function Form({ registered, setRegistered }) {
     if (!email || !password) setResponse('all fields are required');
     if (!validator.isEmail(email)) setResponse('must put valid email');
     else {
+      setIsLoading(true);
       try {
         const cookies = new Cookies();
         const { data } = await axios.post(`${endPoint}/login`, {
@@ -22,11 +23,13 @@ export default function Form({ registered, setRegistered }) {
           password,
         });
         cookies.set('token', data.tokens[data.tokens.length - 1]);
+        setIsLoading(false);
         setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
           setUser(data);
         }, 1500);
       } catch (e) {
+        setIsLoading(false);
         console.log(e);
         setResponse(e.response.data);
       }

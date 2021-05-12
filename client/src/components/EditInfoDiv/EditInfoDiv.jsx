@@ -8,7 +8,7 @@ import axios from 'axios';
 import config from '../../config/configToken';
 
 export default function EditInfoDiv() {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [name, setName] = useState(user.name);
   const [city, setCity] = useState();
@@ -25,6 +25,7 @@ export default function EditInfoDiv() {
       : classes.add('hidden');
   };
   const saveInfo = async () => {
+    setIsLoading(true);
     const fd = new FormData();
     const values = { password, name, city, street, number, img };
     Object.entries(values).forEach((value) => {
@@ -36,7 +37,9 @@ export default function EditInfoDiv() {
       //   console.log(data.avatar.toBuffer());
       console.log(data.avatar);
       setUser(data);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };

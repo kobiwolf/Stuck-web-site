@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 export default function EditInfoItem({ item, setItem }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(item.info || 'אין מידע');
+  console.log();
   useEffect(() => {
     item.info = input;
     setItem(item);
@@ -25,9 +26,9 @@ export default function EditInfoItem({ item, setItem }) {
       >
         <br />
         {!isEditMode ? (
-          <i class="far fa-edit" key={uniqid()} />
+          <i className="far fa-edit" key={uniqid()} />
         ) : (
-          <i class="far fa-check-circle" key={uniqid()} />
+          <i className="far fa-check-circle" key={uniqid()} />
         )}
       </button>
     </div>

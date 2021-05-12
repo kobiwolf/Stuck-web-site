@@ -15,6 +15,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (user) history.replace('/home');
     if (new Cookies().get('token')) {
+      console.log('wow');
       getUserByToken()
         .then((user) => setUser(user))
         .catch((e) => console.log(e.message));

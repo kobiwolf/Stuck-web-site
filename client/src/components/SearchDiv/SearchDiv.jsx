@@ -8,7 +8,7 @@ import config from '../../config/configToken';
 
 import './SearchDiv.css';
 export default function SearchDiv() {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [searchAnswer, setSearchAnswer] = useState(null);
   const [radius, setRadius] = useState(null);
@@ -18,6 +18,7 @@ export default function SearchDiv() {
     if (!type || !radius || !inputSearch)
       return setSearchAnswer('חובה למלא את כל השדות');
     try {
+      setIsLoading(true);
       const response = await axios.post(
         `${endPoint}/search`,
         {
@@ -33,7 +34,9 @@ export default function SearchDiv() {
       setSearchAnswer(
         response.data.map((user) => <Card key={user._id} user={user} />)
       );
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       setSearchAnswer(error.response.data);
     }
   };

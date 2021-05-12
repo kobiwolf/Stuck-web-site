@@ -18,21 +18,27 @@ const getUser = async (mail) => {
   }
 };
 
-const updateItemsList = async (mail, name, type, info) => {
+const updateItemsList = async (mail, items, names) => {
   try {
     const user = await getUser(mail);
-    const item = (await getItems(type, name))[0];
-    item.info = info;
-    const index = user.items.findIndex((itemi) => {
-      return itemi.name === item.name;
-    });
-    if (index === -1) {
-      user.items.push(item);
-    } else {
-      user.items.splice(index, 1, item);
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const fullItem = (await getItems(item.type, item.name))[0];
+      fullItem.info = item.info;
+      const index = user.items.findIndex(
+        (itemi) => itemi.name === fullItem.name
+      );
+      if (index === -1) {
+        user.items.push(fullItem);
+      } else {
+        user.items.splice(index, 1, fullItem);
+      }
     }
+    user.items = user.items.filter((item) =>
+      names.find((name) => name === item.name)
+    );
     await user.save();
-    return `item has ${index !== -1 ? 'update' : 'added'}`;
+    return `items has updated`;
   } catch (error) {
     throw new Error(error.message);
   }

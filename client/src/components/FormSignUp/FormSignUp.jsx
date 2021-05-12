@@ -8,7 +8,7 @@ import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
 
 export default function Form({ setRegistered, registered }) {
-  const { user, setUser } = useContext(Context);
+  const { user, setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -81,6 +81,7 @@ export default function Form({ setRegistered, registered }) {
       return setResponse('must put valid password');
     else {
       try {
+        setIsLoading(true);
         const formData = new FormData();
         const obj = { name, city, street, number, email, password };
         Object.entries(obj).forEach((value) => {
@@ -90,11 +91,13 @@ export default function Form({ setRegistered, registered }) {
         const { data } = await axios.post(`${endPoint}/signup`, formData);
         new Cookies().set('token', data.tokens[data.tokens.length - 1]);
         const user = await axios.post(`${endPoint}/login`, { email, password });
+        setIsLoading(false);
         setResponse('משתמש נרשם בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
         setTimeout(() => {
           setUser(user.data);
         }, 1500);
       } catch (e) {
+        setIsLoading(false);
         setResponse(e.response.data);
       }
     }
