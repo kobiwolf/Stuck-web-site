@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
-
+import './Form.css';
 import LabelForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
 import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
+import InputLabelEdit from '../InputLabelEdit/InputLabelEdit';
 
 export default function Form({ setRegistered, registered }) {
   const { user, setUser, setIsLoading } = useContext(Context);
@@ -74,8 +75,6 @@ export default function Form({ setRegistered, registered }) {
   }, [street]);
 
   const handleClick = async () => {
-    if (!email || !password || !street || !city || !number)
-      return setResponse('all fields are required');
     if (!validator.isEmail(email)) return setResponse('must put valid email');
     if (!validator.isStrongPassword(password, { minSymbols: 0 }))
       return setResponse('must put valid password');
@@ -104,11 +103,7 @@ export default function Form({ setRegistered, registered }) {
   };
 
   return (
-    <form
-      className="form"
-      style={{ position: 'unset' }}
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="form" onSubmit={(e) => e.preventDefault()}>
       <LabelForm text="מייל" state={email} setState={setEmail} />
       <LabelForm text="שם" state={name} setState={setName} />
       <LabelForm
@@ -117,14 +112,14 @@ export default function Form({ setRegistered, registered }) {
         setState={setCity}
         cities={optionsCity}
       />
-      <h4>{errorMsgCity}</h4>
+      {errorMsgCity && <h5>{errorMsgCity}</h5>}
       <LabelForm
         text="רחוב"
         state={street}
         setState={setStreet}
         streets={optionsStreets}
       />
-      <h4>{errorMsgStreet}</h4>
+      {errorMsgStreet && <h5>{errorMsgStreet}</h5>}
       <LabelForm
         text="מספר"
         state={number}
@@ -137,14 +132,14 @@ export default function Form({ setRegistered, registered }) {
         setState={setPassword}
         isPassword={true}
       />
-      <input
+      <InputLabelEdit
+        field="תמונה"
+        state={img}
+        setState={setImg}
         type="file"
-        value={img}
-        onChange={(e) => {
-          setImgFile(e.target.files[0]);
-          setImg(e.target.value);
-        }}
-      ></input>
+        setFile={setImgFile}
+      />
+
       <button
         disabled={errorMsgCity || errorMsgStreet ? true : false}
         className="ui button"
@@ -153,13 +148,14 @@ export default function Form({ setRegistered, registered }) {
       >
         Submit
       </button>
-      <button
-        onClick={() => {
+      <span
+        onClick={(e) => {
+          e.preventDefault();
           setRegistered(!registered);
         }}
       >
         כבר רשום?
-      </button>
+      </span>
       {response && <h3>{response}</h3>}
     </form>
   );

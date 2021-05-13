@@ -18,17 +18,15 @@
   z-index: 1;
 }
 .tabHeader {
-  width: 150px;
+  width: 200px;
   margin-top: 2rem;
-  padding: 5px 1px;
+  padding: 5px 1px 9px 1px;
   font-size: 25px;
   background-color: var(--red);
-
   color: white;
   height: max-content;
-
-  border-top-left-radius: 15%;
-  border-bottom-left-radius: 15%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 .ItemsDiv {
   display: grid;

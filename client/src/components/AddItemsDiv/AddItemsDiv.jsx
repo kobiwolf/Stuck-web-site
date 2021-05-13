@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import endPoint from '../../endPoints/serverEndPoint';
 import CardItem from '../CardItem/CardItem';
 import './AddItemsDiv.css';
@@ -7,7 +7,7 @@ import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
 import config from '../../config/configToken';
 export default function AddItemsDiv() {
-  const { user, setUser, setIsLoading } = useContext(Context);
+  const { user, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [response, setResponse] = useState('');
   const [type, setType] = useState(null);
@@ -17,8 +17,7 @@ export default function AddItemsDiv() {
     ['Food', 'אוכל/שתיה'],
   ];
   useEffect(() => {
-    if (response.length) {
-      console.log(response);
+    if (Array.isArray(response) && response.length) {
       console.log(user.items);
       const itemsUserNotHave = response.filter((item) => {
         if (!user.items.find((itemi) => itemi.name === item.props.item.name))
@@ -42,7 +41,11 @@ export default function AddItemsDiv() {
         config
       );
 
-      if (!response.data) return setResponse('לא נמצא מוצר');
+      if (!response.data.length) {
+        setResponse('לא נמצא מוצר');
+        setIsLoading(false);
+        return;
+      }
       setResponse(
         response.data.map((item) => (
           <CardItem key={item._id} item={item} addItem={addItem} />

@@ -15,6 +15,7 @@ export default function SearchDiv() {
   const [searchAnswer, setSearchAnswer] = useState(null);
   const [radius, setRadius] = useState(0);
   const [type, setType] = useState(null);
+  const sliderRef = useRef();
 
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
@@ -78,9 +79,8 @@ export default function SearchDiv() {
         min={0}
         max={6000}
         value={radius}
-        onChange={(value) => {
-          setRadius(value);
-        }}
+        ref={sliderRef}
+        onChange={(value) => setRadius(value)}
       />
 
       <button onClick={searchUser}>יאללה תביא מוצר!</button>

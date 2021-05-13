@@ -17,7 +17,7 @@ export default function EditInfoDiv() {
   const [number, setNumber] = useState('');
   const [img, setImg] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-  const myRef = useRef();
+
   const [allAddresses, setAllAddresses] = useState(null);
   const [errorMsgCity, setErrorMsgCity] = useState('');
   const [errorMsgStreet, setErrorMsgStreet] = useState('');
@@ -106,12 +106,6 @@ export default function EditInfoDiv() {
     }
   };
 
-  const displayInfo = () => {
-    const classes = myRef.current.classList;
-    classes.value.includes('hidden')
-      ? classes.remove('hidden')
-      : classes.add('hidden');
-  };
   const saveInfo = async () => {
     setIsLoading(true);
     const email = user.email;
@@ -131,48 +125,54 @@ export default function EditInfoDiv() {
     }
   };
   return (
-    <div className="EditInfoDiv">
-      <button
-        className="saveButton"
-        onClick={saveInfo}
-        disabled={
-          errorMsgStreet || errorMsgCity || errorMsgPassword ? true : false
-        }
-      >
-        <i className="far fa-save fa-2x"> </i>
-      </button>
-      <InputLabelEdit field="שם" state={name} setState={setName} />
+    <>
+      <div className="tabHeader">עדכון פרטים:</div>
 
-      <InputLabelEdit
-        field="תמונה"
-        w
-        state={imgUrl}
-        setState={setImgUrl}
-        type="file"
-        setFile={setImg}
-      />
-      <InputLabelEdit field="סיסמא" state={password} setState={setPassword} />
-      {errorMsgPassword}
-      <div className="" onClick={displayInfo}>
-        <label>עדכן כתובת</label>
-      </div>
-      <div className="locationInfo hidden" ref={myRef}>
+      <div className="EditInfoDiv">
+        <button
+          className="saveButton"
+          onClick={saveInfo}
+          disabled={
+            errorMsgStreet || errorMsgCity || errorMsgPassword ? true : false
+          }
+        >
+          <i className="far fa-save fa-2x"> </i>
+        </button>
+        <LabelInputForm text="שם" state={name} setState={setName} />
+
         <LabelInputForm
-          text="עיר"
-          state={city}
-          setState={setCity}
-          cities={optionsCity}
+          text="סיסמא"
+          state={password}
+          setState={setPassword}
+          isPassword={true}
         />
-        {errorMsgCity}
-        <LabelInputForm
-          text="רחוב"
-          state={street}
-          setState={setStreet}
-          streets={optionsStreets}
+        {errorMsgPassword}
+        <InputLabelEdit
+          field="תמונה"
+          state={imgUrl}
+          setState={setImgUrl}
+          type="file"
+          setFile={setImg}
         />
-        {errorMsgStreet}
-        <LabelInputForm text="מספר" state={number} setState={setNumber} />
+        <details>
+          <summary>עדכן כתובת</summary>
+          <LabelInputForm
+            text="עיר"
+            state={city}
+            setState={setCity}
+            cities={optionsCity}
+          />
+          {errorMsgCity}
+          <LabelInputForm
+            text="רחוב"
+            state={street}
+            setState={setStreet}
+            streets={optionsStreets}
+          />
+          {errorMsgStreet}
+          <LabelInputForm text="מספר" state={number} setState={setNumber} />
+        </details>
       </div>
-    </div>
+    </>
   );
 }

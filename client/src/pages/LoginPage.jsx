@@ -6,6 +6,8 @@ import Context from '../components/Context/Context';
 import { useHistory } from 'react-router';
 import Cookies from 'universal-cookie';
 import getUserByToken from '../helperFuncs/getUserByToken';
+import Footer from '../components/Footer/Footer';
+import ReactCardFlip from 'react-card-flip';
 
 export default function LoginPage() {
   const [registered, setRegistered] = useState(false);
@@ -23,11 +25,11 @@ export default function LoginPage() {
   }, [user]);
   return (
     <div className="loginPage">
-      {registered ? (
+      <Footer />
+      <ReactCardFlip isFlipped={registered} flipDirection="vertical">
         <Form setRegistered={setRegistered} registered={registered} />
-      ) : (
         <FormSignUp setRegistered={setRegistered} registered={registered} />
-      )}
+      </ReactCardFlip>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import endPoint from '../../endPoints/serverEndPoint';
 import validator from 'validator';
 import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
-
+import '../FormSignUp/Form.css';
 export default function Form({ registered, setRegistered }) {
   const { user, setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
@@ -37,11 +37,7 @@ export default function Form({ registered, setRegistered }) {
   };
 
   return (
-    <form
-      className="ui form"
-      style={{ position: 'unset' }}
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="form" onSubmit={(e) => e.preventDefault()}>
       <LabelInputForm text="מייל" state={email} setState={setEmail} />
       <LabelInputForm
         text="סיסמא"
@@ -52,13 +48,14 @@ export default function Form({ registered, setRegistered }) {
       <button className="ui button" type="submit" onClick={handleClick}>
         Submit
       </button>
-      <button
-        onClick={() => {
+      <span
+        onClick={(e) => {
+          e.preventDefault();
           setRegistered(!registered);
         }}
       >
         חדש פה??
-      </button>
+      </span>
       {<h3>{response}</h3>}
     </form>
   );

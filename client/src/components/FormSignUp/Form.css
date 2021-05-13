@@ -1,3 +1,11 @@
-.form {
-  padding: 1rem 0;
+.form h5 {
+  display: block;
+  padding-right: 30px;
+  margin: 10px 0px;
+  color: red;
+}
+.form > span {
+  color: rgb(0, 81, 255);
+  text-decoration: underline;
+  margin-right: 15px;
 }

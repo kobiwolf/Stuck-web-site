@@ -18,7 +18,7 @@ export default function NavBar() {
   }
   return (
     <>
-      <div className="background" ref={refBackground}></div>
+      <div className="background" ref={refBackground} onClick={closeMenu}></div>
       <header className="header">
         <nav className="navbar">
           <ul className="nav-menu" ref={reNavMenu}>

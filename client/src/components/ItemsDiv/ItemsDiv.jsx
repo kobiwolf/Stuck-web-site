@@ -36,7 +36,7 @@ export default function ItemsDiv() {
   };
   return (
     <>
-      <div className="tabHeader">:המוצרים שלך</div>
+      <div className="tabHeader">המוצרים שלך:</div>
       <div className="ItemsDiv">
         <button className="saveButton" onClick={saveItem}>
           <i className="far fa-save fa-2x" />

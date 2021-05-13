@@ -1,0 +1,19 @@
+.InputLabelEdit {
+  display: flex;
+  flex-direction: column;
+  margin-right: 25px;
+}
+label .material-icons {
+  border-radius: 50%;
+  font-size: 30px;
+  color: white;
+  background-color: var(--red);
+  padding: 7px;
+  text-decoration: none;
+}
+.InputLabelEdit img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}

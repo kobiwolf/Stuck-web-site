@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
 import SearchPage from './pages/SearchPage';
 import SettingsPage from './pages/SettingsPage';
@@ -9,7 +9,7 @@ import LoginPage from './pages/LoginPage';
 import ContentUsPage from './pages/ContentUsPage';
 import HeadOfPage from './components/headOfPage/HeadOfPage';
 import Context from './components/Context/Context';
-import Footer from './components/Footer/Footer';
+
 import Cookies from 'universal-cookie';
 import Spinner from './components/Spinner/Spinner';
 

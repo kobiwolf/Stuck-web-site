@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import './User.css';
 import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
-import { useHistory } from 'react-router';
+
 export default function User() {
   const { user, setUser } = useContext(Context);
-  const [state, setState] = useState(true);
-  const history = useHistory();
 
   return (
     <div className="userProfile">
@@ -22,9 +20,9 @@ export default function User() {
       <a
         onClick={(e) => {
           e.preventDefault();
-          new Cookies().remove('token');
           setUser(null);
-          history.replace('/');
+          new Cookies().remove('token');
+          window.location.reload();
         }}
         href="/"
         className="red"

@@ -14,7 +14,6 @@ export default function CardItem({ item, addItem }) {
       copyUser.items = copyUser.items.filter(
         (itemi) => itemi.name !== item.name
       );
-      addItem(item);
     } else copyUser.items.push(item);
     setUser(copyUser);
   };

@@ -12,4 +12,5 @@
 .slider {
   width: 70%;
   margin-bottom: 20px;
+  touch-action: none;
 }

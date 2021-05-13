@@ -8,6 +8,7 @@ export default function LabelInputForm({
   streets = null,
   isPassword = false,
   isNumber = false,
+  required = true,
 }) {
   const [options, setOptions] = useState(null);
   const [passwordState, setPasswordState] = useState(false);
@@ -47,19 +48,25 @@ export default function LabelInputForm({
   return (
     <div className="field">
       <label>{text}:</label>
-      <input
-        type={isNumber ? 'number' : type}
-        name={text}
-        placeholder={text}
-        value={state}
-        onChange={(e) => setState(e.target.value)}
-      />
-      {options}
-      {isPassword && (
-        <button onClick={() => setPasswordState(!passwordState)}>
-          {passwordState ? 'show' : 'hide'}
-        </button>
-      )}
+      <div className="">
+        <input
+          type={isNumber ? 'number' : type}
+          name={text}
+          placeholder={text}
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          required={required}
+        />
+        {options}
+        {isPassword && (
+          <span
+            className="material-icons"
+            onClick={() => setPasswordState(!passwordState)}
+          >
+            {passwordState ? 'visibility' : 'visibility_off'}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
