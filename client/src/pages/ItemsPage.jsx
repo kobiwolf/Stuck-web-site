@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from 'react';
-import HeadOfPage from '../components/headOfPage/HeadOfPage';
+import AddItemsDiv from '../components/AddItemsDiv/AddItemsDiv';
+import ItemsDiv from '../components/ItemsDiv/ItemsDiv';
 import Context from '../components/Context/Context';
 import Cookies from 'universal-cookie';
 
 import { useHistory } from 'react-router';
 import getUserByToken from '../helperFuncs/getUserByToken';
+
 export default function ItemsPage() {
   const { user, setUser } = useContext(Context);
   const history = useHistory();
@@ -17,12 +19,14 @@ export default function ItemsPage() {
             .catch((e) => console.log(e.message))
         : history.replace('/');
   }, []);
+
   return (
     <>
       {user && (
         <div>
-          <HeadOfPage />
-          <h1>מוצרים</h1>
+          <ItemsDiv />
+          <div className="tabHeader">המוצרים להוספה:</div>
+          <AddItemsDiv />
         </div>
       )}
     </>

@@ -36,7 +36,9 @@ export default function SearchDiv() {
       if (!response || !response.data)
         setSearchAnswer('אין אף משתמש שמתאים לקריטרונים שלך');
       setSearchAnswer(
-        response.data.map((user) => <Card key={user._id} user={user} />)
+        response.data.map((user) => (
+          <Card key={user._id} user={user} item={inputSearch} />
+        ))
       );
       setIsLoading(false);
     } catch (error) {

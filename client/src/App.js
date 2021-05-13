@@ -2,11 +2,11 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
 import SearchPage from './pages/SearchPage';
-import SettingsPage from './pages/SettingsPage';
+import itemsPage from './pages/itemsPage';
 import AboutUsPage from './pages/AboutUsPage';
 import { useState } from 'react';
 import LoginPage from './pages/LoginPage';
-import ContentUsPage from './pages/ContentUsPage';
+import SettingsPage from './pages/SettingsPage';
 import HeadOfPage from './components/headOfPage/HeadOfPage';
 import Context from './components/Context/Context';
 
@@ -31,11 +31,11 @@ function App() {
 
             <Route path="/home" exact component={SearchPage} />
 
-            <Route path="/setting" exact component={SettingsPage} />
+            <Route path="/items" exact component={itemsPage} />
 
             <Route path="/aboutUs" exact component={AboutUsPage} />
 
-            <Route path="/contactUs" exact component={ContentUsPage} />
+            <Route path="/settings" exact component={SettingsPage} />
           </Switch>
         </Context.Provider>
       </BrowserRouter>

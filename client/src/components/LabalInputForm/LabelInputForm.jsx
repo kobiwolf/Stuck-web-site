@@ -4,13 +4,13 @@ export default function LabelInputForm({
   text,
   state,
   setState,
-  cities = null,
-  streets = null,
+  cities = '',
+  streets = '',
   isPassword = false,
   isNumber = false,
   required = true,
 }) {
-  const [options, setOptions] = useState(null);
+  const [options, setOptions] = useState('');
   const [passwordState, setPasswordState] = useState(false);
   const type = !isPassword ? 'text' : passwordState ? 'password' : 'text';
   useEffect(() => {

@@ -1,12 +1,30 @@
-import React from 'react';
-
-export default function Card({ user }) {
+import React, { useEffect, useState } from 'react';
+import './Card.css';
+export default function Card({ user, item }) {
+  const [itemInfo, setItemInfo] = useState('');
+  useEffect(() => {
+    const item1 = user.items.find((itemi) => itemi.name === item);
+    setItemInfo(item1.info);
+  }, []);
   return (
-    <div>
-      <h2>{user.name}</h2>
-      <h2>{user.email}</h2>
-      <h2>{user.address.city}</h2>
-      <a href={`mailto:${user.email}`}>שלח לי מייל</a>
+    <div className="userCard">
+      <div className="">
+        <img
+          src={
+            user.avatar
+              ? `${user.avatar}?t=${Date.now()}`
+              : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+          }
+          alt={`pic of ${user.name}`}
+        />
+        <h3>{user.name}</h3>
+      </div>
+      <div className="">
+        <a href={`mailto:${user.email}`}>
+          <span class="material-icons">email</span>
+        </a>
+        {itemInfo && <h3> הערות:{itemInfo}</h3>}
+      </div>
     </div>
   );
 }

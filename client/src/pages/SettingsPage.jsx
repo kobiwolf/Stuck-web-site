@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import AddItemsDiv from '../components/AddItemsDiv/AddItemsDiv';
-import ItemsDiv from '../components/ItemsDiv/ItemsDiv';
+import EditInfoDiv from '../components/EditInfoDiv/EditInfoDiv';
 import Context from '../components/Context/Context';
 import Cookies from 'universal-cookie';
 
@@ -24,9 +23,7 @@ export default function SettingsPage() {
     <>
       {user && (
         <div>
-          <ItemsDiv />
-          <div className="tabHeader">המוצרים להוספה:</div>
-          <AddItemsDiv />
+          <EditInfoDiv />
         </div>
       )}
     </>

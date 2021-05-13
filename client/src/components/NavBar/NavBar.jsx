@@ -24,13 +24,12 @@ export default function NavBar() {
           <ul className="nav-menu" ref={reNavMenu}>
             <li className="nav-item">
               <Link to="/" className="nav-link" onClick={closeMenu}>
-                {' '}
                 בית
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/setting" className="nav-link" onClick={closeMenu}>
-                הגדרות{' '}
+              <Link to="/items" className="nav-link" onClick={closeMenu}>
+                מוצרים
               </Link>
             </li>
             <li className="nav-item">
@@ -39,8 +38,8 @@ export default function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/contactUS" className="nav-link" onClick={closeMenu}>
-                דברו איתנו
+              <Link to="/settings" className="nav-link" onClick={closeMenu}>
+                הגדרות
               </Link>
             </li>
           </ul>
