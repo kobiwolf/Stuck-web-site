@@ -110,7 +110,7 @@ const WhoHasItem = async (item, city, range, gps) => {
       user.items.find((itemi) => itemi.name === item)
     );
     if (!usersHowHaveItem.length)
-      throw new Error('there is no one matching your request');
+      throw new Error('אין אף משתמש שמתאים לקריטרונים שלך');
     const matchUsers = usersHowHaveItem.filter(({ address }) => {
       return geolib.isPointWithinRadius(
         { lat: gps.lat, lng: gps.long },
@@ -119,7 +119,7 @@ const WhoHasItem = async (item, city, range, gps) => {
       );
     });
     if (!matchUsers.length)
-      throw new Error('there is no one matching your request');
+      throw new Error('אין אף משתמש שמתאים לקריטרונים שלך');
     return matchUsers;
   } catch (e) {
     throw new Error(e.message);

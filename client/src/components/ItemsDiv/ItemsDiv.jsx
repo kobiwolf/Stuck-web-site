@@ -25,7 +25,7 @@ export default function ItemsDiv() {
           items: itemsInfo,
           names: itemsInfo.map((item) => item.name),
         },
-        config
+        config()
       );
       console.log(answer.data);
       setIsLoading(false);
@@ -41,7 +41,7 @@ export default function ItemsDiv() {
         <button className="saveButton" onClick={saveItem}>
           <i className="far fa-save fa-2x" />
         </button>
-        {items.length && items}
+        {items?.length ? items : <h5>אין לך מוצרים עדיין...חבל</h5>}
       </div>
     </>
   );

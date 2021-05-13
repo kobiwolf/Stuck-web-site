@@ -21,7 +21,6 @@
   font-size: 14px;
 }
 .field > div {
-  display: flex;
   position: relative;
 }
 .field > div > span {

@@ -38,7 +38,7 @@ export default function AddItemsDiv() {
       setIsLoading(true);
       const response = await axios.get(
         `${endPoint}/manager/items/${type}?name=${inputSearch}`,
-        config
+        config()
       );
 
       if (!response.data.length) {
@@ -66,14 +66,18 @@ export default function AddItemsDiv() {
           header="בחר סוג מוצר"
           values={valuesForRadioButtons}
         />
+      </div>
+      <div className="">
         <input
           type="text"
           value={inputSearch}
-          placeholder="בא נחפש!!"
+          placeholder="מה בא לך לפנק??"
           onChange={(e) => setInputSearch(e.target.value)}
         />
+        <span className="material-icons" onClick={handleClick}>
+          search
+        </span>
       </div>
-      <button onClick={handleClick}>הרץ חיפוש למוצר</button>
       <div className="items">{response}</div>
     </div>
   );

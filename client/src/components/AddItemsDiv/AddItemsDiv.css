@@ -2,9 +2,6 @@
   display: flex;
   flex-direction: column;
 }
-.addItemDivOptions {
-  display: flex;
-}
 
 .addItemDivMain > .items {
   display: grid;
@@ -13,3 +10,24 @@
 /* .addItemDivMain > .items > div {
   background-color: var(--blue);
 } */
+.addItemDivOptions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.addItemDivMain .material-icons {
+  border-radius: 50%;
+  background-color: var(--blue);
+  padding: 5px;
+  margin-top: 10px;
+  color: white;
+}
+.addItemDivOptions + div {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.addItemDivOptions + div > input {
+  padding: 10px 0px;
+}

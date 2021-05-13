@@ -15,7 +15,7 @@ export default function LoginPage() {
   const history = useHistory();
 
   useEffect(() => {
-    if (user) history.replace('/home');
+    if (user) return history.replace('/home');
     if (new Cookies().get('token')) {
       console.log('wow');
       getUserByToken()

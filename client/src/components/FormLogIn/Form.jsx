@@ -24,10 +24,7 @@ export default function Form({ registered, setRegistered }) {
         });
         cookies.set('token', data.tokens[data.tokens.length - 1]);
         setIsLoading(false);
-        setResponse('משתמש התחבר בהצלחה,אנא המתן עד להעברה לעמוד הראשי...');
-        setTimeout(() => {
-          setUser(data);
-        }, 1500);
+        setUser(data);
       } catch (e) {
         setIsLoading(false);
         console.log(e);

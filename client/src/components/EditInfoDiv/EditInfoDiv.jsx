@@ -7,6 +7,7 @@ import endPoint from '../../endPoints/serverEndPoint';
 import axios from 'axios';
 import config from '../../config/configToken';
 import validator from 'validator';
+import Cookies from 'universal-cookie';
 
 export default function EditInfoDiv() {
   const { user, setUser, setIsLoading } = useContext(Context);
@@ -25,8 +26,9 @@ export default function EditInfoDiv() {
   const [optionsCity, setOptionsCity] = useState(null);
   const [optionsStreets, setOptionsStreets] = useState(null);
   useEffect(() => {
+    console.log();
     axios
-      .post(`${endPoint}/myAddress`, { id: user.address.id }, config)
+      .post(`${endPoint}/myAddress`, { id: user.address.id }, config())
       .then(({ data: { city, street, number } }) => {
         setCity(city);
         setStreet(street);
@@ -92,7 +94,7 @@ export default function EditInfoDiv() {
     } = await axios.post(
       `${endPoint}/myAddress`,
       { id: user.address.id },
-      config
+      config()
     );
 
     if (
@@ -116,7 +118,7 @@ export default function EditInfoDiv() {
       if (value[1]) fd.append(value[0], value[1]);
     });
     try {
-      const { data } = await axios.patch(`${endPoint}/settings`, fd, config);
+      const { data } = await axios.patch(`${endPoint}/settings`, fd, config());
       setUser(data);
       setIsLoading(false);
     } catch (error) {

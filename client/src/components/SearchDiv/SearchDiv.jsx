@@ -5,7 +5,7 @@ import Card from '../Card/Card';
 import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
 import config from '../../config/configToken';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import './SearchDiv.css';
@@ -22,6 +22,7 @@ export default function SearchDiv() {
       return setSearchAnswer('חובה למלא את כל השדות');
     try {
       setIsLoading(true);
+      setSearchAnswer('');
       const response = await axios.post(
         `${endPoint}/search`,
         {
@@ -30,7 +31,7 @@ export default function SearchDiv() {
           range: radius,
           gps: user.address.gps,
         },
-        config
+        config()
       );
       if (!response || !response.data)
         setSearchAnswer('אין אף משתמש שמתאים לקריטרונים שלך');

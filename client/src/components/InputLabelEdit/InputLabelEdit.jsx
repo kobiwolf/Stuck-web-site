@@ -30,7 +30,7 @@ export default function InputLabelEdit({
                 <img src={state.preview} />
               ) : (
                 <>
-                  <span class="material-icons">add_a_photo</span>
+                  <span className="material-icons">add_a_photo</span>
                   <span className="fa-stack fa-2x mt-3 mb-2"></span>
                 </>
               )}
