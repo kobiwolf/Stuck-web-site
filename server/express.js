@@ -16,6 +16,9 @@ app.use(express.static(pathToClientBuild));
 app.use(express.json());
 app.use('/manager', managerRoute);
 app.use(userRoute);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`we are line on ${port}`);
