@@ -18,6 +18,8 @@ const {
   addToken,
 } = require('../helperFuncs/utils');
 const Address = require('../model/Address');
+const { default: axios } = require('axios');
+const User = require('../model/User');
 const endPoint = '/api/users';
 
 //  post in odder to login
@@ -50,6 +52,19 @@ route.post('/signup', upload.single('img'), async (req, res) => {
     res.send(respone);
   } catch (e) {
     res.status(400).send(e.message);
+  }
+});
+// resetPassword
+route.get('/:email/resetPassword', async (req, res) => {
+  const { mail } = req.params;
+  try {
+    const user = await User.findByMail(mail);
+    if (!user) return res.status(404).send('מייל זה אינו רשום במערכת');
+    addToken(user);
+
+    // ! need to add a token request for reset password
+  } catch (e) {
+    throw new Error(e.message);
   }
 });
 
