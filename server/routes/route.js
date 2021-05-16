@@ -18,8 +18,9 @@ const {
   addToken,
 } = require('../helperFuncs/utils');
 const Address = require('../model/Address');
-const { default: axios } = require('axios');
+const { resetPasswordMail } = require('../emails/allEmails');
 const User = require('../model/User');
+const { default: axios } = require('axios');
 const endPoint = '/api/users';
 
 //  post in odder to login
@@ -55,14 +56,27 @@ route.post('/signup', upload.single('img'), async (req, res) => {
   }
 });
 // resetPassword
-route.get('/:email/resetPassword', async (req, res) => {
-  const { mail } = req.params;
+route.get('/resetPassword/:email', async (req, res) => {
+  const { email } = req.params;
   try {
-    const user = await User.findByMail(mail);
-    if (!user) return res.status(404).send('מייל זה אינו רשום במערכת');
-    addToken(user);
+    const user = await User.findByMail(email);
 
+    if (!user) return res.status(404).send('מייל זה אינו רשום במערכת');
+    const token = addToken(user);
+    resetPasswordMail(email, token, user.name);
+    res.send();
     // ! need to add a token request for reset password
+  } catch (e) {
+    throw new Error(e.message);
+  }
+});
+route.post('/confirmPassword/', auth, async (req, res) => {
+  const { password, email } = req.body;
+  try {
+    const user = await User.findByMail(email);
+    user.password = password;
+    user.save();
+    res.send('password updated');
   } catch (e) {
     throw new Error(e.message);
   }

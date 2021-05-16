@@ -6,11 +6,21 @@ import validator from 'validator';
 import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
 import '../FormSignUp/Form.css';
+import './Form.css';
+
 export default function Form({ registered, setRegistered }) {
   const { user, setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');
+  const handleResetButton = (e) => {
+    e.preventDefault();
+    if (!validator.isEmail(email)) return console.log('must put valid email');
+    axios
+      .get(`${endPoint}/resetPassword/${email}`)
+      .then((answer) => console.log('mail has been sent'))
+      .catch((e) => console.dir(e));
+  };
   const handleClick = async () => {
     if (!email || !password) setResponse('all fields are required');
     if (!validator.isEmail(email)) setResponse('must put valid email');
@@ -42,6 +52,9 @@ export default function Form({ registered, setRegistered }) {
         setState={setPassword}
         isPassword={true}
       />
+      <button className="forgetPassword" onClick={handleResetButton}>
+        שכחת סיסמא??
+      </button>
       <button className="ui button" type="submit" onClick={handleClick}>
         Submit
       </button>

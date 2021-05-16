@@ -4,12 +4,16 @@ const myMail = 'kobiwolf95@gmail.com';
 
 sgMail.setApiKey(process.env.SENDGRID);
 
+const path =
+  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
+module.exports = path;
+
 const resetPasswordMail = (mail, token, name) => {
   sgMail.send({
     from: myMail,
     to: mail,
     subject: 'reset password link',
-    text: `${endPoint}/${mail}/resetPassword/${token}`,
+    text: `${path}/confirmPassword/${mail}/${token}`,
   });
 };
 module.exports = { resetPasswordMail };

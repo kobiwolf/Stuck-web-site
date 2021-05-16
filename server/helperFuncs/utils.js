@@ -176,6 +176,7 @@ const getItems = async (type, name = null) => {
 const addToken = (user) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT);
   user.tokens.push(token);
+  return token;
 };
 
 module.exports = {

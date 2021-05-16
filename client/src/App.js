@@ -13,6 +13,8 @@ import Context from './components/Context/Context';
 import Cookies from 'universal-cookie';
 import Spinner from './components/Spinner/Spinner';
 
+import ResetPasswordPage from './pages/ResetPasswordPage';
+
 function App() {
   const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +23,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {isLoading && <Spinner />}
-        <NavBar />
+        {user && <NavBar />}
         <Context.Provider value={{ user, setUser, setIsLoading }}>
           {user && <HeadOfPage />}
           <Switch>
@@ -36,6 +38,11 @@ function App() {
             <Route path="/aboutUs" exact component={AboutUsPage} />
 
             <Route path="/settings" exact component={SettingsPage} />
+            <Route
+              path="/confirmPassword/:mail/:token"
+              exact
+              component={ResetPasswordPage}
+            />
           </Switch>
         </Context.Provider>
       </BrowserRouter>
