@@ -15,6 +15,10 @@ export default function ResetPasswordDiv() {
   const [passwordCopy, setPasswordCopy] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
+  useEffect(() => {
+    const arrOfParams = history.location.pathname.split('/');
+    new Cookies().set('token', arrOfParams[3]);
+  }, []);
   const handleClick = async () => {
     setIsLoading(true);
     try {
@@ -35,10 +39,6 @@ export default function ResetPasswordDiv() {
     }
     setIsLoading(false);
   };
-  useEffect(() => {
-    const arrOfParams = history.location.pathname.split('/');
-    new Cookies().set('token', arrOfParams[3]);
-  }, []);
   useEffect(() => {
     if (password && passwordCopy) {
       if (passwordCopy !== password) {

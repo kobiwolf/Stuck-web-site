@@ -60,7 +60,6 @@ route.get('/resetPassword/:email', async (req, res) => {
   const { email } = req.params;
   try {
     const user = await User.findByMail(email);
-
     if (!user) return res.status(404).send('מייל זה אינו רשום במערכת');
     const token = addToken(user);
     resetPasswordMail(email, token, user.name);
@@ -192,7 +191,7 @@ route.post('/myAddress', auth, async (req, res) => {
     res.status(404).send(e.message);
   }
 });
-// ! updated the patch req above so the delete req is not neseccery
+// ! I updated the patch req above so the delete req is not neseccery
 // route.delete('/list', auth, async (req, res) => {
 //   const { names, mail } = req.body;
 //   try {
