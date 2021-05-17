@@ -178,6 +178,10 @@ const addToken = (user) => {
   user.tokens.push(token);
   return token;
 };
+const makeTokenForResetPassword = (user) => {
+  const token = jwt.sign({ id: user._id }, process.env.JWT2);
+  return token;
+};
 
 module.exports = {
   getUser,
@@ -191,4 +195,5 @@ module.exports = {
   getImg,
   getItems,
   addToken,
+  makeTokenForResetPassword,
 };

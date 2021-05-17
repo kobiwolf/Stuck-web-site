@@ -13,10 +13,61 @@ export default function SearchDiv() {
   const { user, setUser, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [searchAnswer, setSearchAnswer] = useState(null);
+  const [errorMsgSearch, setErrorMsgSearch] = useState('');
+  const [itemsNames, setItemsNames] = useState([]);
+  const [optionsSearch, setOptionsSearch] = useState([]);
   const [radius, setRadius] = useState(0);
   const [type, setType] = useState(null);
   const sliderRef = useRef();
 
+  const radioButtonsValuesType = [
+    ['Medicine', 'תרופה'],
+    ['Tool', 'כלי עבודה'],
+    ['Food', 'אוכל/שתיה'],
+  ];
+  useEffect(() => {
+    if (type) {
+      axios
+        .get(`${endPoint}/itemsNames/${type}`, config())
+        .then(({ data }) => {
+          const arr = data.map((item) => item.name);
+          setItemsNames(arr);
+        })
+        .catch((e) => console.log(e));
+      setInputSearch('');
+    }
+  }, [type]);
+  useEffect(() => {
+    if (inputSearch) {
+      const req = new RegExp(`^${inputSearch}`, 'm');
+      const startsWith = itemsNames.filter((itemName) => req.test(itemName));
+      if (startsWith.length === 0) {
+        setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
+        setOptionsSearch(null);
+      } else {
+        if (inputSearch === startsWith[0]) {
+          setOptionsSearch(null);
+          setErrorMsgSearch(null);
+        } else {
+          setOptionsSearch(
+            startsWith.map((option) => (
+              <div
+                onClick={() => {
+                  setInputSearch(option);
+                  setOptionsSearch(null);
+                }}
+              >
+                {option}
+              </div>
+            ))
+          );
+        }
+      }
+    } else {
+      setErrorMsgSearch(null);
+      setOptionsSearch(null);
+    }
+  }, [inputSearch]);
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
       return setSearchAnswer('חובה למלא את כל השדות');
@@ -46,13 +97,6 @@ export default function SearchDiv() {
       setSearchAnswer(error.response.data);
     }
   };
-
-  const radioButtonsValuesType = [
-    ['Medicine', 'תרופה'],
-    ['Tool', 'כלי עבודה'],
-    ['Food', 'אוכל/שתיה'],
-  ];
-
   return (
     <div className="SearchMainDiv">
       <input
@@ -60,7 +104,10 @@ export default function SearchDiv() {
         value={inputSearch}
         placeholder="בא נחפש!!"
         onChange={(e) => setInputSearch(e.target.value)}
+        required
       />
+      {optionsSearch}
+      {errorMsgSearch}
       <div className="SearchOptions">
         <RadioButtons
           values={radioButtonsValuesType}
@@ -86,7 +133,9 @@ export default function SearchDiv() {
         onChange={(value) => setRadius(value)}
       />
 
-      <button onClick={searchUser}>יאללה תביא מוצר!</button>
+      <button onClick={searchUser} disabled={errorMsgSearch ? true : false}>
+        יאללה תביא מוצר!
+      </button>
       {searchAnswer && <h2>{searchAnswer}</h2>}
     </div>
   );

@@ -4,6 +4,7 @@ import Context from '../components/Context/Context';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router';
 import getUserByToken from '../helperFuncs/getUserByToken';
+import config from '../config/configToken';
 
 export default function SearchPage() {
   const { user, setUser } = useContext(Context);

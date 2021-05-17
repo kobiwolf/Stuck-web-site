@@ -16,11 +16,16 @@ const {
   deleteUser,
   UpdateInfo,
   addToken,
+  makeTokenForResetPassword,
 } = require('../helperFuncs/utils');
 const Address = require('../model/Address');
 const { resetPasswordMail } = require('../emails/allEmails');
 const User = require('../model/User');
+const authForResetPassword = require('../middleware/authForResetPassword');
 const { default: axios } = require('axios');
+const ToolItem = require('../model/Tool');
+const FoodItem = require('../model/Food');
+const MedicineItem = require('../model/Medicine');
 const endPoint = '/api/users';
 
 //  post in odder to login
@@ -61,7 +66,7 @@ route.get('/resetPassword/:email', async (req, res) => {
   try {
     const user = await User.findByMail(email);
     if (!user) return res.status(404).send('מייל זה אינו רשום במערכת');
-    const token = addToken(user);
+    const token = makeTokenForResetPassword(user);
     resetPasswordMail(email, token, user.name);
     res.send();
     // ! need to add a token request for reset password
@@ -69,10 +74,10 @@ route.get('/resetPassword/:email', async (req, res) => {
     throw new Error(e.message);
   }
 });
-route.post('/confirmPassword/', auth, async (req, res) => {
+route.post('/confirmPassword/', authForResetPassword, async (req, res) => {
   const { password, email } = req.body;
   try {
-    const user = await User.findByMail(email);
+    const user = req.user;
     user.password = password;
     user.save();
     res.send('password updated');
@@ -134,7 +139,7 @@ route.get('/img/:email', async (req, res) => {
     res.status(404).send(e.message);
   }
 });
-//  to get the sjon that has all the cities and strret
+//  to get the json that has all the cities and strret
 route.get('/address-list', async (req, res) => {
   try {
     const data = await Json.findOne({});
@@ -143,6 +148,7 @@ route.get('/address-list', async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+// get the pic for the big logo
 route.get('/logo/big', async (req, res) => {
   try {
     const logos = await Logo.find({});
@@ -152,6 +158,7 @@ route.get('/logo/big', async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+// get the pic for the small logo
 route.get('/logo/small', async (req, res) => {
   try {
     const logos = await Logo.find({});
@@ -161,6 +168,7 @@ route.get('/logo/small', async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+// upload logo pic for the db
 route.post('/logo', upload.single('img'), async (req, res) => {
   try {
     buffer = await sharp(req.file.buffer).png().toBuffer();
@@ -182,11 +190,33 @@ route.patch('/list', auth, async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+// get the address from the user info using the address id
 route.post('/myAddress', auth, async (req, res) => {
   const { id } = req.body;
   try {
     const { city, street, number } = await Address.findOne({ id: id });
     res.send({ city, street, number });
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+route.get('/itemsNames/:type', auth, async (req, res) => {
+  const { type } = req.params;
+  if (!type) return res.send('חובה לבחור סוג!');
+  let arrOfNames;
+  try {
+    switch (type) {
+      case 'Tool':
+        arrOfNames = await ToolItem.find({}, { _id: 0, name: 1 });
+        break;
+      case 'Food':
+        arrOfNames = await FoodItem.find({}, { _id: 0, name: 1 });
+        break;
+      case 'Medicine':
+        arrOfNames = await MedicineItem.find({}, { _id: 0, name: 1 });
+        break;
+    }
+    res.send(arrOfNames);
   } catch (e) {
     res.status(404).send(e.message);
   }
