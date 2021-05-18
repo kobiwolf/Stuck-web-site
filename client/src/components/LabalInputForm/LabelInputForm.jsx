@@ -13,37 +13,17 @@ export default function LabelInputForm({
   const [options, setOptions] = useState('');
   const [passwordState, setPasswordState] = useState(false);
   const type = !isPassword ? 'text' : passwordState ? 'password' : 'text';
+
   useEffect(() => {
-    if (cities) {
-      setOptions(
-        cities.map((city) => (
-          <div
-            onClick={(e) => {
-              setState(e.target.innerText);
-              setOptions(null);
-            }}
-          >
-            {city}
-          </div>
-        ))
-      );
-    }
+    if (cities)
+      setOptions(cities.map((city) => <option key={city}>{city}</option>));
   }, [cities]);
   useEffect(() => {
-    if (streets) {
+    if (text === 'רחוב') console.log(options);
+    if (streets)
       setOptions(
-        streets.map((street) => (
-          <div
-            onClick={(e) => {
-              setState(e.target.innerText);
-              setOptions(null);
-            }}
-          >
-            {street}
-          </div>
-        ))
+        streets.map((street) => <option key={street}>{street}</option>)
       );
-    }
   }, [streets]);
   return (
     <div className="field">
@@ -56,8 +36,13 @@ export default function LabelInputForm({
           value={state}
           onChange={(e) => setState(e.target.value)}
           required={required}
+          list={cities ? 'cities' : streets ? 'streets' : undefined}
         />
-        {options}
+        {options && (
+          <datalist id={cities ? 'cities' : streets ? 'streets' : undefined}>
+            {options}
+          </datalist>
+        )}
         {isPassword && (
           <span
             className="material-icons"

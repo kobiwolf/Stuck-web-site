@@ -44,6 +44,10 @@ export default function Form({ setRegistered, registered }) {
       const startsWith = Object.keys(allAddresses).filter((city) =>
         req.test(city)
       );
+      if (city === startsWith[0]) {
+        setOptionsCity(null);
+        return;
+      }
       startsWith.splice(10);
       startsWith.length === 0
         ? setErrorMsgCity('לא נמצאה עיר בישראל')
@@ -57,15 +61,22 @@ export default function Form({ setRegistered, registered }) {
   }, [city]);
   useEffect(() => {
     if (street) {
-      if (!city) return setStreet('חובה לשים עיר!');
+      if (!city) return setErrorMsgStreet('חובה לשים עיר!');
       const req = new RegExp(`^${street}`, 'm');
       const streetsInCity = allAddresses[city];
       if (!streetsInCity) return setStreet('אין רחובות בעיר זו');
       const startsWith = streetsInCity.filter((street) => req.test(street));
+      if (street === startsWith[0]) {
+        setOptionsStreets(null);
+        return;
+      }
+      if (startsWith.length === 0) {
+        setErrorMsgStreet('אין רחוב שמתחיל באותיות אלו');
+        return;
+      }
       startsWith.splice(10);
-      startsWith.length === 0
-        ? setErrorMsgStreet('לא נמצאה רחוב בישראל')
-        : setErrorMsgStreet(null);
+      setErrorMsgStreet(null);
+
       setOptionsStreets(startsWith);
     } else {
       setOptionsStreets([]);
@@ -111,6 +122,7 @@ export default function Form({ setRegistered, registered }) {
         state={city}
         setState={setCity}
         cities={optionsCity}
+        type="search"
       />
       {errorMsgCity && <h5>{errorMsgCity}</h5>}
       <LabelForm
@@ -118,6 +130,7 @@ export default function Form({ setRegistered, registered }) {
         state={street}
         setState={setStreet}
         streets={optionsStreets}
+        type="search"
       />
       {errorMsgStreet && <h5>{errorMsgStreet}</h5>}
       <LabelForm

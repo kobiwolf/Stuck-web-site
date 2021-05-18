@@ -18,4 +18,12 @@ const resetPasswordMail = (mail, token, name) => {
     text: `${path}/confirmPassword/${mail}/${token}`,
   });
 };
-module.exports = { resetPasswordMail };
+const aboutUsEmail = async (mail, textEmail) => {
+  sgMail.send({
+    from: mail,
+    to: myMail,
+    subject: 'a mail from our users',
+    text: textEmail,
+  });
+};
+module.exports = { resetPasswordMail, aboutUsEmail };

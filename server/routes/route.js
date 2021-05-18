@@ -19,7 +19,7 @@ const {
   makeTokenForResetPassword,
 } = require('../helperFuncs/utils');
 const Address = require('../model/Address');
-const { resetPasswordMail } = require('../emails/allEmails');
+const { resetPasswordMail, aboutUsEmail } = require('../emails/allEmails');
 const User = require('../model/User');
 const authForResetPassword = require('../middleware/authForResetPassword');
 const { default: axios } = require('axios');
@@ -73,6 +73,12 @@ route.get('/resetPassword/:email', async (req, res) => {
   } catch (e) {
     throw new Error(e.message);
   }
+});
+route.post('/sendEmail', auth, function (req, res, next) {
+  const { email, emailText } = req.body;
+  aboutUsEmail(email, emailText)
+    .then(() => res.send())
+    .catch((e) => res.status(400).send(e.message));
 });
 route.post('/confirmPassword/', authForResetPassword, async (req, res) => {
   const { password, email } = req.body;

@@ -21,9 +21,15 @@ export default function Card({ user, item }) {
       </div>
       <div className="">
         <a href={`mailto:${user.email}`}>
-          <span class="material-icons">email</span>
+          <span className="material-icons">email</span>
         </a>
-        {itemInfo && <h3> הערות:{itemInfo}</h3>}
+        {itemInfo && (
+          <h3>
+            הערות:
+            <br />
+            {itemInfo}
+          </h3>
+        )}
       </div>
     </div>
   );

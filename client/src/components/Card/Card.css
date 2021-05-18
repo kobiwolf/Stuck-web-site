@@ -5,6 +5,7 @@
 }
 .userCard {
   display: flex;
+  margin-top: 20px;
 }
 .userCard > div {
   display: flex;

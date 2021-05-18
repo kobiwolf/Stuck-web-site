@@ -38,35 +38,35 @@ export default function SearchDiv() {
     }
   }, [type]);
   useEffect(() => {
-    if (inputSearch) {
-      const req = new RegExp(`^${inputSearch}`, 'm');
-      const startsWith = itemsNames.filter((itemName) => req.test(itemName));
-      if (startsWith.length === 0) {
-        setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
-        setOptionsSearch(null);
-      } else {
-        if (inputSearch === startsWith[0]) {
-          setOptionsSearch(null);
-          setErrorMsgSearch(null);
-        } else {
-          setOptionsSearch(
-            startsWith.map((option) => (
-              <div
-                onClick={() => {
-                  setInputSearch(option);
-                  setOptionsSearch(null);
-                }}
-              >
-                {option}
-              </div>
-            ))
-          );
-        }
-      }
-    } else {
-      setErrorMsgSearch(null);
+    if (!inputSearch) {
       setOptionsSearch(null);
+      setErrorMsgSearch(null);
+      return;
     }
+    if (!type) {
+      setErrorMsgSearch('חובה לבחור סוג קודם!');
+      return;
+    }
+
+    setErrorMsgSearch(null);
+    setOptionsSearch(null);
+    const req = new RegExp(`^${inputSearch}`, 'm');
+    const startsWith = itemsNames.filter((itemName) => req.test(itemName));
+    if (startsWith.length === 0) {
+      setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
+      setOptionsSearch(null);
+      return;
+    }
+    if (inputSearch === startsWith[0]) {
+      setOptionsSearch(null);
+      setErrorMsgSearch(null);
+      return;
+    }
+    setOptionsSearch(
+      startsWith.map((option) => <option key={option}>{option}</option>)
+    );
+    if (!itemsNames.find((name) => name === inputSearch))
+      setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
   }, [inputSearch]);
   const searchUser = async () => {
     if (!type || !radius || !inputSearch)
@@ -97,16 +97,18 @@ export default function SearchDiv() {
       setSearchAnswer(error.response.data);
     }
   };
+
   return (
     <div className="SearchMainDiv">
       <input
-        type="text"
+        type="search"
+        list="list"
         value={inputSearch}
-        placeholder="בא נחפש!!"
+        placeholder="מה חסר?"
         onChange={(e) => setInputSearch(e.target.value)}
         required
       />
-      {optionsSearch}
+      <datalist id="list">{optionsSearch}</datalist>
       {errorMsgSearch}
       <div className="SearchOptions">
         <RadioButtons
@@ -136,7 +138,12 @@ export default function SearchDiv() {
       <button onClick={searchUser} disabled={errorMsgSearch ? true : false}>
         יאללה תביא מוצר!
       </button>
-      {searchAnswer && <h2>{searchAnswer}</h2>}
+
+      {searchAnswer && typeof searchAnswer === 'string' ? (
+        <h2>{searchAnswer}</h2>
+      ) : (
+        <div>{searchAnswer}</div>
+      )}
     </div>
   );
 }

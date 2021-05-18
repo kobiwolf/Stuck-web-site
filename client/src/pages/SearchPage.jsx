@@ -23,6 +23,7 @@ export default function SearchPage() {
     <>
       {user && (
         <div>
+          <div className="tabHeader">חיפוש מוצר באזורך:</div>
           <SearchDiv />
         </div>
       )}

@@ -3,6 +3,7 @@ import Context from '../components/Context/Context';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router';
 import getUserByToken from '../helperFuncs/getUserByToken';
+import AboutUsDiv from '../components/AboutUsDiv/AboutUsDiv';
 export default function AboutUsPage() {
   const { user, setUser } = useContext(Context);
 
@@ -19,7 +20,8 @@ export default function AboutUsPage() {
     <>
       {user && (
         <div>
-          <h1>עלינו</h1>
+          <div className="tabHeader">עלינו:</div>
+          <AboutUsDiv />
         </div>
       )}
     </>

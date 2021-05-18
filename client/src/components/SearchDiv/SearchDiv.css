@@ -1,9 +1,8 @@
 .SearchMainDiv {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 92vh;
+  min-height: 92vh;
 }
 .SearchOptions {
   margin: 1rem 0;
@@ -21,9 +20,27 @@
   font-size: 16px;
   margin-top: 15px;
 }
+.SearchMainDiv > * {
+  margin: 30px 1px;
+}
 .SearchMainDiv > input {
   border: 1px solid blue;
+  margin: 40px 5px;
+  padding: 25px 40px;
+  font-size: 18px;
 }
+.SearchMainDiv > input:focus {
+  border: none;
+}
+
 .SearchMainDiv button:disabled {
   color: lightgray;
+}
+
+@media only screen and (min-width: 500px) {
+  .SearchMainDiv > input {
+    margin-bottom: 10px;
+    padding: 25px 10px;
+    font-size: 25px;
+  }
 }
