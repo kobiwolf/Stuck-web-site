@@ -33,7 +33,9 @@ export default function AboutUsDiv() {
         />
         <br />
         <br />
-        <button onClick={handleClick}>שלח מייל </button>
+        <span className="material-icons" onClick={handleClick}>
+          send
+        </span>
       </div>
     </div>
   );
