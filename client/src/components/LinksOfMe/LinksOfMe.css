@@ -1,0 +1,10 @@
+.linksOfMe i {
+  font-size: 40px;
+  color: var(--blue);
+}
+.linksOfMe {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

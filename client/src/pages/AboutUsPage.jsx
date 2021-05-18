@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router';
 import getUserByToken from '../helperFuncs/getUserByToken';
 import AboutUsDiv from '../components/AboutUsDiv/AboutUsDiv';
+import LinksOfMe from '../components/LinksOfMe/LinksOfMe';
 export default function AboutUsPage() {
   const { user, setUser } = useContext(Context);
 
@@ -22,6 +23,7 @@ export default function AboutUsPage() {
         <div>
           <div className="tabHeader">עלינו:</div>
           <AboutUsDiv />
+          <LinksOfMe />
         </div>
       )}
     </>
