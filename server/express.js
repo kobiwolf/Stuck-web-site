@@ -1,14 +1,14 @@
 require('dotenv').config();
 require('./db/mongoDB.js');
 const express = require('express');
-
+const http = require('http');
 const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const userRoute = require('./routes/route');
 const managerRoute = require('./routes/ItemsRoutes');
 const app = express();
-const server = require('http').Server(app);
+const server = http.createServer(app);
 
 const pathToClientBuild = path.join(__dirname, 'build');
 const port = process.env.PORT || 3001;

@@ -10,7 +10,7 @@ export default function LinksOfMe() {
         href="https://www.linkedin.com/in/kobi-wolf-01387a1a9/"
         target="_blanc"
       >
-        <i class="fab fa-linkedin" />
+        <i className="fab fa-linkedin" />
       </a>
     </div>
   );
