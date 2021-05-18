@@ -20,10 +20,16 @@ app.use(express.json());
 app.use('/manager', managerRoute);
 app.use(userRoute);
 const io = socketio(server, config);
+
 io.on('connection', (socket) => {
   console.log('user connected');
-  socket.on('disconnet', () => {
-    console.log('user has left');
+  socket.on('disconnect', () => {
+    io.emit('message', 'user has left');
+  });
+  socket.emit('message', 'welcome from the server');
+  socket.broadcast.emit('message', 'new user joind');
+  socket.on('broadcast', (text) => {
+    io.emit('message', text);
   });
 });
 
