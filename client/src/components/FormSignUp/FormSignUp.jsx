@@ -155,11 +155,11 @@ export default function Form({ setRegistered, registered }) {
 
       <button
         disabled={errorMsgCity || errorMsgStreet ? true : false}
-        className="ui button"
+        className="buttonSignUp"
         type="submit"
         onClick={handleClick}
       >
-        Submit
+        הרשם
       </button>
       <span
         onClick={(e) => {

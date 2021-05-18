@@ -112,6 +112,7 @@ export default function EditInfoDiv() {
     setIsLoading(true);
     const email = user.email;
     const fd = new FormData();
+
     const values = { password, name, city, street, number, img, email };
     await checkIfAddressUpdate(values);
     Object.entries(values).forEach((value) => {

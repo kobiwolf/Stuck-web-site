@@ -52,20 +52,22 @@ export default function Form({ registered, setRegistered }) {
         setState={setPassword}
         isPassword={true}
       />
-      <button className="forgetPassword" onClick={handleResetButton}>
-        שכחת סיסמא??
+      <div className="linksInForm">
+        <button className="forgetPassword" onClick={handleResetButton}>
+          שכחת סיסמא??
+        </button>
+        <span
+          onClick={(e) => {
+            e.preventDefault();
+            setRegistered(!registered);
+          }}
+        >
+          חדש פה??
+        </span>
+      </div>
+      <button type="submit" className="loggedInBut" onClick={handleClick}>
+        התחבר
       </button>
-      <button className="ui button" type="submit" onClick={handleClick}>
-        Submit
-      </button>
-      <span
-        onClick={(e) => {
-          e.preventDefault();
-          setRegistered(!registered);
-        }}
-      >
-        חדש פה??
-      </span>
       {<h3>{response}</h3>}
     </form>
   );

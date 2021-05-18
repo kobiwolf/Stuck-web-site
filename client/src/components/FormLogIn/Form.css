@@ -3,4 +3,25 @@
   color: #185fff;
   background-color: transparent;
   text-decoration: underline;
+  display: block;
+}
+.form button {
+  color: red;
+  background-color: transparent;
+  border: unset;
+}
+.linksInForm {
+  display: flex;
+  justify-content: space-between;
+}
+.form .loggedInBut {
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+  font-size: 20px;
+  border-radius: 25px;
+  padding: 12px 30px;
+  color: var(--blue);
+  background-color: white;
+  border: 1px solid var(--blue);
 }

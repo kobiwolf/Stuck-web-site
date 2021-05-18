@@ -9,3 +9,18 @@
   text-decoration: underline;
   margin-right: 15px;
 }
+.form > div > span {
+  color: rgb(0, 81, 255);
+  text-decoration: underline;
+  margin-right: 15px;
+}
+.form .buttonSignUp {
+  display: block;
+  margin: auto;
+  font-size: 20px;
+  color: var(--blue);
+  background-color: white;
+  border: 1px solid var(--blue);
+  border-radius: 25px;
+  padding: 12px 30px;
+}
