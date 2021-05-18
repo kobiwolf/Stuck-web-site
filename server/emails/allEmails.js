@@ -6,7 +6,7 @@ sgMail.setApiKey(process.env.SENDGRID);
 
 const path =
   process.env.NODE_ENV === 'production'
-    ? 'https://stuck-by-kobi-wolf.herokuapp.com/'
+    ? 'https://stuck-by-kobi-wolf.herokuapp.com'
     : 'http://localhost:3000';
 module.exports = path;
 
