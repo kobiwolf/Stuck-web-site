@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './CardItem.css';
 import Context from '../Context/Context';
 import EditInfoItem from '../EditInfoItem/EditInfoItem';
 import uniqid from 'uniqid';
-export default function CardItem({ item, addItem }) {
+export default function CardItem({ item }) {
   const { user, setUser } = useContext(Context);
   const [itemState, setItemState] = useState(item);
   const isUserHasItem = () =>

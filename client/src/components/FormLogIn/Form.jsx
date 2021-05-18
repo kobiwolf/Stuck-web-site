@@ -9,7 +9,7 @@ import '../FormSignUp/Form.css';
 import './Form.css';
 
 export default function Form({ registered, setRegistered }) {
-  const { user, setUser, setIsLoading } = useContext(Context);
+  const { setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');

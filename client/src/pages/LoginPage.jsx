@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
 import FormSignUp from '../components/FormSignUp/FormSignUp';
 import Form from '../components/FormLogIn/Form';

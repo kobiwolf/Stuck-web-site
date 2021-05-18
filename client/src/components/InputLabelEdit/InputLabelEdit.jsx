@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './InputLabelEdit.css';
 
 export default function InputLabelEdit({
@@ -27,7 +27,7 @@ export default function InputLabelEdit({
           <>
             <label htmlFor="upload-button">
               {state ? (
-                <img src={state.preview} />
+                <img src={state.preview} alt="img" />
               ) : (
                 <>
                   <span className="material-icons">add_a_photo</span>

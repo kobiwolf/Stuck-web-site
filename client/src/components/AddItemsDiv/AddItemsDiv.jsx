@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import axios from 'axios';
 import React, { useState, useContext, useEffect } from 'react';
 import endPoint from '../../endPoints/serverEndPoint';
@@ -18,12 +20,10 @@ export default function AddItemsDiv() {
   ];
   useEffect(() => {
     if (Array.isArray(response) && response.length) {
-      console.log(user.items);
       const itemsUserNotHave = response.filter((item) => {
         if (!user.items.find((itemi) => itemi.name === item.props.item.name))
           return item;
       });
-      console.log(itemsUserNotHave);
       setResponse(itemsUserNotHave);
     }
   }, [user]);

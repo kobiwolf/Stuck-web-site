@@ -7,7 +7,7 @@ import endPoint from '../../endPoints/serverEndPoint';
 import config from '../../config/configToken';
 
 export default function ItemsDiv() {
-  const { user, setUser, setIsLoading } = useContext(Context);
+  const { user, setIsLoading } = useContext(Context);
   const [items, setItems] = useState([]);
 
   useEffect(() => {

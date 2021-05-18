@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './resetPasswordDiv.css';
 import React, { useEffect, useState, useContext } from 'react';
 import LabelInputForm from '../LabalInputForm/LabelInputForm';
@@ -22,7 +23,7 @@ export default function ResetPasswordDiv() {
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.post(
+      await axios.post(
         `${endPoint}/confirmPassword`,
         { password, email: history.location.pathname.split('/')[2] },
         config()

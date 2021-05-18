@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from 'react';
 import AddItemsDiv from '../components/AddItemsDiv/AddItemsDiv';
 import ItemsDiv from '../components/ItemsDiv/ItemsDiv';

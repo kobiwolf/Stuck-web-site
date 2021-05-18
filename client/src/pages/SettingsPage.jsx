@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from 'react';
 import EditInfoDiv from '../components/EditInfoDiv/EditInfoDiv';
 import Context from '../components/Context/Context';

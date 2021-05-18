@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
@@ -14,6 +16,7 @@ import Cookies from 'universal-cookie';
 import Spinner from './components/Spinner/Spinner';
 
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   const [user, setUser] = useState('');
@@ -38,6 +41,7 @@ function App() {
             <Route path="/aboutUs" exact component={AboutUsPage} />
 
             <Route path="/settings" exact component={SettingsPage} />
+            <Route path="/chat" exact component={ChatPage} />
             <Route
               path="/confirmPassword/:mail/:token"
               exact

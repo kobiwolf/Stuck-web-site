@@ -42,6 +42,11 @@ export default function NavBar() {
                 הגדרות
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/chat" className="nav-link" onClick={closeMenu}>
+                צ'אט
+              </Link>
+            </li>
           </ul>
           <div className="hamburger" ref={refHamburger} onClick={mobileMenu}>
             <span className="bar"></span>

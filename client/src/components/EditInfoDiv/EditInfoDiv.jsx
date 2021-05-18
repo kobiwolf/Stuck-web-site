@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react';
 import './EditInfoDiv.css';
 import Context from '../Context/Context';
 import InputLabelEdit from '../InputLabelEdit/InputLabelEdit';
@@ -7,7 +8,6 @@ import endPoint from '../../endPoints/serverEndPoint';
 import axios from 'axios';
 import config from '../../config/configToken';
 import validator from 'validator';
-import Cookies from 'universal-cookie';
 
 export default function EditInfoDiv() {
   const { user, setUser, setIsLoading } = useContext(Context);

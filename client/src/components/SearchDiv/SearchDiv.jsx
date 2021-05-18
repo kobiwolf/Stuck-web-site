@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import endPoint from '../../endPoints/serverEndPoint';
@@ -10,7 +11,7 @@ import 'rc-slider/assets/index.css';
 
 import './SearchDiv.css';
 export default function SearchDiv() {
-  const { user, setUser, setIsLoading } = useContext(Context);
+  const { user, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [searchAnswer, setSearchAnswer] = useState(null);
   const [errorMsgSearch, setErrorMsgSearch] = useState('');

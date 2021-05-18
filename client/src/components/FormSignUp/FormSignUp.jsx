@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Form.css';
 import LabelForm from '../LabalInputForm/LabelInputForm';
 import endPoint from '../../endPoints/serverEndPoint';
@@ -9,7 +10,7 @@ import Cookies from 'universal-cookie';
 import InputLabelEdit from '../InputLabelEdit/InputLabelEdit';
 
 export default function Form({ setRegistered, registered }) {
-  const { user, setUser, setIsLoading } = useContext(Context);
+  const { setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
