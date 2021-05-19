@@ -1,12 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+
+import ChatDiv from '../chatDiv/ChatDiv';
 import './Card.css';
+
 export default function Card({ user, item }) {
   const [itemInfo, setItemInfo] = useState('');
+  const [isChat, setIsChat] = useState(false);
   useEffect(() => {
     const item1 = user.items.find((itemi) => itemi.name === item);
     setItemInfo(item1.info);
   }, []);
+  const handleClick = () => {
+    setIsChat(!isChat);
+  };
   return (
     <div className="userCard">
       <div className="">
@@ -20,7 +27,7 @@ export default function Card({ user, item }) {
         />
         <h3>{user.name}</h3>
       </div>
-      <div className="">
+      <div className="" onClick={handleClick}>
         <a href={`mailto:${user.email}`}>
           <span className="material-icons">email</span>
         </a>
@@ -32,6 +39,7 @@ export default function Card({ user, item }) {
           </h3>
         )}
       </div>
+      {isChat && <ChatDiv />}
     </div>
   );
 }
