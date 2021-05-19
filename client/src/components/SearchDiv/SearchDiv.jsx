@@ -101,6 +101,13 @@ export default function SearchDiv() {
 
   return (
     <div className="SearchMainDiv">
+      <div className="SearchOptions">
+        <RadioButtons
+          values={radioButtonsValuesType}
+          setState={setType}
+          header="בחר סוג מוצר"
+        />
+      </div>
       <input
         type="search"
         list="list"
@@ -111,13 +118,6 @@ export default function SearchDiv() {
       />
       <datalist id="list">{optionsSearch}</datalist>
       {errorMsgSearch}
-      <div className="SearchOptions">
-        <RadioButtons
-          values={radioButtonsValuesType}
-          setState={setType}
-          header="בחר סוג מוצר"
-        />
-      </div>
       <h3>המרחק שבא לך להשקיע(מטרים)</h3>
       <Slider
         className="slider"
