@@ -41,7 +41,8 @@ function App() {
             <Route path="/aboutUs" exact component={AboutUsPage} />
 
             <Route path="/settings" exact component={SettingsPage} />
-            <Route path="/chat" exact component={ChatPage} />
+            {/* i tried to implament socketio,did'nt magange to finish-continoue later */}
+            {/* <Route path="/chat" exact component={ChatPage} /> */}
             <Route
               path="/confirmPassword/:mail/:token"
               exact

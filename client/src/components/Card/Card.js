@@ -39,7 +39,8 @@ export default function Card({ user, item }) {
           </h3>
         )}
       </div>
-      {isChat && <ChatDiv />}
+      {/* i tried to implament socketio,did'nt magange to finish-continoue later */}
+      {/* {isChat && <ChatDiv />} */}
     </div>
   );
 }
