@@ -4,7 +4,6 @@
   flex-direction: column;
   margin: 0.5rem auto;
   position: relative;
-
   animation: display 1.5s linear 0s 1 normal forwards;
 }
 @keyframes display {
@@ -47,9 +46,4 @@
 }
 .EditInfoItem h5 {
   margin: 0;
-}
-.fa-trash-alt {
-  position: absolute;
-  top: 0;
-  right: 0;
 }

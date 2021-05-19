@@ -1,0 +1,23 @@
+.EditInfoItem > div {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+}
+.EditInfoItem span {
+  text-align: center;
+  height: 25px;
+  width: 40px;
+  border-radius: 50%;
+
+  color: white;
+}
+.orange-bg {
+  background-color: var(--orange);
+}
+.red-bg {
+  background-color: var(--red);
+}
+.green-bg {
+  background-color: green;
+}

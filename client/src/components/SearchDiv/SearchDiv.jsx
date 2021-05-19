@@ -89,7 +89,7 @@ export default function SearchDiv() {
         setSearchAnswer('אין אף משתמש שמתאים לקריטרונים שלך');
       setSearchAnswer(
         response.data.map((user) => (
-          <Card key={user._id} user={user} item={inputSearch} />
+          <Card key={user._id} match={user} item={inputSearch} />
         ))
       );
       setIsLoading(false);

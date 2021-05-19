@@ -26,4 +26,12 @@ const aboutUsEmail = async (mail, textEmail) => {
     text: textEmail,
   });
 };
-module.exports = { resetPasswordMail, aboutUsEmail };
+const hiEmail = async (from, to, text) => {
+  sgMail.send({
+    from,
+    to,
+    subject: 'you have a message from one thats needs you!',
+    text,
+  });
+};
+module.exports = { resetPasswordMail, aboutUsEmail, hiEmail };

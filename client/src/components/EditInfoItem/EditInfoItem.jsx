@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import uniqid from 'uniqid';
-
-export default function EditInfoItem({ item, setItem }) {
+import InputControl from '../InputControl/InputControl';
+import './EditInfoItem.css';
+export default function EditInfoItem({ item, setItem, deleteClick }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(item.info || 'אין מידע');
-  console.log();
+
   useEffect(() => {
     item.info = input;
     setItem(item);
@@ -14,24 +14,23 @@ export default function EditInfoItem({ item, setItem }) {
     <div className="EditInfoItem">
       <h5>מידע על המוצר:</h5>
       {isEditMode ? (
-        <input onChange={(e) => setInput(e.target.value)} value={input} />
+        <InputControl setState={setInput} state={input} />
       ) : (
         <h5>{input}</h5>
       )}
-
-      <div className=""></div>
-      <button
-        onClick={() => {
-          setIsEditMode(!isEditMode);
-        }}
-      >
-        <br />
-        {!isEditMode ? (
-          <i className="far fa-edit" key={uniqid()} />
-        ) : (
-          <i className="far fa-check-circle" key={uniqid()} />
-        )}
-      </button>
+      <div>
+        <span
+          className={`material-icons ${isEditMode ? 'green-bg' : 'orange-bg'}`}
+          onClick={() => {
+            setIsEditMode(!isEditMode);
+          }}
+        >
+          {isEditMode ? 'check ' : 'edit'}
+        </span>
+        <span className="material-icons red-bg" onClick={deleteClick}>
+          delete
+        </span>
+      </div>
     </div>
   );
 }

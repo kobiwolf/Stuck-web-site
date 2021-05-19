@@ -16,7 +16,7 @@ import Cookies from 'universal-cookie';
 import Spinner from './components/Spinner/Spinner';
 
 import ResetPasswordPage from './pages/ResetPasswordPage';
-import ChatPage from './pages/ChatPage';
+// import ChatPage from './pages/ChatPage';
 
 function App() {
   const [user, setUser] = useState('');

@@ -19,7 +19,11 @@ const {
   makeTokenForResetPassword,
 } = require('../helperFuncs/utils');
 const Address = require('../model/Address');
-const { resetPasswordMail, aboutUsEmail } = require('../emails/allEmails');
+const {
+  resetPasswordMail,
+  aboutUsEmail,
+  hiEmail,
+} = require('../emails/allEmails');
 const User = require('../model/User');
 const authForResetPassword = require('../middleware/authForResetPassword');
 const { default: axios } = require('axios');
@@ -249,6 +253,12 @@ route.post('/search', auth, async (req, res) => {
   } catch (e) {
     res.status(404).send(e.message);
   }
+});
+route.post('/productMail', auth, (req, res, next) => {
+  const { from, to, text } = req.body;
+  hiEmail(from, to, text)
+    .then(() => res.send('ok'))
+    .catch((e) => res.status(400).send(e.message));
 });
 
 module.exports = route;

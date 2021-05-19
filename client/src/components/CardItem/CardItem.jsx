@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './CardItem.css';
 import Context from '../Context/Context';
 import EditInfoItem from '../EditInfoItem/EditInfoItem';
-import uniqid from 'uniqid';
+
 export default function CardItem({ item }) {
   const { user, setUser } = useContext(Context);
   const [itemState, setItemState] = useState(item);
@@ -30,13 +30,13 @@ export default function CardItem({ item }) {
         />
         <h2>{item.name}</h2>
       </div>
-      <div>
-        <button onClick={clickHandle}>
-          {isUserHasItem() && <i className="far fa-trash-alt" key={uniqid()} />}
-        </button>
-      </div>
+
       {isUserHasItem() && (
-        <EditInfoItem item={itemState} setItem={setItemState} />
+        <EditInfoItem
+          item={itemState}
+          setItem={setItemState}
+          deleteClick={clickHandle}
+        />
       )}
     </div>
   );

@@ -8,11 +8,15 @@ import './AddItemsDiv.css';
 import Context from '../Context/Context';
 import RadioButtons from '../RadioButtons/RadioButtons';
 import config from '../../config/configToken';
+
 export default function AddItemsDiv() {
   const { user, setIsLoading } = useContext(Context);
   const [inputSearch, setInputSearch] = useState('');
   const [response, setResponse] = useState('');
   const [type, setType] = useState(null);
+  const [errorMsgSearch, setErrorMsgSearch] = useState('');
+  const [optionsSearch, setOptionsSearch] = useState([]);
+  const [itemsNames, setItemsNames] = useState([]);
   const valuesForRadioButtons = [
     ['Medicine', 'תרופה'],
     ['Tool', 'כלי עבודה'],
@@ -27,6 +31,53 @@ export default function AddItemsDiv() {
       setResponse(itemsUserNotHave);
     }
   }, [user]);
+
+  //
+  useEffect(() => {
+    if (type) {
+      axios
+        .get(`${endPoint}/itemsNames/${type}`, config())
+        .then(({ data }) => {
+          const arr = data.map((item) => item.name);
+          setItemsNames(arr);
+        })
+        .catch((e) => console.log(e));
+      setInputSearch('');
+    }
+  }, [type]);
+  useEffect(() => {
+    if (!inputSearch) {
+      setOptionsSearch(null);
+      setErrorMsgSearch(null);
+      return;
+    }
+    if (!type) {
+      setErrorMsgSearch('חובה לבחור סוג קודם!');
+      return;
+    }
+
+    setErrorMsgSearch(null);
+    setOptionsSearch(null);
+    const req = new RegExp(`^${inputSearch}`, 'm');
+    const startsWith = itemsNames.filter((itemName) => req.test(itemName));
+    if (startsWith.length === 0) {
+      setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
+      setOptionsSearch(null);
+      return;
+    }
+    if (inputSearch === startsWith[0]) {
+      setOptionsSearch(null);
+      setErrorMsgSearch(null);
+      return;
+    }
+    setOptionsSearch(
+      startsWith.map((option) => <option key={option}>{option}</option>)
+    );
+    if (!itemsNames.find((name) => name === inputSearch))
+      setErrorMsgSearch('לא נמצא שם זה במאגר,אנא נסה שנית');
+  }, [inputSearch]);
+
+  //
   const addItem = (value) => {
     const copyResponse = JSON.parse(JSON.stringify(response));
     copyResponse.push(<CardItem key={value._id} item={value} />);
@@ -69,11 +120,15 @@ export default function AddItemsDiv() {
       </div>
       <div className="">
         <input
-          type="text"
+          type="search"
+          list="list"
           value={inputSearch}
-          placeholder="מה בא לך לפנק??"
+          placeholder="מה חסר?"
           onChange={(e) => setInputSearch(e.target.value)}
+          required
         />
+        <datalist id="list">{optionsSearch}</datalist>
+        {errorMsgSearch}
         <span className="material-icons" onClick={handleClick}>
           search
         </span>
