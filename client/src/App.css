@@ -27,3 +27,6 @@ input {
   border: 1px solid var(--red);
   border-radius: 5px;
 }
+.blue-bg {
+  background-color: var(--blue);
+}

@@ -26,7 +26,9 @@ export default function ItemsPage() {
       {user && (
         <div>
           <ItemsDiv />
-          <div className="tabHeader">המוצרים להוספה:</div>
+          <div className="tabHeader" style={{ backgroundColor: 'var(--blue)' }}>
+            המוצרים להוספה:
+          </div>
           <AddItemsDiv />
         </div>
       )}

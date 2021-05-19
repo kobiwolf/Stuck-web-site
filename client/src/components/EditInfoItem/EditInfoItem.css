@@ -5,11 +5,13 @@
   align-items: center;
 }
 .EditInfoItem span {
-  text-align: center;
-  height: 25px;
+  height: 40px;
   width: 40px;
   border-radius: 50%;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
   color: white;
 }
 .orange-bg {

@@ -4,7 +4,7 @@
   flex-direction: column;
   margin: 0.5rem auto;
   position: relative;
-  animation: display 1.5s linear 0s 1 normal forwards;
+  animation: display 1s linear 0s 1 normal forwards;
 }
 @keyframes display {
   0% {
