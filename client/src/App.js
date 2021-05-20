@@ -16,6 +16,7 @@ import Cookies from 'universal-cookie';
 import Spinner from './components/Spinner/Spinner';
 
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import ForgetPasswordPage from './pages/ForgetPasswordPage';
 // import ChatPage from './pages/ChatPage';
 
 function App() {
@@ -41,6 +42,11 @@ function App() {
             <Route path="/aboutUs" exact component={AboutUsPage} />
 
             <Route path="/settings" exact component={SettingsPage} />
+            <Route
+              path="/forgetPassword"
+              exact
+              component={ForgetPasswordPage}
+            />
             {/* i tried to implament socketio,did'nt magange to finish-continoue later */}
             {/* <Route path="/chat" exact component={ChatPage} /> */}
             <Route

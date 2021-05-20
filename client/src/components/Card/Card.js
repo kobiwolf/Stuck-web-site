@@ -16,9 +16,48 @@ export default function Card({ match, item }) {
   }, []);
   const handleClick = () => setIsChat(!isChat);
   return (
-    <div className="userCard">
-      <div className="">
+    // <div className="userCard">
+    //   <div className="">
+    //     <img
+    //       src={
+    //         match.avatar
+    //           ? `${match.avatar}?t=${Date.now()}`
+    //           : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+    //       }
+    //       alt={`pic of ${match.name}`}
+    //     />
+    //     <h3>{match.name}</h3>
+    //   </div>
+    //   <div className="">
+    //     <span className="material-icons" onClick={handleClick}>
+    //       email
+    //     </span>
+
+    //     {itemInfo && (
+    //       <h3>
+    //         הערות:
+    //         <br />
+    //         {itemInfo}
+    //       </h3>
+    //     )}
+    //   </div>
+    //   {/* i tried to implament socketio,did'nt magange to finish-continoue later */}
+    //   {isChat && (
+    //     <SendEmailBox
+    //       to={match.email}
+    //       from={user.email}
+    //       item={item}
+    //       fromName={user.name}
+    //       toName={match.name}
+    //       setState={setIsChat}
+    //     />
+    //   )}
+    // </div>
+
+    <div className="card">
+      <div className="content">
         <img
+          className="right floated mini ui image"
           src={
             match.avatar
               ? `${match.avatar}?t=${Date.now()}`
@@ -26,22 +65,16 @@ export default function Card({ match, item }) {
           }
           alt={`pic of ${match.name}`}
         />
-        <h3>{match.name}</h3>
+        <div className="header">{match.name}</div>
+        <div className="description">הערות על המוצר: {itemInfo}</div>
       </div>
-      <div className="">
-        <span className="material-icons" onClick={handleClick}>
-          email
-        </span>
-
-        {itemInfo && (
-          <h3>
-            הערות:
-            <br />
-            {itemInfo}
-          </h3>
-        )}
+      <div className="extra content">
+        <div className="ui one buttons">
+          <div className="ui basic green button" onClick={handleClick}>
+            שלח מייל
+          </div>
+        </div>
       </div>
-      {/* i tried to implament socketio,did'nt magange to finish-continoue later */}
       {isChat && (
         <SendEmailBox
           to={match.email}

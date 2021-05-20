@@ -24,3 +24,8 @@
     transform: rotate(360deg);
   }
 }
+.spinner img {
+  position: absolute;
+  top: 45vh;
+  left: 45vw;
+}

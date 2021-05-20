@@ -143,7 +143,7 @@ export default function SearchDiv() {
       {searchAnswer && typeof searchAnswer === 'string' ? (
         <h2>{searchAnswer}</h2>
       ) : (
-        <div>{searchAnswer}</div>
+        <div className="ui cards">{searchAnswer}</div>
       )}
     </div>
   );

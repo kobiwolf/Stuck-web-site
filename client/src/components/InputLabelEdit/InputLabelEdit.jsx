@@ -20,7 +20,7 @@ export default function InputLabelEdit({
   return (
     <div className="InputLabelEdit">
       <div>
-        <label>{field}</label>
+        <label>{field === 'תמונה' ? '' : field}</label>
       </div>
       <div>
         {field === 'תמונה' ? (

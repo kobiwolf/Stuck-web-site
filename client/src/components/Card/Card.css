@@ -3,8 +3,8 @@
   height: 50px;
   border-radius: 50%;
 }
-.userCard {
-  position: relative;
+.card {
+  position: relative !important;
   display: flex;
   margin-top: 20px;
 }
@@ -13,7 +13,7 @@
   flex-direction: column;
   margin: 5px;
 }
-.userCard a + h3 {
+.userCard span + h3 {
   color: lightgray;
 }
 .userCard h3 {

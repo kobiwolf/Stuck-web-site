@@ -1,14 +1,25 @@
 .SendEmailBox {
   position: absolute;
-  width: 200px;
-  height: 100px;
-  bottom: 10px;
-  left: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  /* top: 10px; */
+  /* left: 50px; */
   background-color: #f7f7f7;
 }
 .SendEmailBox textarea {
   color: var(--headerC);
-  background-color: #f7f7f7;
+  /* background-color: #31171773; */
   border-radius: 5px;
+  border: 1px solid black;
   border: none;
+}
+
+.SendEmailBox span {
+  color: var(--red);
+  background-color: inherit;
+  position: absolute;
+  right: 10px;
 }

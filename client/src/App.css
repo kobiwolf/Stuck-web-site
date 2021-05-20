@@ -30,3 +30,6 @@ input {
 .blue-bg {
   background-color: var(--blue);
 }
+.App {
+  position: relative;
+}

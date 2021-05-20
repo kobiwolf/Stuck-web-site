@@ -34,6 +34,11 @@ export default function SendEmailBox({
   };
   return (
     <div className="SendEmailBox">
+      <div style={{ height: '20px' }}>
+        <span className="material-icons red-bg" onClick={() => setState(false)}>
+          close
+        </span>
+      </div>
       <TextAreaControl state={text} setState={setText} />
       <button onClick={handleClick}>שלח מייל</button>
       {answer}

@@ -7,20 +7,14 @@ import Context from '../Context/Context';
 import Cookies from 'universal-cookie';
 import '../FormSignUp/Form.css';
 import './Form.css';
+import { Link } from 'react-router-dom';
 
 export default function Form({ registered, setRegistered }) {
   const { setUser, setIsLoading } = useContext(Context);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');
-  const handleResetButton = (e) => {
-    e.preventDefault();
-    if (!validator.isEmail(email)) return console.log('must put valid email');
-    axios
-      .get(`${endPoint}/resetPassword/${email}`)
-      .then((answer) => console.log('mail has been sent'))
-      .catch((e) => console.dir(e));
-  };
+
   const handleClick = async () => {
     if (!email || !password) setResponse('all fields are required');
     if (!validator.isEmail(email)) setResponse('must put valid email');
@@ -44,7 +38,7 @@ export default function Form({ registered, setRegistered }) {
   };
 
   return (
-    <form className="form" onSubmit={(e) => e.preventDefault()}>
+    <form className="form loginForm" onSubmit={(e) => e.preventDefault()}>
       <LabelInputForm text="מייל" state={email} setState={setEmail} />
       <LabelInputForm
         text="סיסמא"
@@ -53,9 +47,8 @@ export default function Form({ registered, setRegistered }) {
         isPassword={true}
       />
       <div className="linksInForm">
-        <button className="forgetPassword" onClick={handleResetButton}>
-          שכחת סיסמא??
-        </button>
+        <Link to="/forgetPassword">שכחת סיסמא??</Link>
+
         <span
           onClick={(e) => {
             e.preventDefault();

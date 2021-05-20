@@ -10,8 +10,8 @@ export default function TextAreaControl({
       value={state}
       onChange={(e) => setState(e.target.value)}
       placeholder={placeHolder}
-      rows="40"
-      cols="40"
+      cols="35"
+      rows="5"
     />
   );
 }
